@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-27T00:22:41+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">khanhvu207</title><subtitle>Personal blog</subtitle><author><name>Khánh Vũ</name></author><entry><title type="html">Rate-distortion theory</title><link href="http://localhost:4000/rate_distortion/" rel="alternate" type="text/html" title="Rate-distortion theory" /><published>2023-12-19T00:00:00+01:00</published><updated>2023-12-19T00:00:00+01:00</updated><id>http://localhost:4000/rate_distortion</id><content type="html" xml:base="http://localhost:4000/rate_distortion/"><![CDATA[<p>In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-27T00:28:16+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">khanhvu207</title><subtitle>Personal blog</subtitle><author><name>Khánh Vũ</name></author><entry><title type="html">Rate-distortion theory</title><link href="http://localhost:4000/rate_distortion/" rel="alternate" type="text/html" title="Rate-distortion theory" /><published>2023-12-19T00:00:00+01:00</published><updated>2023-12-19T00:00:00+01:00</updated><id>http://localhost:4000/rate_distortion</id><content type="html" xml:base="http://localhost:4000/rate_distortion/"><![CDATA[<p>In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem.
 The rate-distortion theorem plays a crucial role in modern signal processing, especially in understanding the limit of data compression.
 I will try to keep the material short and concise.</p>
 
@@ -248,12 +248,9 @@ From Alice’s space ship, these photos are first encoded as binary strings (e.g
 <p>However, every interplanetary species know how deadly and quirky the space is, and signals travel through this medium is of no exception.
 Due to cosmic radiation, the sent bit has a probability \(p\in [0,1]\) of being flipped; \(0\) is received as \(1\) at Bob’s computer given some chance \(p&gt;0\) for instance.</p>
 
-<center>
-    <figure>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Binary_symmetric_channel_%28en%29.svg/1920px-Binary_symmetric_channel_%28en%29.svg.png" alt="noisy communication scheme" style="width:500px; display: inline-block;" />
-        <figcaption>...</figcaption>
-    </figure>
-</center>
+<figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Binary_symmetric_channel_%28en%29.svg/1920px-Binary_symmetric_channel_%28en%29.svg.png" alt="noisy communication scheme" style="width:500px; display: inline-block;" />
+</figure>
 
 <p>To circumvent such situation, the ship can send the same bit multiple times just to be sure that the receiver can recover the message faithfully.
 For example, Alice can instead send \(010\) as \(000111000\) (each bit is duplicated three times). The encoder at Alice’s spaceship would then follow the mapping:</p>

@@ -193,76 +193,93 @@ li ol {
 /* Figures and images */
 
 figure {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-  -webkit-box-align: start;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  margin: 2em 0;
-
-  img,
-  iframe,
-  .fluid-width-video-wrapper {
-    margin-bottom: 1em;
-  }
-
-  img {
-    width: 100%;
-    border-radius: $border-radius;
-    -webkit-transition: $global-transition;
-    transition: $global-transition;
-  }
-
-  > a {
-    display: block;
-  }
-
-  &.half {
-    > a,
-    > img {
-      @include breakpoint($small) {
-        width: calc(50% - 0.5em);
-      }
-    }
-
-    figcaption {
-      width: 100%;
-    }
-  }
-
-  &.third {
-    > a,
-    > img {
-      @include breakpoint($small) {
-        width: calc(33.3333% - 0.5em);
-      }
-    }
-
-    figcaption {
-      width: 100%;
-    }
-  }
+  text-align: center;
+  margin: auto; /* This centers the figure block if it has a specified width */
+  /* Optional: Specify a width if you want the figure block itself to be narrower than the page */
+  width: 50%; 
 }
 
-/* Figure captions */
+img {
+  display: block; /* Makes the image a block-level element */
+  margin: auto; /* Centers the block-level image within the figure */
+  width: 300px; /* Your specified width */
+}
 
 figcaption {
-  margin-bottom: 0.5em;
-  color: $muted-text-color;
-  font-family: $caption-font-family;
-  font-size: $type-size-6;
-
-  a {
-    -webkit-transition: $global-transition;
-    transition: $global-transition;
-
-    &:hover {
-      color: $link-color-hover;
-    }
-  }
+  /* This style is optional since the text-align on the figure element should already center the text */
 }
+
+// figure {
+//   display: -webkit-box;
+//   display: flex;
+//   -webkit-box-pack: justify;
+//   justify-content: space-between;
+//   -webkit-box-align: start;
+//   align-items: flex-start;
+//   flex-wrap: wrap;
+//   margin: 2em 0;
+
+//   img,
+//   iframe,
+//   .fluid-width-video-wrapper {
+//     margin-bottom: 1em;
+//   }
+
+//   img {
+//     width: 100%;
+//     border-radius: $border-radius;
+//     -webkit-transition: $global-transition;
+//     transition: $global-transition;
+//   }
+
+//   > a {
+//     display: block;
+//   }
+
+//   &.half {
+//     > a,
+//     > img {
+//       @include breakpoint($small) {
+//         width: calc(50% - 0.5em);
+//       }
+//     }
+
+//     figcaption {
+//       width: 100%;
+//     }
+//   }
+
+//   &.third {
+//     > a,
+//     > img {
+//       @include breakpoint($small) {
+//         width: calc(33.3333% - 0.5em);
+//       }
+//     }
+
+//     figcaption {
+//       width: 100%;
+//     }
+//   }
+// }
+
+// /* Figure captions */
+
+// figcaption {
+//   margin-bottom: 0.5em;
+//   color: $muted-text-color;
+//   font-family: $caption-font-family;
+//   font-size: $type-size-6;
+
+//   a {
+//     -webkit-transition: $global-transition;
+//     transition: $global-transition;
+
+//     &:hover {
+//       color: $link-color-hover;
+//     }
+//   }
+// }
 
 /* Fix IE9 SVG bug */
 
