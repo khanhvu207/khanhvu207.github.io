@@ -1,0 +1,646 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Noisy-channel coding theorem - khanhvu207</title>
+<meta name="description" content="Here is my second attempt to understand the proof for the channel coding theorem. My initial exposure to this concept was through Professor Amos Lapidoth’s lecture in Information Theory I. His presentation, though concise, was packed with ingenious methods that were challenging to fully comprehend at time. To better understand it, I shall employ the Feynman technique - explaining the concept to someone else.">
+
+
+  <meta name="author" content="Khánh Vũ">
+  
+  <meta property="article:author" content="Khánh Vũ">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="khanhvu207">
+<meta property="og:title" content="Noisy-channel coding theorem">
+<meta property="og:url" content="http://localhost:4000/channel_coding_proof/">
+
+
+  <meta property="og:description" content="Here is my second attempt to understand the proof for the channel coding theorem. My initial exposure to this concept was through Professor Amos Lapidoth’s lecture in Information Theory I. His presentation, though concise, was packed with ingenious methods that were challenging to fully comprehend at time. To better understand it, I shall employ the Feynman technique - explaining the concept to someone else.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2023-11-21T00:00:00+01:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/channel_coding_proof/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Khánh Vũ",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="khanhvu207 Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- for mathjax support -->
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\[","\]"], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      messageStyle: "none",
+      "HTML-CSS": { availableFonts: ["TeX"] }
+    });
+  </script>
+  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--posts">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          khanhvu207
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/">Quick-Start Guide</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/avatar.png" alt="Khánh Vũ" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Khánh Vũ</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>just trying to cultivate myself</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <div class="archive">
+    
+      <h1 id="page-title" class="page__title">Noisy-channel coding theorem</h1>
+    
+    <p>Here is my second attempt to understand the proof for the channel coding theorem.
+My initial exposure to this concept was through Professor Amos Lapidoth’s lecture in Information Theory I.
+His presentation, though concise, was packed with ingenious methods that were challenging to fully comprehend at time.
+To better understand it, I shall employ the Feynman technique - explaining the concept to someone else.</p>
+
+<h2 id="1-communication-through-a-noisy-medium">1. Communication through a noisy medium</h2>
+
+<p>Imagine Bob’s wife, Alice, is traveling the universe for her company annual trip.
+She wants to send her lovely husband some gorgious photos she’ve taken during the last couples of days.
+From Alice’s space ship, these photos are first encoded as binary strings (e.g. \(00101101..\)), then converted into radio waves and finally emitted to Bob’s computer on Earth.</p>
+
+<p>However, every interplanetary species know how deadly and quirky the space is, and signals travel through this medium is of no exception.
+Due to cosmic radiation, the sent bit has a probability \(p\in [0,1]\) of being flipped; \(0\) is received as \(1\) at Bob’s computer given some chance \(p&gt;0\) for instance.</p>
+
+<center>
+    <figure>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Binary_symmetric_channel_%28en%29.svg/1920px-Binary_symmetric_channel_%28en%29.svg.png" alt="noisy communication scheme" style="width:500px; display: inline-block;" />
+        <figcaption>...</figcaption>
+    </figure>
+</center>
+
+<p>To circumvent such situation, the ship can send the same bit multiple times just to be sure that the receiver can recover the message faithfully.
+For example, Alice can instead send \(010\) as \(000111000\) (each bit is duplicated three times). The encoder at Alice’s spaceship would then follow the mapping:</p>
+
+\[\begin{align}
+0 &amp;\rightarrow 000\\
+1 &amp;\rightarrow 111
+\end{align}\]
+
+<p>On Earth, Bob can leverage a voting scheme to decode the message, say, for every block of 3 bits, decodes it as the majority bit in that block (e.g. \(011 \rightarrow 1\)).</p>
+
+<p>To be more concrete, let’s assume \(p=0.2\).
+Before, the probability of incorrectly receiving a bit \(P_e\), say bit \(0\) is received and decoded as \(1\), equals to \(0.2\).
+Now, with the redundant bits introduced, the error happens when \(000\) is received as one of \(\{011, 101, 110, 111\}\) (Bob will decode it as a \(1\)), and this event occurs with probability \(P_e \approx 0.104\)!
+It seems like the probability of error \(P_e\) will vanish as we keep sending the same bit for a large number of times.
+Wonderful right?
+However, the reduction in \(P_e\) would come with a cost!</p>
+
+<center>
+    <figure>
+        <img src="" alt="prob of error decay rate" style="width:500px; display: inline-block;" />
+        <figcaption>...</figcaption>
+    </figure>
+</center>
+
+<p>Every time the space ship sends a bit through the radio channel, this service charges Alice some amount of money.
+In case the encoder duplicates a bit \(K\) times, the rate of communication would then be \(R=\frac{1}{K}\) bits per channel use.
+To send a single bit reliably, the ship emits \(K\) times the radio signal to transmit it to Earth.
+From the previous, we speculate that only when \(R \rightarrow 0\) then \(P_e\rightarrow 0\).
+Bad news for the family’s bank account!</p>
+
+<p>But the couple have to worry no more, Claude Shannon dropped a phenomenal paper in 1948 which states that \(\forall \varepsilon&gt;0\), there exists an encoder-decoder pair that allows us to make \(P_e &lt; \varepsilon\) without the need to drive \(R\rightarrow 0\).
+In plain words, you can make the probablity of error arbitrarily small and still having a reasonable communication rate.</p>
+
+<h2 id="2-noisy-channel-coding-theorem">2. Noisy-channel coding theorem</h2>
+
+<p>Formally, the basic scheme consists of a set of messages \(\mathcal{M}\), an encoder \(f: \mathcal{M} \rightarrow \mathcal{X}^n\) with \(n\) be the block length, and a decoder \(\phi: \mathcal{Y}^n \rightarrow \mathcal{M} \cup \{?\}\).
+The symbol \(?\) denotes the failure case when the decoder doesn’t know the original message.
+The communication rate is \(R=\frac{\log |\mathcal{M}|}{n}\) bits per channel use, assume the messages are drawn uniformly.
+We can index \(\mathcal{M}\) by \(\{1,\dots, \lfloor 2^{nR} \rfloor\}\).
+Finally, the noisy channel \(W(\mathcal{Y}|\mathcal{X})\) is memoryless and assumed to be fixed in this setting.</p>
+
+<p><u>Definition 1:</u> 
+The probability of error associated with message \(m\) is denoted by \(\lambda_m\).
+Verbosely,</p>
+
+\[\begin{align}
+\lambda_m &amp;= \sum_{\mathbf{y} \in\mathcal{Y}^n | \phi(\mathbf{y}) \neq m} P(Y = \mathbf{y} | X = \mathbf{x}(m))\\
+&amp;= \sum_{\mathbf{y} \in\mathcal{Y}^n | \phi(\mathbf{y}) \neq m} \prod_{i=1}^n W(y_i | x_i(m)) &amp;\text{(Channel is memoryless)}
+\end{align}\]
+
+<p>Next, we define \(\lambda_\max = \underset{m\in \mathcal{M}}{\max} \lambda_m\), the maximum chance of getting an error considering all messages.
+The average error chance is \(P_e^{(n)} = \frac{1}{|\mathcal{M}|} \sum_{m\in \mathcal{M}} \lambda_m\).</p>
+
+<p><u>Definition 2:</u> 
+Rate \(R\) is <strong>achievable</strong> if there exists a sequence of encoder-decoder pairs \(\{f, \phi\}_n\) such that \(\lim_{n\rightarrow \infty} \lambda_\max = 0\).</p>
+
+<p><u>Definition 3:</u> 
+The capacity of a channel, denoted \(C\), is the <strong>supremum</strong> of all achievable rates.
+Furthermore, we define \(C^{(I)} = \underset{Q\in P_\mathcal{X}}{\max} I(Q, W)\), where \(Q\) is a probability distribution for input symbols in \(\mathcal{X}\) and \(I(\cdot;\cdot)\) is the <a href="https://en.wikipedia.org/wiki/Mutual_information">mutual information</a> between two distributions.</p>
+
+<p><u>Shannon's noisy-channel coding theorem:</u> 
+\(C = C^{(I)}\)</p>
+
+<p>This theorem consists of two parts which we shall prove consequently:</p>
+
+<ol>
+  <li><strong>Converse part:</strong> If \(R &gt; C^{(I)}\), then \(R\) is not achievable.</li>
+  <li><strong>Direct part:</strong> If \(R &lt; C^{(I)}\), then \(R\) is achievable.</li>
+</ol>
+
+<h3 id="21-convert-part">2.1 Convert part</h3>
+
+<p>A contrapositive statement for the converse says that if you give me a wonderful encoder-decoder pair whose rate \(R\) is achievable (e.g. \(\lambda_\max \rightarrow 0\) as \(n\rightarrow \infty\)), then \(R \leq C^{(I)}\).
+Next, I would like to introduce the Fano’s inequality which is necessary for the proof later:</p>
+
+<p><u>Fano's inequality:</u></p>
+
+\[\begin{align}
+H(M|Y) &amp;\leq H(P_e) + P_e\log(|\mathcal{M}|-1)\\
+&amp;\leq 1 + P_e\log|\mathcal{M}|
+\end{align}\]
+
+<p>Where \(P_e=P(\hat{M} \neq M)\) with \(\hat{M}=\phi(Y)\in\mathcal{M}\).
+We have \(H(P_e)\leq 1\) because \(P_e\) is a Bernoulli distribution and the maximum entropy of a binary random variable is \(1\) bit.
+The proof for this inequality is rather a trivial algebraic manipulation, for curious readers you can refer to <em>Elements of Information Theory by Thomas &amp; Cover</em>.</p>
+
+<p><u>Proof of the converse part:</u></p>
+
+\[\begin{align}
+nR = \log |\mathcal{M}| = H(M) &amp;= I(M; Y^n) + H(M|Y^n)\\
+&amp;\leq I(M; Y^n) + 1 + P_e^{(n)}nR &amp;\text{(Fano's inequality)}
+\end{align}\]
+
+<p>Dividing \(n\) both sides,</p>
+
+\[R \leq \frac{1}{n} I(M; Y^n) + \frac{1}{n} + P_e^{(n)}R\]
+
+<p>Given that \(R\) is achievable, we have \(P_e^{(n)}\rightarrow 0\). Also, \(\frac{1}{n}\rightarrow 0\) as \(n\rightarrow \infty\). The remain work is to bound \(\frac{1}{n} I(M; Y^n)\):</p>
+
+\[\begin{align}
+I(M; Y^n) &amp;\leq I(X^n; Y^n) &amp;\text{(Data Processing Ineq.)}\\
+&amp;= H(Y^n) - H(Y^n|X^n) \\
+&amp;= \sum_{i=1}^n H(Y_i|Y^{i-1}) - H(Y_i|Y^{i-1}, X^n) &amp;\text{(Chain rule)}\\
+&amp;\leq \sum_{i=1}^n H(Y_i) - H(Y_i|X_i) &amp;\text{(Channel is memoryless)}\\
+&amp;= \sum_{i=1}^n I(X_i; Y_i)\\
+&amp;\leq n \underset{Q\in P_\mathcal{X}}{\max} I(Q; W) = n C^{(I)}
+\end{align}\]
+
+<p>Hence, \(\frac{1}{n} I(M; Y^n) \leq C^{(I)} \Rightarrow R \leq C^{(I)}\), completing the proof.</p>
+
+<h3 id="22-direct-part">2.2 Direct part</h3>
+
+<p>We would need several key ingredients for the actual proof of the direct part.</p>
+
+<p><u>Joint Weak Typicality:</u>
+Given a joint probability \(P_{XY}\) and a tolerance $\epsilon$, and two sequences \(\mathbf{x},\mathbf{y}\) that satisfy the following conditions:</p>
+
+<ol>
+  <li>\(\mathbf{x}\) is weakly typical, e.g. \(2^{-n(H(P_X)+\epsilon)} &lt; \prod_{i=0}^n P_X(x_i) &lt; 2^{-n(H(P_X)-\epsilon)}\).</li>
+  <li>\(\mathbf{y}\) is weakly typical, e.g. \(2^{-n(H(P_Y)+\epsilon)} &lt; \prod_{i=0}^n P_Y(y_i) &lt; 2^{-n(H(P_Y)-\epsilon)}\).</li>
+</ol>
+
+<p>Then, the pair \((\mathbf{x, y})\) is weakly typical if \(2^{-n(H(P_{XY})+\epsilon)} &lt; \prod_{i=0}^n P_{XY}(x_i, y_i) &lt; 2^{-n(H(P_{XY})-\epsilon)}\).
+We denotes such event as \((\mathbf{x,y}) \in \mathcal{A}_\epsilon^{(n)}(P_{XY})\).
+A jointly typical pair of sequences has some properties that will be needed for the main proof:</p>
+
+<ol>
+  <li>If the elements of \((\mathbf{x,y})=\{(x_i,y_i)\}_{i=1}^n\) are drawn IID from \(P_{XY}\), then for any \(\delta&gt;0\) there exists \(N(\delta)\) so that \(\forall n&gt;N(\delta)\) we have \(\text{Pr}((\mathbf{x,y}) \notin \mathcal{A}_\epsilon^{(n)}(P_{XY})) \leq \delta\).</li>
+  <li>If \(\mathbf{x}=\{x_i\}_{i=1}^n\) and \(\mathbf{y}=\{y_i\}_{i=1}^n\) are drawn IID from \(P_X\) and \(P_Y\) respectively, then the chance that the pair of sequences \((\mathbf{x,y})\) is jointly typical is very unlikely:</li>
+</ol>
+
+\[\textbf{Pr}((\mathbf{x,y}) \in \mathcal{A}_\epsilon^{(n)}(P_{XY})) \leq 2^{-n(I(X;Y)- 3\epsilon)}\]
+
+<p><u>Proof of the direct part:</u></p>
+
+<p>Let us fix the input symbols distribution \(Q \in P_X\).
+We would like to prove that for any rate \(R &lt; I(Q, W)\), \(R\) is achievable.
+If we can prove this previous statement, the same thing holds when \(Q\) is the capacity-achieving input distribution and hence the proof for \(R &lt; C^{(I)}\) follows naturally.</p>
+
+<p>To decode the messages, we shall use something called jointly typical decoding.
+For a given output sequence \(Y^n\) from the channel, we check for the existance of a message \(m\) whose code \(X^n(m)\) is jointly typical with \(Y^n\), e.g. whether \((X^n,Y^n) \in \mathcal{A}^{(n)} (P_{XY})\).
+If there exists a single \(m\) satisfies this condition, return \(m\).
+Otherwise, if there is none or multiple such \(m\)’s, we declare error.</p>
+
+<p>Now, consider a random rate-\(R\) blocklength-\(n\) codebook \(\mathcal{C}\).
+To construct this codebook, the row elements (there are \(n\) of them) in each of the \(2^{nR}\) rows in \(\mathcal{C}\) are drawn IID from \(Q\).
+The probability of error for message \(m\) associating with this codebook is denoted by \(\lambda_m(\mathcal{C})\).
+The expected error is then written as \(\bar{\lambda}_m = \mathbb{E}_{P_{\mathcal{C}}}[\lambda_m(\mathcal{C})]\).
+Similarly, the average error for codebook \(\mathcal{C}\) is \(P_e^{(n)}(\mathcal{C})\) and the expected average error is \(P_e^{(n)}\).</p>
+
+<p><u>Claim 1:</u> 
+The expected error is independent of the message \(m\), e.g. \(\bar{\lambda}_1 = \dots = \bar{\lambda}_m\).</p>
+
+<p><u>Proof of claim 1 (non-rigorous) :</u> This is due to symmetry!</p>
+
+<p>Follow from claim 1, we can easily see that the expected average error \(P_e^{(n)}=\bar{\lambda}_1\).
+From now on, we will focus on bounding \(\bar{\lambda}_1\) which turns out to be easy to work with!</p>
+
+<p>Given that \(m=1\) and the fact that we are using jointly typical decoding, let us define \(\varepsilon_i = [(X^n(i), Y^n) \in \mathcal{A}_\epsilon^{(n)}]\), the event where the code for message \(i\) is jointly typical with \(Y^n\).
+The error \(\bar{\lambda}_1\) can then be expressed as:</p>
+
+\[\bar{\lambda}_1 = \text{Pr}(\varepsilon_1^c \cup \varepsilon_2 \cup \dots \cup \varepsilon_m)\]
+
+<p>This is exactly equivalent what we have defined as an error for the jointly typical decoding.
+We then have the following bounds,</p>
+
+\[\begin{align}
+\bar{\lambda}_1 &amp;\leq \text{Pr}(\varepsilon_1^c) + \sum_{i=2}^{2^{nR}} \text{Pr}(\varepsilon_i) &amp;\text{(Union bound)}\\
+&amp;\leq \delta + \sum_{i=2}^{2^{nR}} 2^{-n(I(X;Y)-3\epsilon)} &amp;\text{(Properties of joint typicality)}\\
+&amp;\leq \delta + 2^{-n(I(X;Y)-R-3\epsilon)}
+\end{align}\]
+
+<p>Now, if \(R &lt; I(X;Y) - 3\epsilon\), we can make \(\bar{\lambda}_1 \leq 2\delta\) for some large \(n\). Also note that \(\text{Pr}(\varepsilon_1^c) \leq \delta\) only hold for a large \(n\) too.</p>
+
+<p>To get the actual proof, we replace \(Q\) with the capacity-achieving distribution \(\underset{Q \in P_X}{\text{argmax}}~I(Q,W)\).
+The last conclusion above becomes \(R &lt; C^{(I)} - 3\epsilon\) implying \(P_e^{(n)} = \bar{\lambda}_1 \leq 2\delta\).
+Next, we have a fundamental lemma about the average of numbers:</p>
+
+<p><u>Lemma 1:</u> Consider a sequence of real numbers \(a_1,\dots, a_n\). 
+If the average \(\bar{a} = \frac{1}{n} \sum_{i=1}^n a_i \leq \gamma\), then there exists an \(a_i \leq \gamma\).</p>
+
+<p>This lemma can be proven easily by contradiction.
+The implication of this is that previously we have shown that the average error \(P_e^{(n)} \leq 2\delta\) over all random codebook, then there must exist a codebook \(\mathcal{C}^*\) whose average error \(P_e^{(n)}(\mathcal{C}^*) \leq 2\delta\).
+It remains to bound the maximal error \(\lambda_\max(\mathcal{C}^*) = \underset{m\in \mathcal{M}}{\max}\lambda_m(\mathcal{C}^*)\), which is actually we need to show for the achievability of the rate \(R\).</p>
+
+<p><u>Lemma 2:</u> 
+Consider a sequence of \(2n\) real numbers such that \(a_1\leq \dots \leq a_{2n}\) and its average \(\bar{a} \leq \nu\).
+It holds that \(a_n \leq 2\nu\).</p>
+
+<p><u>Proof:</u></p>
+
+\[\begin{align}
+2n\nu &amp;\geq \sum_{i=1}^{2n} a_i = \sum_{i=1}^{n} a_i + \sum_{i=n+1}^{2n} a_i\\
+&amp;\geq \sum_{i=n+1}^{2n} a_i \\
+&amp;\geq \sum_{i=n+1}^{2n} a_n = n a_n
+\end{align}\]
+
+<p>Using the lemma, we have a bound on the maximal error \(\lambda_\max(\mathcal{C}^*)\leq 4\delta\) by throwing away half of the codewords in \(\mathcal{C}^*\). 
+However, by throwing away codewords we also lose the rate of communication, it is now \(R-\frac{1}{n}\) instead of \(R\).
+Indeed, the \(\frac{1}{n}\) would vanish for a large \(n\).
+Overall, this strategy of bounding the maximum is called the <em>expurgation trick</em>.</p>
+
+<p>For a rate \(\tilde{R} &lt; C^{(I)}\) and any \(\tilde{\epsilon}&gt;0\), we can show that for \(n\) large enough there exists a rate-\(R\) (\(\tilde{R} &lt; R\)) blocklength-\(n\) codebook where \(\lambda_\max \leq \tilde{\epsilon}\) by setting \(R=\frac{(\tilde{R}+C)}{2}\), \(\delta=\frac{\tilde{\epsilon}}{4}\), \(\epsilon &lt; \frac{C^{(I)}-R}{3}\) and apply the proof above.</p>
+
+
+<ul class="taxonomy__index">
+  
+  
+    <li>
+      <a href="#2023">
+        <strong>2023</strong> <span class="taxonomy__count">2</span>
+      </a>
+    </li>
+  
+</ul>
+
+
+
+
+  <section id="2023" class="taxonomy__section">
+    <h2 class="archive__subtitle">2023</h2>
+    <div class="entries-list">
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/rate_distortion/" rel="permalink">Rate-distortion theory
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of t...</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/channel_coding_proof/" rel="permalink">Noisy-channel coding theorem
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          9 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Here is my second attempt to understand the proof for the channel coding theorem.
+My initial exposure to this concept was through Professor Amos Lapidoth’s l...</p>
+  </article>
+</div>
+
+      
+    </div>
+    <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
+  </section>
+
+
+  </div>
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2024 Khánh Vũ. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
