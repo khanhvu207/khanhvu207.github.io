@@ -6,7 +6,7 @@
    Typography
    ========================================================================== */
 
-$doc-font-size: 16 !default;
+$doc-font-size: 14 !default;
 
 /* paragraph indention */
 $paragraph-indent: false !default; // true, false (default)
@@ -29,8 +29,10 @@ $bodoni: "Bodoni MT", serif !default;
 $calisto: "Calisto MT", serif !default;
 $garamond: Garamond, serif !default;
 
-$global-font-family: $sans-serif !default;
-$header-font-family: $sans-serif !default;
+$etbook: et-book,Palatino,Palatino Linotype,Palatino LT STD,Book Antiqua,Georgia,serif;
+
+$global-font-family: $etbook !default;
+$header-font-family: $etbook !default;
 $caption-font-family: $serif !default;
 
 /* type scale */
@@ -60,15 +62,16 @@ $dark-gray: mix(#000, $gray, 50%) !default;
 $darker-gray: mix(#000, $gray, 60%) !default;
 $light-gray: mix(#fff, $gray, 50%) !default;
 $lighter-gray: mix(#fff, $gray, 90%) !default;
+$solarized: #fffff8 !default;
 
-$background-color: #fff !default;
+$background-color: $solarized !default;
 $code-background-color: #fafafa !default;
 $code-background-color-dark: $light-gray !default;
 $text-color: $dark-gray !default;
 $muted-text-color: mix(#fff, $text-color, 20%) !default;
 $border-color: $lighter-gray !default;
 $form-background-color: $lighter-gray !default;
-$footer-background-color: $lighter-gray !default;
+$footer-background-color: $solarized !default;
 
 $primary-color: #6f777d !default;
 $success-color: #3fa63f !default;
