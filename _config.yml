@@ -105,7 +105,7 @@ analytics:
 # Site Author
 author:
   name             : "Khánh Vũ"
-  avatar           : /assets/images/chicken.gif # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : /assets/images/avatar.png # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "i am not really doing research, just trying to cultivate myself"
   location         : 
   email            :
@@ -140,7 +140,7 @@ footer:
       # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url:
+      url: https://github.com/khanhvu207
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
