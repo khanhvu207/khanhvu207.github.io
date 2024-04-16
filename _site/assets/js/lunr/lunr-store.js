@@ -10,4 +10,10 @@ var store = [{
         "tags": [],
         "url": "/rate_distortion/",
         "teaser": null
+      },{
+        "title": "How to become so good at something?",
+        "excerpt":"Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest...","categories": [],
+        "tags": [],
+        "url": "/mastery/",
+        "teaser": null
       }]

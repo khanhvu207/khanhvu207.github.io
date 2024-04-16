@@ -16,7 +16,7 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 
 # Site Settings
 locale                   : en-US 
-title                    : EntropyMaxing
+title                    : EntropyMaxxing
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Khánh Vũ"
@@ -106,7 +106,7 @@ analytics:
 author:
   name             : "Khánh Vũ"
   avatar           : /assets/images/avatar.png # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "i am not really doing research, just trying to cultivate myself"
+  bio              : "one should never try to prove anything that is not almost obvious" 
   location         : 
   email            :
   # links:
