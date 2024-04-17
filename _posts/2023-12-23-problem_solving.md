@@ -1,8 +1,8 @@
 ---
-layout: post
+layout: posts
 title: A short personal note on problem-solving strategies
 usemathjax: true
-published: false
+published: true
 ---
 
 ## Meta
