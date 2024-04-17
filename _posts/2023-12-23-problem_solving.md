@@ -2,7 +2,7 @@
 layout: posts
 title: A short personal note on problem-solving strategies
 usemathjax: true
-published: true
+published: false
 ---
 
 ## Meta
