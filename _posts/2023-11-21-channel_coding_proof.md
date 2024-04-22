@@ -44,8 +44,8 @@ However, the reduction in $$P_e$$ would come with a cost!
 
 <center>
     <figure>
-        <img src="" alt="prob of error decay rate" style="width:500px; display: inline-block;"/>
-        <figcaption>...</figcaption>
+        <img src="../assets/images/error_prob.png" alt="prob of error decay rate" style="display: inline-block;"/>
+        <!-- <figcaption>...</figcaption> -->
     </figure>
 </center>
 
@@ -66,7 +66,7 @@ The communication rate is $$R=\frac{\log |\mathcal{M}|}{n}$$ bits per channel us
 We can index $$\mathcal{M}$$ by $$\{1,\dots, \lfloor 2^{nR} \rfloor\}$$.
 Finally, the noisy channel $$W(\mathcal{Y}|\mathcal{X})$$ is memoryless and assumed to be fixed in this setting.
 
-<u>Definition 1:</u> 
+**Definition 1:**
 The probability of error associated with message $$m$$ is denoted by $$\lambda_m$$.
 Verbosely,
 
@@ -81,15 +81,22 @@ Next, we define $$\lambda_\max = \underset{m\in \mathcal{M}}{\max} \lambda_m$$, 
 The average error chance is $$P_e^{(n)} = \frac{1}{|\mathcal{M}|} \sum_{m\in \mathcal{M}} \lambda_m$$.
 
 
-<u>Definition 2:</u> 
+**Definition 2.**
 Rate $$R$$ is **achievable** if there exists a sequence of encoder-decoder pairs $$\{f, \phi\}_n$$ such that $$\lim_{n\rightarrow \infty} \lambda_\max = 0$$.
 
-<u>Definition 3:</u> 
+**Definition 3:**
 The capacity of a channel, denoted $$C$$, is the **supremum** of all achievable rates.
 Furthermore, we define $$C^{(I)} = \underset{Q\in P_\mathcal{X}}{\max} I(Q, W)$$, where $$Q$$ is a probability distribution for input symbols in $$\mathcal{X}$$ and $$I(\cdot;\cdot)$$ is the [mutual information](https://en.wikipedia.org/wiki/Mutual_information) between two distributions.
 
-<u>Shannon's noisy-channel coding theorem:</u> 
-$$C = C^{(I)}$$
+<!-- **Shannon's noisy-channel coding theorem:** -->
+<!-- $$C = C^{(I)}$$ -->
+
+<p style="background-color: lightblue; padding: 10px;">
+    <strong>Shannon’s noisy-channel coding theorem:</strong>
+    \[
+        C = C^{(I)}
+    \]
+</p>
 
 This theorem consists of two parts which we shall prove consequently:
 
@@ -101,7 +108,7 @@ This theorem consists of two parts which we shall prove consequently:
 A contrapositive statement for the converse says that if you give me a wonderful encoder-decoder pair whose rate $$R$$ is achievable (e.g. $$\lambda_\max \rightarrow 0$$ as $$n\rightarrow \infty$$), then $$R \leq C^{(I)}$$.
 Next, I would like to introduce the Fano's inequality which is necessary for the proof later:
 
-<u>Fano's inequality:</u>
+**Fano's inequality:**
 
 $$
 \begin{align}
@@ -114,7 +121,7 @@ Where $$P_e=P(\hat{M} \neq M)$$ with $$\hat{M}=\phi(Y)\in\mathcal{M}$$.
 We have $$H(P_e)\leq 1$$ because $$P_e$$ is a Bernoulli distribution and the maximum entropy of a binary random variable is $$1$$ bit.
 The proof for this inequality is rather a trivial algebraic manipulation, for curious readers you can refer to *Elements of Information Theory by Thomas & Cover*.
 
-<u>Proof of the converse part:</u>
+**Proof of the converse part:**
 
 $$
 \begin{align}
@@ -148,7 +155,7 @@ Hence, $$\frac{1}{n} I(M; Y^n) \leq C^{(I)} \Rightarrow R \leq C^{(I)}$$, comple
 
 We would need several key ingredients for the actual proof of the direct part.
 
-<u>Joint Weak Typicality:</u>
+**Joint Weak Typicality.**
 Given a joint probability $$P_{XY}$$ and a tolerance $\epsilon$, and two sequences $$\mathbf{x},\mathbf{y}$$ that satisfy the following conditions: 
 
 1. $$\mathbf{x}$$ is weakly typical, e.g. $$2^{-n(H(P_X)+\epsilon)} < \prod_{i=0}^n P_X(x_i) < 2^{-n(H(P_X)-\epsilon)}$$.
@@ -165,7 +172,7 @@ $$
 \textbf{Pr}((\mathbf{x,y}) \in \mathcal{A}_\epsilon^{(n)}(P_{XY})) \leq 2^{-n(I(X;Y)- 3\epsilon)}
 $$
 
-<u>Proof of the direct part:</u>
+**Proof of the direct part:**
 
 Let us fix the input symbols distribution $$Q \in P_X$$.
 We would like to prove that for any rate $$R < I(Q, W)$$, $$R$$ is achievable.
@@ -182,10 +189,11 @@ The probability of error for message $$m$$ associating with this codebook is den
 The expected error is then written as $$\bar{\lambda}_m = \mathbb{E}_{P_{\mathcal{C}}}[\lambda_m(\mathcal{C})]$$.
 Similarly, the average error for codebook $$\mathcal{C}$$ is $$P_e^{(n)}(\mathcal{C})$$ and the expected average error is $$P_e^{(n)}$$. 
 
-<u>Claim 1:</u> 
+**Claim 1:**
 The expected error is independent of the message $$m$$, e.g. $$\bar{\lambda}_1 = \dots = \bar{\lambda}_m$$.
 
-<u>Proof of claim 1 (non-rigorous) :</u> This is due to symmetry!
+**Proof of claim 1 (non-rigorous):**
+This is due to symmetry!
 
 Follow from claim 1, we can easily see that the expected average error $$P_e^{(n)}=\bar{\lambda}_1$$.
 From now on, we will focus on bounding $$\bar{\lambda}_1$$ which turns out to be easy to work with!
@@ -214,18 +222,18 @@ To get the actual proof, we replace $$Q$$ with the capacity-achieving distributi
 The last conclusion above becomes $$R < C^{(I)} - 3\epsilon$$ implying $$P_e^{(n)} = \bar{\lambda}_1 \leq 2\delta$$.
 Next, we have a fundamental lemma about the average of numbers:
 
-<u>Lemma 1:</u> Consider a sequence of real numbers $$a_1,\dots, a_n$$. 
+**Lemma 1:** Consider a sequence of real numbers $$a_1,\dots, a_n$$. 
 If the average $$\bar{a} = \frac{1}{n} \sum_{i=1}^n a_i \leq \gamma$$, then there exists an $$a_i \leq \gamma$$.
 
 This lemma can be proven easily by contradiction.
 The implication of this is that previously we have shown that the average error $$P_e^{(n)} \leq 2\delta$$ over all random codebook, then there must exist a codebook $$\mathcal{C}^*$$ whose average error $$P_e^{(n)}(\mathcal{C}^*) \leq 2\delta$$.
 It remains to bound the maximal error $$\lambda_\max(\mathcal{C}^*) = \underset{m\in \mathcal{M}}{\max}\lambda_m(\mathcal{C}^*)$$, which is actually we need to show for the achievability of the rate $$R$$.
 
-<u>Lemma 2:</u> 
+**Lemma 2:**
 Consider a sequence of $$2n$$ real numbers such that $$a_1\leq \dots \leq a_{2n}$$ and its average $$\bar{a} \leq \nu$$.
 It holds that $$a_n \leq 2\nu$$.
 
-<u>Proof:</u>
+**Proof:**
 
 $$
 \begin{align}

@@ -7,7 +7,7 @@ html {
   position: relative;
   min-height: 100%;
   font-size: 1.25em;
-  line-height: 1.65em;
+  line-height: 1.4rem;
 }
 
 body {
@@ -16,10 +16,10 @@ body {
   color: $text-color;
   font-family: $global-font-family;
   counter-reset: sidenote-counter;
-  margin-left: auto;
+  margin-left: 5%;
   margin-right: auto;
   max-width: 1500px;
-  width: 90%;
+  width: 80%;
   &.overflow--hidden {
     /* when primary navigation is visible, the content in the background won't scroll */
     overflow: hidden;
@@ -196,13 +196,13 @@ figure {
   text-align: center;
   margin: auto; /* This centers the figure block if it has a specified width */
   /* Optional: Specify a width if you want the figure block itself to be narrower than the page */
-  width: 50%; 
+  width: 100%; 
 }
 
 img {
   display: block; /* Makes the image a block-level element */
   margin: auto; /* Centers the block-level image within the figure */
-  width: 300px; /* Your specified width */
+  width: 800px; /* Your specified width */
 }
 
 figcaption {

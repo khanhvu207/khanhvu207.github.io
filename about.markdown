@@ -5,7 +5,7 @@ permalink: /about/
 published: true
 ---
 
-<img src="../assets/images/face.jpg" alt="photo" style="float: left; max-width:150px; padding-right: 30px; padding-bottom: 20px"/>
+<img src="../assets/images/face.jpg" alt="photo" style="float: left; max-width:150px; padding-right: 20px; padding-top: 15px; padding-bottom: 20px"/>
 
 I am a Master's student in Computer Science at [ETH Zürich](https://ethz.ch/en.html), enrolled in [Machine Intelligence](https://inf.ethz.ch/studies/master/master-cs-2020.html) major. Before that, I obtained a Bachelor's degree in Computer Science at [Vrije Universiteit Amsterdam](https://vu.nl/en). During my undergraduate, I was fortunate to work on two machine learning research under the supervision of [Prof. Dr. Piek Vossen](https://vossen.info/) and [Prof. Vincent François-Lavet](http://vincent.francois-l.be/). My current mentor at ETH Zürich is [Prof. Thomas Hofmann](http://www.da.inf.ethz.ch/people/ThomasHofmann).
 
