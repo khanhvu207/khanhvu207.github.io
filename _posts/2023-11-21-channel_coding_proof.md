@@ -103,7 +103,7 @@ This theorem consists of two parts which we shall prove consequently:
 1. **Converse part:** If $$R > C^{(I)}$$, then $$R$$ is not achievable.
 2. **Direct part:** If $$R < C^{(I)}$$, then $$R$$ is achievable.
 
-### 2.1 Convert part
+### 2.1 Converse part
 
 A contrapositive statement for the converse says that if you give me a wonderful encoder-decoder pair whose rate $$R$$ is achievable (e.g. $$\lambda_\max \rightarrow 0$$ as $$n\rightarrow \infty$$), then $$R \leq C^{(I)}$$.
 Next, I would like to introduce the Fano's inequality which is necessary for the proof later:

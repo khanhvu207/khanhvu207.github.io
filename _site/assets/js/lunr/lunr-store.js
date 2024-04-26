@@ -11,9 +11,9 @@ var store = [{
         "url": "/rate_distortion/",
         "teaser": null
       },{
-        "title": "How to become so good at something?",
-        "excerpt":"Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest with yourself. Be honest...","categories": [],
+        "title": "Mathematical optimization cheatsheet",
+        "excerpt":"In this cheatsheet, we discuss the concepts of convexity, smoothness, and strong convexity, which are essential in the analysis of optimization algorithms. Define a function $f: \\text{dom}(f)\\rightarrow \\mathbb{R}$ with $\\text{dom}(f) \\subseteq \\mathbb{R}^d$. We assume that $f$ is differentiable, meaning that the gradient $\\nabla f(x) \\in \\mathbb{R}^d$ exists $\\forall x \\in...","categories": [],
         "tags": [],
-        "url": "/good_at_something/",
+        "url": "/opt_cheatsheet/",
         "teaser": null
       }]

@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>How to become so good at something? - EntropyMaxxing</title>
-<meta name="description" content="Be honest with yourself.">
+<!-- begin _includes/seo.html --><title>Mathematical optimization cheatsheet - EntropyMaxxing</title>
+<meta name="description" content="In this cheatsheet, we discuss the concepts of convexity, smoothness, and strong convexity, which are essential in the analysis of optimization algorithms.">
 
 
   <meta name="author" content="Khánh Vũ">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="EntropyMaxxing">
-<meta property="og:title" content="How to become so good at something?">
-<meta property="og:url" content="http://localhost:4000/good_at_something/">
+<meta property="og:title" content="Mathematical optimization cheatsheet">
+<meta property="og:url" content="http://localhost:4000/opt_cheatsheet/">
 
 
-  <meta property="og:description" content="Be honest with yourself.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2024-04-17T00:00:00+02:00">
+  <meta property="og:description" content="In this cheatsheet, we discuss the concepts of convexity, smoothness, and strong convexity, which are essential in the analysis of optimization algorithms.">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2024-04-26T00:00:00+02:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/good_at_something/">
+
+<link rel="canonical" href="http://localhost:4000/opt_cheatsheet/">
 
 
 
@@ -256,41 +256,97 @@
 
   <div class="archive">
     
-      <h1 id="page-title" class="page__title">How to become so good at something?</h1>
+      <h1 id="page-title" class="page__title">Mathematical optimization cheatsheet</h1>
     
-    <p>Be honest with yourself.</p>
+    <p>In this cheatsheet, we discuss the concepts of convexity, smoothness, and strong convexity, which are essential in the analysis of optimization algorithms.</p>
 
-<p>Be honest with yourself.</p>
+<p>Define a function $f: \text{dom}(f)\rightarrow \mathbb{R}$ with $\text{dom}(f) \subseteq \mathbb{R}^d$.
+We assume that $f$ is differentiable, meaning that the gradient $\nabla f(x) \in \mathbb{R}^d$ exists $\forall x \in \text{dom}(f)$.</p>
 
-<p>Be honest with yourself.</p>
+<center>
+    <figure>
+        <img src="../assets/images/smooth_strong_convex.png" alt="smoothness and strong convexity illustration" style="display: inline-block;" />
+        <figcaption> Figure 1. Smoothness and strong convexity play complementary roles in bounding the function values. </figcaption>
+    </figure>
+</center>
 
-<p>Be honest with yourself.</p>
+<h2 id="1-convexity">1. Convexity</h2>
 
-<p>Be honest with yourself.</p>
+<p><strong>(a) Definition.</strong>
+A function $f$ is convex if its domain is a convex set and if for all $x, y \in \text{dom}(f)$ and $\theta \in [0, 1]$, we have</p>
 
-<p>Be honest with yourself.</p>
+\[f(\theta x + (1-\theta)y) \leq \theta f(x) + (1-\theta)f(y)\]
 
-<p>Be honest with yourself.</p>
+<p>This definition is also known as the Jensen’s inequality.
+Oftentimes, it is more convenient to work with one of the following equivalent definitions:</p>
 
-<p>Be honest with yourself.</p>
+<p><strong>(b) First-order characterization.</strong>
+\(f(y) \geq f(x) + \nabla \langle f(x), y-x \rangle\)</p>
 
-<p>Be honest with yourself.</p>
+<p><strong>(c) Second-order characterization.</strong>
+Suppose that $f$ is twice differentiable.
+A function $f$ is convex if its domain is a convex set and if for all $x \in \text{dom}(f)$, we have</p>
 
-<p>Be honest with yourself.</p>
+\[\nabla^2 f(x) \succeq 0\]
 
-<p>Be honest with yourself.</p>
+<p>where $\nabla^2 f(x)$ is the Hessian matrix of $f$ at $x$.</p>
 
-<p>Be honest with yourself.</p>
+<p><strong>(d) Monotonicity of the gradient.</strong>
+A function $f$ is convex if its domain is a convex set and if for all $x, y \in \text{dom}(f)$, we have</p>
 
-<p>Be honest with yourself.</p>
+\[\langle \nabla f(y) - \nabla f(x), y-x \rangle \geq 0\]
 
-<p>Be honest with yourself.</p>
+<h2 id="2-smooth-functions">2. Smooth functions</h2>
 
-<p>Be honest with yourself.</p>
+<p><strong>(a) Definition.</strong>
+Let $X\subseteq \text{dom}(f)$ be a convex set and let $L &gt; 0$. A function $f$ is $L$-smooth on $X$ if for all $x, y \in X$, we have</p>
 
-<p>Be honest with yourself.</p>
+\[f(y) \leq f(x) + \langle \nabla f(x), y-x \rangle + \frac{L}{2}\|y-x\|^2\]
 
-<p>Be honest with yourself.</p>
+<p>One can think of this definition as Lipschitz continuity of the gradient map.
+Alternatively, we can use the following equivalent definition:</p>
+
+<p><strong>(b)</strong> (Lipschitz continuity of the gradient)
+\(\| f(x) - \nabla f(y)\| \leq L\| x-y\|\) for all \(x, y \in X\).</p>
+
+<p><strong>(c)</strong>
+\(g(x) = \frac{L}{2} x^\top x - f(x)\) is convex.</p>
+
+<p><strong>(d)</strong>
+\(\langle \nabla f(x) - \nabla f(y), x-y \rangle \leq L\|x-y\|^2\) for all \(x, y \in X\).</p>
+
+<p>We have the following relations:</p>
+
+\[[b] \Rightarrow [a] \Leftrightarrow [c] \Leftrightarrow [d]\]
+
+<p>If $f$ is additionally convex, then \([a] \Rightarrow [b]\).</p>
+
+<h2 id="3-strong-convexity">3. Strong convexity</h2>
+
+<p><strong>(a) Definition.</strong>
+Let $X\subseteq \text{dom}(f)$ be a convex set and let $\mu &gt; 0$. A function $f$ is $\mu$-strongly convex on $X$ if for all $x, y \in X$, we have</p>
+
+\[f(y) \geq f(x) + \langle \nabla f(x), y-x \rangle + \frac{\mu}{2}\|y-x\|^2\]
+
+<p>The notion of strong convexity is the opposite of smoothness.
+Strong convexity implies that the function grows at least quadratically.
+Moreover, $f$ is strongly convex implies that $f$ is strictly convex and has a unique minimizer.
+Alternatively, we can use the following equivalent definition:</p>
+
+<p><strong>(b)</strong>
+\(\| f(x) - \nabla f(y)\| \geq \mu\| x-y\|\) for all \(x, y \in X\).</p>
+
+<p><strong>(c)</strong>
+\(g(x) = f(x) - \frac{\mu}{2} x^\top x\) is convex.</p>
+
+<p><strong>(d)</strong>
+\(\langle \nabla f(x) - \nabla f(y), x-y \rangle \geq \mu\|x-y\|^2\) for all \(x, y \in X\).</p>
+
+<p>The relations are as follows:</p>
+
+\[[b] \Leftarrow [a] \Leftrightarrow [c] \Leftrightarrow [d]\]
+
+<p>Figure 1 above illustrates the complementary roles of smoothness and strong convexity in bounding the function values.</p>
 
 
 <!-- <ul class="taxonomy__index">
@@ -310,7 +366,7 @@
   
 </ul> -->
 
-
+<!-- 
 
 
   <section id="2024" class="taxonomy__section">
@@ -326,7 +382,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/good_at_something/" rel="permalink">How to become so good at something?
+        <a href="/opt_cheatsheet/" rel="permalink">Mathematical optimization cheatsheet
 </a>
       
     </h2>
@@ -344,14 +400,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          less than 1 minute read
+          2 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">Be honest with yourself.
+    <p class="archive__item-excerpt" itemprop="description">In this cheatsheet, we discuss the concepts of convexity, smoothness, and strong convexity, which are essential in the analysis of optimization algorithms.
 
 </p>
   </article>
@@ -448,7 +504,7 @@ My initial exposure to this concept was through Professor Amos Lapidoth’s l...
     </div>
     <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
   </section>
-
+ -->
 
   </div>
 </div>

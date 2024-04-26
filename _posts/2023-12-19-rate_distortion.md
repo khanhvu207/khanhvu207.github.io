@@ -28,13 +28,6 @@ We would need infinite precision, thus infinite bits, to represent a number in $
 Such a scheme is also called quantization.
 We essentially quantize numbers in $$\mathbb{R}$$ using a finite set of rational numbers $$\mathbb{Q}$$.
 
-<center>
-    <figure>
-        <img src="" alt="rate-distortion diagram" style="width:500px; display: inline-block;"/>
-        <figcaption>...</figcaption>
-    </figure>
-</center>
-
 To measure the quality of the chosen scheme, which is a pair $$(f_n, \phi_n)$$, we can measure the distortion between the input and the reconstruction as $$d(X^n,\hat{X}^n)=\frac{1}{n}\sum_{i=1}^n d(X_i, \hat{X}_i)$$. Here, $$d:\mathcal{X}\times \hat{\mathcal{X}} \rightarrow \mathbb{R}^+$$ is the distortion measure.
 Some popular choices of distortion measure includes:
 
@@ -44,23 +37,22 @@ Some popular choices of distortion measure includes:
 For simplicity, I assume that Hamming distortion is used in this post.
 Moving on, the following introduces several definitions highlighting the interplay between rate $$R$$ and distortion $$D$$.
 
-<u>Definition 1:</u> 
+**Definition 1.**
 The **rate distortion pair $$(R,D)$$** is *achievable* if there exists a sequence of $$(f_n,\phi_n)$$ with $$\lim_{n\rightarrow \infty} \mathbb{E} d(X^n, \phi_n(f_n(X^n))) \leq D$$.
 
-<u>Definition 2:</u> 
+**Definition 2.**
 The **rate distortion region** is the closure of all achievable $$(R,D)$$.
 
 <center>
     <figure>
-        <img src="" alt="rate-distortion function" style="width:500px; display: inline-block;"/>
-        <figcaption>...</figcaption>
+        <img src="../assets/images/rate_distortion.png" alt="rate-distortion function" style="width: 80%; display: inline-block;"/>
     </figure>
 </center>
 
-<u>Definition 3:</u> 
+**Definition 3.**
 The **rate distortion function $$R(D)$$** is the *infimum* over all rates $$R$$ such that $$(R,D)$$ is achievable for a given distortion $$D$$.
 
-<u>Definition 4:</u> 
+**Definition 4.**
 The **information rate distortion function** is defined as
 
 $$
@@ -74,7 +66,7 @@ Alternatively, we can also define $$R^{(I)}(D)$$ as the minimization over the jo
 
 In his foundational work in information theory, Claude Shannon stated a key result in rate-distortion theory:
 
-<u>Theorem 1:</u>
+**Theorem 1.**
 
 $$
 R(D)=R^{(I)}(D)=\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})
@@ -89,10 +81,10 @@ This gives the original definition of rate distortion function $$R(D)$$ an opera
 
 The proof for the converse is rather straighforward and depends only on some properties of $$R^{(I)}(D)$$, namely $$R^{(I)}(D)$$ is monotonically non-increasing, convex, and continuous. For interested readers, you can refer to the proofs of these properties in *Elements of Information Theory by Thomas & Cover*.
 
-<u>Claim 1:</u>
+**Claim 1.**
 $$nR \geq I(X^n; \hat{X}^n)$$
 
-<u>Proof of claim 1:</u>
+**Proof of claim 1.**
 
 $$
 \begin{align}
@@ -102,7 +94,7 @@ I(X^n; \hat{X}^n) &\leq I(X^n; f_n(X^n)) &&\text{(Data processing ineq.)}\\
 \end{align}
 $$
 
-<u>Proof of the converse part:</u>
+**Proof of the converse part.**
 
 $$
 \begin{align}
@@ -130,14 +122,14 @@ The crux of this proof would follow the random codebook construction with some s
 
 I will start by laying out some ingredients for the main proof.
 
-<u>Lemma 1:</u>
+**Lemma 1.**
 Given $$N$$ IID Bernoulli $$p$$ variables $$X_1,\dots,X_n$$, we have that
 
 $$
 P(\text{at least 1 success}) = P((X_1=1) \lor \cdots \lor (X_n=1)) \rightarrow 1 \text{ if } np\rightarrow \infty 
 $$
 
-<u>Proof of lemma 1:</u>
+**Proof of lemma 1.**
 
 $$
 \begin{align}
@@ -147,7 +139,7 @@ P(\text{at least 1 success}) &= 1-P(\text{failure in all trials}) \\
 \end{align}
 $$
 
-<u>Lemma 2:</u>
+**Lemma 2.**
 Given a function $$g:\mathcal{X}\rightarrow \mathbb{R}^+$$ and a sequence $$\underline{x}=(x_1,\dots,x_n)$$ with $$x_i\in\mathcal{X}$$, the following holds:
 
 $$
@@ -157,9 +149,9 @@ $$
 Here, $$\mathcal{T}_{\varepsilon}^{(n)}(P_X)$$ is a strongly typical set with tolerence $$\varepsilon$$.
 
 
-<u>Proof of lemma 2:</u> The proof follows naturally from the definition of a strongly typical set.
+**Proof of lemma 2.** The proof follows naturally from the definition of a strongly typical set.
 
-<u>Lemma 3:</u>
+**Lemma 3.**
 Given two sequences of random variables $$\{\tilde{X}_i\}, \{\tilde{Y}_i\}$$ that are drawn IID from $$P_X$$ and $$P_Y$$ respectively, where $$P_X$$ and $$P_Y$$ are the marginals of some $$P_{XY}$$, then
 
 $$
@@ -168,7 +160,7 @@ $$
 
 Where $$\mathcal{A}_{\varepsilon}^{(n)}(P_{XY})$$ is a weakly typical set with tolerence $\varepsilon$.
 
-<u>Lemma 4:</u>
+**Lemma 4.**
 Given $$0<\varepsilon'<\varepsilon$$, if $$\underline{x}\in \mathcal{T}_{\varepsilon'}^{(n)}(P_X)$$ and $$\{Y_i\} ~$$ IID from $$P_Y$$ then:
 
 $$
@@ -259,7 +251,7 @@ $$
 If $$R > I(X;\hat{X})+4\delta_{X\hat{X}}$$, we can drive $$\text{Pr}(\text{success})\rightarrow 1$$ for some large $$n$$. Consequently, this tells us that if $$R > I(X;\hat{X})+4\delta_{X\hat{X}}$$ then $$\mathbb{E}[d(X,\hat{X})]\leq D(1+\epsilon)$$, implying the existence of codebook $$\mathcal{C}^*$$ whose distortion is at most $$D(1+\epsilon)$$.
 To get the prove for $$R>R^{(I)}(D)$$, we just need to set $$P_{\hat{X}\vert X}$$ to the minimizer of the functional $$R^{(I)}(D)$$, and set $$\delta_{X\hat{X}}=\frac{\tilde{\epsilon}}{4}$$.
 
-## 3. Calculating the rate-distortion function
+<!-- ## 3. Calculating the rate-distortion function
 
 Some tips about the actual calculation of the $$R(D)$$ given a input distribution and the distortion function.
 
@@ -267,4 +259,4 @@ Some tips about the actual calculation of the $$R(D)$$ given a input distributio
 All the conditional probability $$P_{\hat{X}|X}$$ that satisfies $$\mathbb{E}[d(X,\hat{X})]\leq D$$ form a convex set.
 
 <u>Proposition 2:</u>
-For a fixed $$P_X$$, we have that $$\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})$$ is a convex optimization problem. 
+For a fixed $$P_X$$, we have that $$\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})$$ is a convex optimization problem.  -->

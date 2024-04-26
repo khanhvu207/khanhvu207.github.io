@@ -286,13 +286,6 @@ We would need infinite precision, thus infinite bits, to represent a number in \
 Such a scheme is also called quantization.
 We essentially quantize numbers in \(\mathbb{R}\) using a finite set of rational numbers \(\mathbb{Q}\).</p>
 
-<center>
-    <figure>
-        <img src="" alt="rate-distortion diagram" style="width:500px; display: inline-block;" />
-        <figcaption>...</figcaption>
-    </figure>
-</center>
-
 <p>To measure the quality of the chosen scheme, which is a pair \((f_n, \phi_n)\), we can measure the distortion between the input and the reconstruction as \(d(X^n,\hat{X}^n)=\frac{1}{n}\sum_{i=1}^n d(X_i, \hat{X}_i)\). Here, \(d:\mathcal{X}\times \hat{\mathcal{X}} \rightarrow \mathbb{R}^+\) is the distortion measure.
 Some popular choices of distortion measure includes:</p>
 
@@ -304,23 +297,22 @@ Some popular choices of distortion measure includes:</p>
 <p>For simplicity, I assume that Hamming distortion is used in this post.
 Moving on, the following introduces several definitions highlighting the interplay between rate \(R\) and distortion \(D\).</p>
 
-<p><u>Definition 1:</u> 
+<p><strong>Definition 1.</strong>
 The <strong>rate distortion pair \((R,D)\)</strong> is <em>achievable</em> if there exists a sequence of \((f_n,\phi_n)\) with \(\lim_{n\rightarrow \infty} \mathbb{E} d(X^n, \phi_n(f_n(X^n))) \leq D\).</p>
 
-<p><u>Definition 2:</u> 
+<p><strong>Definition 2.</strong>
 The <strong>rate distortion region</strong> is the closure of all achievable \((R,D)\).</p>
 
 <center>
     <figure>
-        <img src="" alt="rate-distortion function" style="width:500px; display: inline-block;" />
-        <figcaption>...</figcaption>
+        <img src="../assets/images/rate_distortion.png" alt="rate-distortion function" style="width: 80%; display: inline-block;" />
     </figure>
 </center>
 
-<p><u>Definition 3:</u> 
+<p><strong>Definition 3.</strong>
 The <strong>rate distortion function \(R(D)\)</strong> is the <em>infimum</em> over all rates \(R\) such that \((R,D)\) is achievable for a given distortion \(D\).</p>
 
-<p><u>Definition 4:</u> 
+<p><strong>Definition 4.</strong>
 The <strong>information rate distortion function</strong> is defined as</p>
 
 \[R^{(I)}(D) = \underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})\]
@@ -332,7 +324,7 @@ Alternatively, we can also define \(R^{(I)}(D)\) as the minimization over the jo
 
 <p>In his foundational work in information theory, Claude Shannon stated a key result in rate-distortion theory:</p>
 
-<p><u>Theorem 1:</u></p>
+<p><strong>Theorem 1.</strong></p>
 
 \[R(D)=R^{(I)}(D)=\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})\]
 
@@ -347,10 +339,10 @@ Alternatively, we can also define \(R^{(I)}(D)\) as the minimization over the jo
 
 <p>The proof for the converse is rather straighforward and depends only on some properties of \(R^{(I)}(D)\), namely \(R^{(I)}(D)\) is monotonically non-increasing, convex, and continuous. For interested readers, you can refer to the proofs of these properties in <em>Elements of Information Theory by Thomas &amp; Cover</em>.</p>
 
-<p><u>Claim 1:</u>
+<p><strong>Claim 1.</strong>
 \(nR \geq I(X^n; \hat{X}^n)\)</p>
 
-<p><u>Proof of claim 1:</u></p>
+<p><strong>Proof of claim 1.</strong></p>
 
 \[\begin{align}
 I(X^n; \hat{X}^n) &amp;\leq I(X^n; f_n(X^n)) &amp;&amp;\text{(Data processing ineq.)}\\
@@ -358,7 +350,7 @@ I(X^n; \hat{X}^n) &amp;\leq I(X^n; f_n(X^n)) &amp;&amp;\text{(Data processing in
 &amp;\leq nR &amp;&amp;(\text{Codebook is of size } 2^{nR})
 \end{align}\]
 
-<p><u>Proof of the converse part:</u></p>
+<p><strong>Proof of the converse part.</strong></p>
 
 \[\begin{align}
 nR &amp;\geq I(X^n; \hat{X}^n) &amp;&amp;\text{(Claim 1)}\\
@@ -384,12 +376,12 @@ The crux of this proof would follow the random codebook construction with some s
 
 <p>I will start by laying out some ingredients for the main proof.</p>
 
-<p><u>Lemma 1:</u>
+<p><strong>Lemma 1.</strong>
 Given \(N\) IID Bernoulli \(p\) variables \(X_1,\dots,X_n\), we have that</p>
 
 \[P(\text{at least 1 success}) = P((X_1=1) \lor \cdots \lor (X_n=1)) \rightarrow 1 \text{ if } np\rightarrow \infty\]
 
-<p><u>Proof of lemma 1:</u></p>
+<p><strong>Proof of lemma 1.</strong></p>
 
 \[\begin{align}
 P(\text{at least 1 success}) &amp;= 1-P(\text{failure in all trials}) \\
@@ -397,23 +389,23 @@ P(\text{at least 1 success}) &amp;= 1-P(\text{failure in all trials}) \\
 &amp;\geq 1-\exp(-np) \rightarrow 1 \text{ as } np\rightarrow \infty
 \end{align}\]
 
-<p><u>Lemma 2:</u>
+<p><strong>Lemma 2.</strong>
 Given a function \(g:\mathcal{X}\rightarrow \mathbb{R}^+\) and a sequence \(\underline{x}=(x_1,\dots,x_n)\) with \(x_i\in\mathcal{X}\), the following holds:</p>
 
 \[\underline{x} \in \mathcal{T}_{\varepsilon}^{(n)} (P_X)\Rightarrow \frac{1}{n} \sum_i g(x_i) \leq (1+\varepsilon) \mathbb{E}g(X)\]
 
 <p>Here, \(\mathcal{T}_{\varepsilon}^{(n)}(P_X)\) is a strongly typical set with tolerence \(\varepsilon\).</p>
 
-<p><u>Proof of lemma 2:</u> The proof follows naturally from the definition of a strongly typical set.</p>
+<p><strong>Proof of lemma 2.</strong> The proof follows naturally from the definition of a strongly typical set.</p>
 
-<p><u>Lemma 3:</u>
+<p><strong>Lemma 3.</strong>
 Given two sequences of random variables \(\{\tilde{X}_i\}, \{\tilde{Y}_i\}\) that are drawn IID from \(P_X\) and \(P_Y\) respectively, where \(P_X\) and \(P_Y\) are the marginals of some \(P_{XY}\), then</p>
 
 \[Pr((\tilde{X}, \tilde{Y})\in \mathcal{A}_{\varepsilon}^{(n)}(P_{XY})) \leq 2^{-n(I(X;Y)-3\varepsilon)}\]
 
 <p>Where \(\mathcal{A}_{\varepsilon}^{(n)}(P_{XY})\) is a weakly typical set with tolerence $\varepsilon$.</p>
 
-<p><u>Lemma 4:</u>
+<p><strong>Lemma 4.</strong>
 Given \(0&lt;\varepsilon'&lt;\varepsilon\), if \(\underline{x}\in \mathcal{T}_{\varepsilon'}^{(n)}(P_X)\) and \(\{Y_i\} ~\) IID from \(P_Y\) then:</p>
 
 \[Pr((\underline{x}, \underline{Y})\in \mathcal{T}_{\varepsilon}^{(n)}(P_{XY})) \geq 2^{-n(I(X;Y)+4\delta_{XY})}\]
@@ -486,15 +478,15 @@ P(\underline{X}=\xi) P(\text{success} | \underline{X}=\xi) &amp;\geq 1- \exp(-2^
 <p>If \(R &gt; I(X;\hat{X})+4\delta_{X\hat{X}}\), we can drive \(\text{Pr}(\text{success})\rightarrow 1\) for some large \(n\). Consequently, this tells us that if \(R &gt; I(X;\hat{X})+4\delta_{X\hat{X}}\) then \(\mathbb{E}[d(X,\hat{X})]\leq D(1+\epsilon)\), implying the existence of codebook \(\mathcal{C}^*\) whose distortion is at most \(D(1+\epsilon)\).
 To get the prove for \(R&gt;R^{(I)}(D)\), we just need to set \(P_{\hat{X}\vert X}\) to the minimizer of the functional \(R^{(I)}(D)\), and set \(\delta_{X\hat{X}}=\frac{\tilde{\epsilon}}{4}\).</p>
 
-<h2 id="3-calculating-the-rate-distortion-function">3. Calculating the rate-distortion function</h2>
+<!-- ## 3. Calculating the rate-distortion function
 
-<p>Some tips about the actual calculation of the \(R(D)\) given a input distribution and the distortion function.</p>
+Some tips about the actual calculation of the $$R(D)$$ given a input distribution and the distortion function.
 
-<p><u>Proposition 1:</u>
-All the conditional probability \(P_{\hat{X}|X}\) that satisfies \(\mathbb{E}[d(X,\hat{X})]\leq D\) form a convex set.</p>
+<u>Proposition 1:</u>
+All the conditional probability $$P_{\hat{X}|X}$$ that satisfies $$\mathbb{E}[d(X,\hat{X})]\leq D$$ form a convex set.
 
-<p><u>Proposition 2:</u>
-For a fixed \(P_X\), we have that \(\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})\) is a convex optimization problem.</p>
+<u>Proposition 2:</u>
+For a fixed $$P_X$$, we have that $$\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})$$ is a convex optimization problem.  -->
 
 
 <!-- <ul class="taxonomy__index">
@@ -514,7 +506,7 @@ For a fixed \(P_X\), we have that \(\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x
   
 </ul> -->
 
-
+<!-- 
 
 
   <section id="2024" class="taxonomy__section">
@@ -530,7 +522,7 @@ For a fixed \(P_X\), we have that \(\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/good_at_something/" rel="permalink">How to become so good at something?
+        <a href="/opt_cheatsheet/" rel="permalink">Mathematical optimization cheatsheet
 </a>
       
     </h2>
@@ -548,14 +540,14 @@ For a fixed \(P_X\), we have that \(\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          less than 1 minute read
+          2 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">Be honest with yourself.
+    <p class="archive__item-excerpt" itemprop="description">In this cheatsheet, we discuss the concepts of convexity, smoothness, and strong convexity, which are essential in the analysis of optimization algorithms.
 
 </p>
   </article>
@@ -652,7 +644,7 @@ My initial exposure to this concept was through Professor Amos Lapidoth’s l...
     </div>
     <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
   </section>
-
+ -->
 
   </div>
 </div>

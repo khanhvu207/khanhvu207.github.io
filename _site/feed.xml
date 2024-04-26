@@ -1,36 +1,92 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-04-23T01:27:09+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">How to become so good at something?</title><link href="http://localhost:4000/good_at_something/" rel="alternate" type="text/html" title="How to become so good at something?" /><published>2024-04-17T00:00:00+02:00</published><updated>2024-04-17T00:00:00+02:00</updated><id>http://localhost:4000/good_at_something</id><content type="html" xml:base="http://localhost:4000/good_at_something/"><![CDATA[<p>Be honest with yourself.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-04-26T21:04:06+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Mathematical optimization cheatsheet</title><link href="http://localhost:4000/opt_cheatsheet/" rel="alternate" type="text/html" title="Mathematical optimization cheatsheet" /><published>2024-04-26T00:00:00+02:00</published><updated>2024-04-26T00:00:00+02:00</updated><id>http://localhost:4000/opt_cheatsheet</id><content type="html" xml:base="http://localhost:4000/opt_cheatsheet/"><![CDATA[<p>In this cheatsheet, we discuss the concepts of convexity, smoothness, and strong convexity, which are essential in the analysis of optimization algorithms.</p>
 
-<p>Be honest with yourself.</p>
+<p>Define a function $f: \text{dom}(f)\rightarrow \mathbb{R}$ with $\text{dom}(f) \subseteq \mathbb{R}^d$.
+We assume that $f$ is differentiable, meaning that the gradient $\nabla f(x) \in \mathbb{R}^d$ exists $\forall x \in \text{dom}(f)$.</p>
 
-<p>Be honest with yourself.</p>
+<center>
+    <figure>
+        <img src="../assets/images/smooth_strong_convex.png" alt="smoothness and strong convexity illustration" style="display: inline-block;" />
+        <figcaption> Figure 1. Smoothness and strong convexity play complementary roles in bounding the function values. </figcaption>
+    </figure>
+</center>
 
-<p>Be honest with yourself.</p>
+<h2 id="1-convexity">1. Convexity</h2>
 
-<p>Be honest with yourself.</p>
+<p><strong>(a) Definition.</strong>
+A function $f$ is convex if its domain is a convex set and if for all $x, y \in \text{dom}(f)$ and $\theta \in [0, 1]$, we have</p>
 
-<p>Be honest with yourself.</p>
+\[f(\theta x + (1-\theta)y) \leq \theta f(x) + (1-\theta)f(y)\]
 
-<p>Be honest with yourself.</p>
+<p>This definition is also known as the Jensen’s inequality.
+Oftentimes, it is more convenient to work with one of the following equivalent definitions:</p>
 
-<p>Be honest with yourself.</p>
+<p><strong>(b) First-order characterization.</strong>
+\(f(y) \geq f(x) + \nabla \langle f(x), y-x \rangle\)</p>
 
-<p>Be honest with yourself.</p>
+<p><strong>(c) Second-order characterization.</strong>
+Suppose that $f$ is twice differentiable.
+A function $f$ is convex if its domain is a convex set and if for all $x \in \text{dom}(f)$, we have</p>
 
-<p>Be honest with yourself.</p>
+\[\nabla^2 f(x) \succeq 0\]
 
-<p>Be honest with yourself.</p>
+<p>where $\nabla^2 f(x)$ is the Hessian matrix of $f$ at $x$.</p>
 
-<p>Be honest with yourself.</p>
+<p><strong>(d) Monotonicity of the gradient.</strong>
+A function $f$ is convex if its domain is a convex set and if for all $x, y \in \text{dom}(f)$, we have</p>
 
-<p>Be honest with yourself.</p>
+\[\langle \nabla f(y) - \nabla f(x), y-x \rangle \geq 0\]
 
-<p>Be honest with yourself.</p>
+<h2 id="2-smooth-functions">2. Smooth functions</h2>
 
-<p>Be honest with yourself.</p>
+<p><strong>(a) Definition.</strong>
+Let $X\subseteq \text{dom}(f)$ be a convex set and let $L &gt; 0$. A function $f$ is $L$-smooth on $X$ if for all $x, y \in X$, we have</p>
 
-<p>Be honest with yourself.</p>
+\[f(y) \leq f(x) + \langle \nabla f(x), y-x \rangle + \frac{L}{2}\|y-x\|^2\]
 
-<p>Be honest with yourself.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[Be honest with yourself.]]></summary></entry><entry><title type="html">Rate-distortion theory</title><link href="http://localhost:4000/rate_distortion/" rel="alternate" type="text/html" title="Rate-distortion theory" /><published>2023-12-19T00:00:00+01:00</published><updated>2023-12-19T00:00:00+01:00</updated><id>http://localhost:4000/rate_distortion</id><content type="html" xml:base="http://localhost:4000/rate_distortion/"><![CDATA[<p>In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem.
+<p>One can think of this definition as Lipschitz continuity of the gradient map.
+Alternatively, we can use the following equivalent definition:</p>
+
+<p><strong>(b)</strong> (Lipschitz continuity of the gradient)
+\(\| f(x) - \nabla f(y)\| \leq L\| x-y\|\) for all \(x, y \in X\).</p>
+
+<p><strong>(c)</strong>
+\(g(x) = \frac{L}{2} x^\top x - f(x)\) is convex.</p>
+
+<p><strong>(d)</strong>
+\(\langle \nabla f(x) - \nabla f(y), x-y \rangle \leq L\|x-y\|^2\) for all \(x, y \in X\).</p>
+
+<p>We have the following relations:</p>
+
+\[[b] \Rightarrow [a] \Leftrightarrow [c] \Leftrightarrow [d]\]
+
+<p>If $f$ is additionally convex, then \([a] \Rightarrow [b]\).</p>
+
+<h2 id="3-strong-convexity">3. Strong convexity</h2>
+
+<p><strong>(a) Definition.</strong>
+Let $X\subseteq \text{dom}(f)$ be a convex set and let $\mu &gt; 0$. A function $f$ is $\mu$-strongly convex on $X$ if for all $x, y \in X$, we have</p>
+
+\[f(y) \geq f(x) + \langle \nabla f(x), y-x \rangle + \frac{\mu}{2}\|y-x\|^2\]
+
+<p>The notion of strong convexity is the opposite of smoothness.
+Strong convexity implies that the function grows at least quadratically.
+Moreover, $f$ is strongly convex implies that $f$ is strictly convex and has a unique minimizer.
+Alternatively, we can use the following equivalent definition:</p>
+
+<p><strong>(b)</strong>
+\(\| f(x) - \nabla f(y)\| \geq \mu\| x-y\|\) for all \(x, y \in X\).</p>
+
+<p><strong>(c)</strong>
+\(g(x) = f(x) - \frac{\mu}{2} x^\top x\) is convex.</p>
+
+<p><strong>(d)</strong>
+\(\langle \nabla f(x) - \nabla f(y), x-y \rangle \geq \mu\|x-y\|^2\) for all \(x, y \in X\).</p>
+
+<p>The relations are as follows:</p>
+
+\[[b] \Leftarrow [a] \Leftrightarrow [c] \Leftrightarrow [d]\]
+
+<p>Figure 1 above illustrates the complementary roles of smoothness and strong convexity in bounding the function values.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In this cheatsheet, we discuss the concepts of convexity, smoothness, and strong convexity, which are essential in the analysis of optimization algorithms.]]></summary></entry><entry><title type="html">Rate-distortion theory</title><link href="http://localhost:4000/rate_distortion/" rel="alternate" type="text/html" title="Rate-distortion theory" /><published>2023-12-19T00:00:00+01:00</published><updated>2023-12-19T00:00:00+01:00</updated><id>http://localhost:4000/rate_distortion</id><content type="html" xml:base="http://localhost:4000/rate_distortion/"><![CDATA[<p>In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem.
 The rate-distortion theorem plays a crucial role in modern signal processing, especially in understanding the limit of data compression.
 I will try to keep the material short and concise.</p>
 
@@ -58,13 +114,6 @@ We would need infinite precision, thus infinite bits, to represent a number in \
 Such a scheme is also called quantization.
 We essentially quantize numbers in \(\mathbb{R}\) using a finite set of rational numbers \(\mathbb{Q}\).</p>
 
-<center>
-    <figure>
-        <img src="" alt="rate-distortion diagram" style="width:500px; display: inline-block;" />
-        <figcaption>...</figcaption>
-    </figure>
-</center>
-
 <p>To measure the quality of the chosen scheme, which is a pair \((f_n, \phi_n)\), we can measure the distortion between the input and the reconstruction as \(d(X^n,\hat{X}^n)=\frac{1}{n}\sum_{i=1}^n d(X_i, \hat{X}_i)\). Here, \(d:\mathcal{X}\times \hat{\mathcal{X}} \rightarrow \mathbb{R}^+\) is the distortion measure.
 Some popular choices of distortion measure includes:</p>
 
@@ -76,23 +125,22 @@ Some popular choices of distortion measure includes:</p>
 <p>For simplicity, I assume that Hamming distortion is used in this post.
 Moving on, the following introduces several definitions highlighting the interplay between rate \(R\) and distortion \(D\).</p>
 
-<p><u>Definition 1:</u> 
+<p><strong>Definition 1.</strong>
 The <strong>rate distortion pair \((R,D)\)</strong> is <em>achievable</em> if there exists a sequence of \((f_n,\phi_n)\) with \(\lim_{n\rightarrow \infty} \mathbb{E} d(X^n, \phi_n(f_n(X^n))) \leq D\).</p>
 
-<p><u>Definition 2:</u> 
+<p><strong>Definition 2.</strong>
 The <strong>rate distortion region</strong> is the closure of all achievable \((R,D)\).</p>
 
 <center>
     <figure>
-        <img src="" alt="rate-distortion function" style="width:500px; display: inline-block;" />
-        <figcaption>...</figcaption>
+        <img src="../assets/images/rate_distortion.png" alt="rate-distortion function" style="width: 80%; display: inline-block;" />
     </figure>
 </center>
 
-<p><u>Definition 3:</u> 
+<p><strong>Definition 3.</strong>
 The <strong>rate distortion function \(R(D)\)</strong> is the <em>infimum</em> over all rates \(R\) such that \((R,D)\) is achievable for a given distortion \(D\).</p>
 
-<p><u>Definition 4:</u> 
+<p><strong>Definition 4.</strong>
 The <strong>information rate distortion function</strong> is defined as</p>
 
 \[R^{(I)}(D) = \underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})\]
@@ -104,7 +152,7 @@ Alternatively, we can also define \(R^{(I)}(D)\) as the minimization over the jo
 
 <p>In his foundational work in information theory, Claude Shannon stated a key result in rate-distortion theory:</p>
 
-<p><u>Theorem 1:</u></p>
+<p><strong>Theorem 1.</strong></p>
 
 \[R(D)=R^{(I)}(D)=\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})\]
 
@@ -119,10 +167,10 @@ Alternatively, we can also define \(R^{(I)}(D)\) as the minimization over the jo
 
 <p>The proof for the converse is rather straighforward and depends only on some properties of \(R^{(I)}(D)\), namely \(R^{(I)}(D)\) is monotonically non-increasing, convex, and continuous. For interested readers, you can refer to the proofs of these properties in <em>Elements of Information Theory by Thomas &amp; Cover</em>.</p>
 
-<p><u>Claim 1:</u>
+<p><strong>Claim 1.</strong>
 \(nR \geq I(X^n; \hat{X}^n)\)</p>
 
-<p><u>Proof of claim 1:</u></p>
+<p><strong>Proof of claim 1.</strong></p>
 
 \[\begin{align}
 I(X^n; \hat{X}^n) &amp;\leq I(X^n; f_n(X^n)) &amp;&amp;\text{(Data processing ineq.)}\\
@@ -130,7 +178,7 @@ I(X^n; \hat{X}^n) &amp;\leq I(X^n; f_n(X^n)) &amp;&amp;\text{(Data processing in
 &amp;\leq nR &amp;&amp;(\text{Codebook is of size } 2^{nR})
 \end{align}\]
 
-<p><u>Proof of the converse part:</u></p>
+<p><strong>Proof of the converse part.</strong></p>
 
 \[\begin{align}
 nR &amp;\geq I(X^n; \hat{X}^n) &amp;&amp;\text{(Claim 1)}\\
@@ -156,12 +204,12 @@ The crux of this proof would follow the random codebook construction with some s
 
 <p>I will start by laying out some ingredients for the main proof.</p>
 
-<p><u>Lemma 1:</u>
+<p><strong>Lemma 1.</strong>
 Given \(N\) IID Bernoulli \(p\) variables \(X_1,\dots,X_n\), we have that</p>
 
 \[P(\text{at least 1 success}) = P((X_1=1) \lor \cdots \lor (X_n=1)) \rightarrow 1 \text{ if } np\rightarrow \infty\]
 
-<p><u>Proof of lemma 1:</u></p>
+<p><strong>Proof of lemma 1.</strong></p>
 
 \[\begin{align}
 P(\text{at least 1 success}) &amp;= 1-P(\text{failure in all trials}) \\
@@ -169,23 +217,23 @@ P(\text{at least 1 success}) &amp;= 1-P(\text{failure in all trials}) \\
 &amp;\geq 1-\exp(-np) \rightarrow 1 \text{ as } np\rightarrow \infty
 \end{align}\]
 
-<p><u>Lemma 2:</u>
+<p><strong>Lemma 2.</strong>
 Given a function \(g:\mathcal{X}\rightarrow \mathbb{R}^+\) and a sequence \(\underline{x}=(x_1,\dots,x_n)\) with \(x_i\in\mathcal{X}\), the following holds:</p>
 
 \[\underline{x} \in \mathcal{T}_{\varepsilon}^{(n)} (P_X)\Rightarrow \frac{1}{n} \sum_i g(x_i) \leq (1+\varepsilon) \mathbb{E}g(X)\]
 
 <p>Here, \(\mathcal{T}_{\varepsilon}^{(n)}(P_X)\) is a strongly typical set with tolerence \(\varepsilon\).</p>
 
-<p><u>Proof of lemma 2:</u> The proof follows naturally from the definition of a strongly typical set.</p>
+<p><strong>Proof of lemma 2.</strong> The proof follows naturally from the definition of a strongly typical set.</p>
 
-<p><u>Lemma 3:</u>
+<p><strong>Lemma 3.</strong>
 Given two sequences of random variables \(\{\tilde{X}_i\}, \{\tilde{Y}_i\}\) that are drawn IID from \(P_X\) and \(P_Y\) respectively, where \(P_X\) and \(P_Y\) are the marginals of some \(P_{XY}\), then</p>
 
 \[Pr((\tilde{X}, \tilde{Y})\in \mathcal{A}_{\varepsilon}^{(n)}(P_{XY})) \leq 2^{-n(I(X;Y)-3\varepsilon)}\]
 
 <p>Where \(\mathcal{A}_{\varepsilon}^{(n)}(P_{XY})\) is a weakly typical set with tolerence $\varepsilon$.</p>
 
-<p><u>Lemma 4:</u>
+<p><strong>Lemma 4.</strong>
 Given \(0&lt;\varepsilon'&lt;\varepsilon\), if \(\underline{x}\in \mathcal{T}_{\varepsilon'}^{(n)}(P_X)\) and \(\{Y_i\} ~\) IID from \(P_Y\) then:</p>
 
 \[Pr((\underline{x}, \underline{Y})\in \mathcal{T}_{\varepsilon}^{(n)}(P_{XY})) \geq 2^{-n(I(X;Y)+4\delta_{XY})}\]
@@ -258,15 +306,15 @@ P(\underline{X}=\xi) P(\text{success} | \underline{X}=\xi) &amp;\geq 1- \exp(-2^
 <p>If \(R &gt; I(X;\hat{X})+4\delta_{X\hat{X}}\), we can drive \(\text{Pr}(\text{success})\rightarrow 1\) for some large \(n\). Consequently, this tells us that if \(R &gt; I(X;\hat{X})+4\delta_{X\hat{X}}\) then \(\mathbb{E}[d(X,\hat{X})]\leq D(1+\epsilon)\), implying the existence of codebook \(\mathcal{C}^*\) whose distortion is at most \(D(1+\epsilon)\).
 To get the prove for \(R&gt;R^{(I)}(D)\), we just need to set \(P_{\hat{X}\vert X}\) to the minimizer of the functional \(R^{(I)}(D)\), and set \(\delta_{X\hat{X}}=\frac{\tilde{\epsilon}}{4}\).</p>
 
-<h2 id="3-calculating-the-rate-distortion-function">3. Calculating the rate-distortion function</h2>
+<!-- ## 3. Calculating the rate-distortion function
 
-<p>Some tips about the actual calculation of the \(R(D)\) given a input distribution and the distortion function.</p>
+Some tips about the actual calculation of the $$R(D)$$ given a input distribution and the distortion function.
 
-<p><u>Proposition 1:</u>
-All the conditional probability \(P_{\hat{X}|X}\) that satisfies \(\mathbb{E}[d(X,\hat{X})]\leq D\) form a convex set.</p>
+<u>Proposition 1:</u>
+All the conditional probability $$P_{\hat{X}|X}$$ that satisfies $$\mathbb{E}[d(X,\hat{X})]\leq D$$ form a convex set.
 
-<p><u>Proposition 2:</u>
-For a fixed \(P_X\), we have that \(\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})\) is a convex optimization problem.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem. The rate-distortion theorem plays a crucial role in modern signal processing, especially in understanding the limit of data compression. I will try to keep the material short and concise.]]></summary></entry><entry><title type="html">Noisy-channel coding theorem</title><link href="http://localhost:4000/channel_coding_proof/" rel="alternate" type="text/html" title="Noisy-channel coding theorem" /><published>2023-11-21T00:00:00+01:00</published><updated>2023-11-21T00:00:00+01:00</updated><id>http://localhost:4000/channel_coding_proof</id><content type="html" xml:base="http://localhost:4000/channel_coding_proof/"><![CDATA[<p>Here is my second attempt to understand the proof for the channel coding theorem.
+<u>Proposition 2:</u>
+For a fixed $$P_X$$, we have that $$\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})$$ is a convex optimization problem.  -->]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem. The rate-distortion theorem plays a crucial role in modern signal processing, especially in understanding the limit of data compression. I will try to keep the material short and concise.]]></summary></entry><entry><title type="html">Noisy-channel coding theorem</title><link href="http://localhost:4000/channel_coding_proof/" rel="alternate" type="text/html" title="Noisy-channel coding theorem" /><published>2023-11-21T00:00:00+01:00</published><updated>2023-11-21T00:00:00+01:00</updated><id>http://localhost:4000/channel_coding_proof</id><content type="html" xml:base="http://localhost:4000/channel_coding_proof/"><![CDATA[<p>Here is my second attempt to understand the proof for the channel coding theorem.
 My initial exposure to this concept was through Professor Amos Lapidoth’s lecture in Information Theory I.
 His presentation, though concise, was packed with ingenious methods that were challenging to fully comprehend at time.
 To better understand it, I shall employ the Feynman technique - explaining the concept to someone else.</p>
@@ -361,7 +409,7 @@ Furthermore, we define \(C^{(I)} = \underset{Q\in P_\mathcal{X}}{\max} I(Q, W)\)
   <li><strong>Direct part:</strong> If \(R &lt; C^{(I)}\), then \(R\) is achievable.</li>
 </ol>
 
-<h3 id="21-convert-part">2.1 Convert part</h3>
+<h3 id="21-converse-part">2.1 Converse part</h3>
 
 <p>A contrapositive statement for the converse says that if you give me a wonderful encoder-decoder pair whose rate \(R\) is achievable (e.g. \(\lambda_\max \rightarrow 0\) as \(n\rightarrow \infty\)), then \(R \leq C^{(I)}\).
 Next, I would like to introduce the Fano’s inequality which is necessary for the proof later:</p>
