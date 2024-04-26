@@ -29,10 +29,14 @@ $$
 This definition is also known as the Jensen's inequality.
 Oftentimes, it is more convenient to work with one of the following equivalent definitions:
 
-**(b) First-order characterization.**
-$$f(y) \geq f(x) + \nabla \langle f(x), y-x \rangle$$
+**(b) (First-order characterization)**
+$$
+f(y) \geq f(x) + \langle \nabla f(x), y-x \rangle
+$$
 
-**(c) Second-order characterization.**
+Geometrically, this definition implies that the function lies above its tangent line at any point (see Figure 1).
+
+**(c) (Second-order characterization)**
 Suppose that $f$ is twice differentiable.
 A function $f$ is convex if its domain is a convex set and if for all $x \in \text{dom}(f)$, we have
 
@@ -42,7 +46,7 @@ $$
 
 where $\nabla^2 f(x)$ is the Hessian matrix of $f$ at $x$.
 
-**(d) Monotonicity of the gradient.**
+**(d) (Monotonicity of the gradient)**
 A function $f$ is convex if its domain is a convex set and if for all $x, y \in \text{dom}(f)$, we have
 
 $$
@@ -59,9 +63,11 @@ f(y) \leq f(x) + \langle \nabla f(x), y-x \rangle + \frac{L}{2}\|y-x\|^2
 $$
 
 One can think of this definition as Lipschitz continuity of the gradient map.
+When $f$ is twice differentiable, smoothness implies that the largest eigenvalue of the Hessian is bounded by $L$, e.g. $$\|\nabla^2 f(x)\| \leq L$$.
+If $f$ is $L$-smooth, then $f$ is also $L'$-smooth for all $L' \geq L$.
 Alternatively, we can use the following equivalent definition:
 
-**(b)** (Lipschitz continuity of the gradient)
+**(b) (Lipschitz continuity of the gradient)**
 $$\| f(x) - \nabla f(y)\| \leq L\| x-y\|$$ for all $$x, y \in X$$.
 
 **(c)**
@@ -70,6 +76,7 @@ $$g(x) = \frac{L}{2} x^\top x - f(x)$$ is convex.
 **(d)**
 $$\langle \nabla f(x) - \nabla f(y), x-y \rangle \leq L\|x-y\|^2$$ for all $$x, y \in X$$.
 
+These definitions are not actually equivalent, but they are related.
 We have the following relations:
 
 $$
@@ -87,9 +94,10 @@ $$
 f(y) \geq f(x) + \langle \nabla f(x), y-x \rangle + \frac{\mu}{2}\|y-x\|^2
 $$
 
-The notion of strong convexity is the opposite of smoothness.
+The notion of strong convexity complements the notion of smoothness.
 Strong convexity implies that the function grows at least quadratically.
 Moreover, $f$ is strongly convex implies that $f$ is strictly convex and has a unique minimizer.
+And similarly to smoothness, if $f$ is $\mu$-strongly convex, then $f$ is also $\mu'$-strongly convex for all $\mu' \leq \mu$.
 Alternatively, we can use the following equivalent definition:
 
 **(b)**

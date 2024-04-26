@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-04-26T21:08:08+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Mathematical optimization cheatsheet</title><link href="http://localhost:4000/opt_cheatsheet/" rel="alternate" type="text/html" title="Mathematical optimization cheatsheet" /><published>2024-04-26T00:00:00+02:00</published><updated>2024-04-26T00:00:00+02:00</updated><id>http://localhost:4000/opt_cheatsheet</id><content type="html" xml:base="http://localhost:4000/opt_cheatsheet/"><![CDATA[<p>In this cheatsheet, we discuss the concepts of convexity, smoothness, and strong convexity, which are essential in the analysis of optimization algorithms.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-04-26T21:27:56+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Mathematical optimization cheatsheet</title><link href="http://localhost:4000/opt_cheatsheet/" rel="alternate" type="text/html" title="Mathematical optimization cheatsheet" /><published>2024-04-26T00:00:00+02:00</published><updated>2024-04-26T00:00:00+02:00</updated><id>http://localhost:4000/opt_cheatsheet</id><content type="html" xml:base="http://localhost:4000/opt_cheatsheet/"><![CDATA[<p>In this cheatsheet, we discuss the concepts of convexity, smoothness, and strong convexity, which are essential in the analysis of optimization algorithms.</p>
 
 <p>Define a function $f: \text{dom}(f)\rightarrow \mathbb{R}$ with $\text{dom}(f) \subseteq \mathbb{R}^d$.
 We assume that $f$ is differentiable, meaning that the gradient $\nabla f(x) \in \mathbb{R}^d$ exists $\forall x \in \text{dom}(f)$.</p>
@@ -20,10 +20,12 @@ A function $f$ is convex if its domain is a convex set and if for all $x, y \in 
 <p>This definition is also known as the Jensen’s inequality.
 Oftentimes, it is more convenient to work with one of the following equivalent definitions:</p>
 
-<p><strong>(b) First-order characterization.</strong>
-\(f(y) \geq f(x) + \nabla \langle f(x), y-x \rangle\)</p>
+<p><strong>(b) (First-order characterization)</strong>
+\(f(y) \geq f(x) + \langle \nabla f(x), y-x \rangle\)</p>
 
-<p><strong>(c) Second-order characterization.</strong>
+<p>Geometrically, this definition implies that the function lies above its tangent line at any point (see Figure 1).</p>
+
+<p><strong>(c) (Second-order characterization)</strong>
 Suppose that $f$ is twice differentiable.
 A function $f$ is convex if its domain is a convex set and if for all $x \in \text{dom}(f)$, we have</p>
 
@@ -31,7 +33,7 @@ A function $f$ is convex if its domain is a convex set and if for all $x \in \te
 
 <p>where $\nabla^2 f(x)$ is the Hessian matrix of $f$ at $x$.</p>
 
-<p><strong>(d) Monotonicity of the gradient.</strong>
+<p><strong>(d) (Monotonicity of the gradient)</strong>
 A function $f$ is convex if its domain is a convex set and if for all $x, y \in \text{dom}(f)$, we have</p>
 
 \[\langle \nabla f(y) - \nabla f(x), y-x \rangle \geq 0\]
@@ -44,9 +46,11 @@ Let $X\subseteq \text{dom}(f)$ be a convex set and let $L &gt; 0$. A function $f
 \[f(y) \leq f(x) + \langle \nabla f(x), y-x \rangle + \frac{L}{2}\|y-x\|^2\]
 
 <p>One can think of this definition as Lipschitz continuity of the gradient map.
+When $f$ is twice differentiable, smoothness implies that the largest eigenvalue of the Hessian is bounded by $L$, e.g. \(\|\nabla^2 f(x)\| \leq L\).
+If $f$ is $L$-smooth, then $f$ is also $L’$-smooth for all $L’ \geq L$.
 Alternatively, we can use the following equivalent definition:</p>
 
-<p><strong>(b)</strong> (Lipschitz continuity of the gradient)
+<p><strong>(b) (Lipschitz continuity of the gradient)</strong>
 \(\| f(x) - \nabla f(y)\| \leq L\| x-y\|\) for all \(x, y \in X\).</p>
 
 <p><strong>(c)</strong>
@@ -55,7 +59,8 @@ Alternatively, we can use the following equivalent definition:</p>
 <p><strong>(d)</strong>
 \(\langle \nabla f(x) - \nabla f(y), x-y \rangle \leq L\|x-y\|^2\) for all \(x, y \in X\).</p>
 
-<p>We have the following relations:</p>
+<p>These definitions are not actually equivalent, but they are related.
+We have the following relations:</p>
 
 \[[b] \Rightarrow [a] \Leftrightarrow [c] \Leftrightarrow [d]\]
 
@@ -68,9 +73,10 @@ Let $X\subseteq \text{dom}(f)$ be a convex set and let $\mu &gt; 0$. A function 
 
 \[f(y) \geq f(x) + \langle \nabla f(x), y-x \rangle + \frac{\mu}{2}\|y-x\|^2\]
 
-<p>The notion of strong convexity is the opposite of smoothness.
+<p>The notion of strong convexity complements the notion of smoothness.
 Strong convexity implies that the function grows at least quadratically.
 Moreover, $f$ is strongly convex implies that $f$ is strictly convex and has a unique minimizer.
+And similarly to smoothness, if $f$ is $\mu$-strongly convex, then $f$ is also $\mu’$-strongly convex for all $\mu’ \leq \mu$.
 Alternatively, we can use the following equivalent definition:</p>
 
 <p><strong>(b)</strong>
