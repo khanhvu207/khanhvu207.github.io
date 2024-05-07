@@ -12,7 +12,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Mathematical optimization cheatsheet",
-        "excerpt":"In this cheatsheet, we discuss the concepts of convexity, smoothness, and strong convexity, which are essential in the analysis of optimization algorithms. Define a function $f: \\text{dom}(f)\\rightarrow \\mathbb{R}$ with $\\text{dom}(f) \\subseteq \\mathbb{R}^d$. We assume that $f$ is differentiable, meaning that the gradient $\\nabla f(x) \\in \\mathbb{R}^d$ exists $\\forall x \\in...","categories": [],
+        "excerpt":"In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms. In the first part, I will recite the definitions of convexity, smoothness, and strong convexity, which are fundamental properties in the realm of convex optimization on differentiable functions. In the second part, we...","categories": [],
         "tags": [],
         "url": "/opt_cheatsheet/",
         "teaser": null

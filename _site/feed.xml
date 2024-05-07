@@ -1,6 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-04-26T21:27:56+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Mathematical optimization cheatsheet</title><link href="http://localhost:4000/opt_cheatsheet/" rel="alternate" type="text/html" title="Mathematical optimization cheatsheet" /><published>2024-04-26T00:00:00+02:00</published><updated>2024-04-26T00:00:00+02:00</updated><id>http://localhost:4000/opt_cheatsheet</id><content type="html" xml:base="http://localhost:4000/opt_cheatsheet/"><![CDATA[<p>In this cheatsheet, we discuss the concepts of convexity, smoothness, and strong convexity, which are essential in the analysis of optimization algorithms.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-07T15:57:18+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Mathematical optimization cheatsheet</title><link href="http://localhost:4000/opt_cheatsheet/" rel="alternate" type="text/html" title="Mathematical optimization cheatsheet" /><published>2024-04-26T00:00:00+02:00</published><updated>2024-04-26T00:00:00+02:00</updated><id>http://localhost:4000/opt_cheatsheet</id><content type="html" xml:base="http://localhost:4000/opt_cheatsheet/"><![CDATA[<p>In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.
+In the first part, I will recite the definitions of convexity, smoothness, and strong convexity, which are fundamental properties in the realm of convex optimization on differentiable functions.
+In the second part, we will relax to the case of non-differentiable functions and discuss subgradients and proximal operators.</p>
 
-<p>Define a function $f: \text{dom}(f)\rightarrow \mathbb{R}$ with $\text{dom}(f) \subseteq \mathbb{R}^d$.
+<h1 id="1-convex-optimization">1. Convex optimization</h1>
+
+<p>Let us define a function $f: \text{dom}(f)\rightarrow \mathbb{R}$ with $\text{dom}(f) \subseteq \mathbb{R}^d$.
 We assume that $f$ is differentiable, meaning that the gradient $\nabla f(x) \in \mathbb{R}^d$ exists $\forall x \in \text{dom}(f)$.</p>
 
 <center>
@@ -10,7 +14,7 @@ We assume that $f$ is differentiable, meaning that the gradient $\nabla f(x) \in
     </figure>
 </center>
 
-<h2 id="1-convexity">1. Convexity</h2>
+<h2 id="11-convexity">1.1 Convexity</h2>
 
 <p><strong>(a) Definition.</strong>
 A function $f$ is convex if its domain is a convex set and if for all $x, y \in \text{dom}(f)$ and $\theta \in [0, 1]$, we have</p>
@@ -38,7 +42,7 @@ A function $f$ is convex if its domain is a convex set and if for all $x, y \in 
 
 \[\langle \nabla f(y) - \nabla f(x), y-x \rangle \geq 0\]
 
-<h2 id="2-smooth-functions">2. Smooth functions</h2>
+<h2 id="12-smooth-functions">1.2 Smooth functions</h2>
 
 <p><strong>(a) Definition.</strong>
 Let $X\subseteq \text{dom}(f)$ be a convex set and let $L &gt; 0$. A function $f$ is $L$-smooth on $X$ if for all $x, y \in X$, we have</p>
@@ -66,7 +70,7 @@ We have the following relations:</p>
 
 <p>If $f$ is additionally convex, then \([a] \Rightarrow [b]\).</p>
 
-<h2 id="3-strong-convexity">3. Strong convexity</h2>
+<h2 id="13-strong-convexity">1.3 Strong convexity</h2>
 
 <p><strong>(a) Definition.</strong>
 Let $X\subseteq \text{dom}(f)$ be a convex set and let $\mu &gt; 0$. A function $f$ is $\mu$-strongly convex on $X$ if for all $x, y \in X$, we have</p>
@@ -92,7 +96,34 @@ Alternatively, we can use the following equivalent definition:</p>
 
 \[[b] \Leftarrow [a] \Leftrightarrow [c] \Leftrightarrow [d]\]
 
-<p>Figure 1 above illustrates the complementary roles of smoothness and strong convexity in bounding the function values.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In this cheatsheet, we discuss the concepts of convexity, smoothness, and strong convexity, which are essential in the analysis of optimization algorithms.]]></summary></entry><entry><title type="html">Rate-distortion theory</title><link href="http://localhost:4000/rate_distortion/" rel="alternate" type="text/html" title="Rate-distortion theory" /><published>2023-12-19T00:00:00+01:00</published><updated>2023-12-19T00:00:00+01:00</updated><id>http://localhost:4000/rate_distortion</id><content type="html" xml:base="http://localhost:4000/rate_distortion/"><![CDATA[<p>In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem.
+<p>Figure 1 above illustrates the complementary roles of smoothness and strong convexity in bounding the function values.</p>
+
+<h1 id="2-non-smooth-optimization">2. Non-smooth optimization</h1>
+
+<p>In this section, we define the function \(f\) similar to before, but we make no assumption of differentiability.</p>
+
+<h2 id="22-non-smooth-functions">2.2 Non-smooth functions</h2>
+
+<p><strong>(a) Definition.</strong> 
+If \(f\) is not differentiable, or if the gradients of \(f\) exists but are not Lipschitz continuous, then we say that \(f\) is non-smooth.
+This definition is exactly the negation of the smoothness property.
+Examples of non-smooth functions include the absolute value function \(f(x) = |x|\), the hinge loss function \(f(x) = \max(0, 1-x)\), or many activation functions in neural networks such as the ReLU function \(f(x) = \max(0, x)\).</p>
+
+<p><strong>(b) Subgradients.</strong>
+A vector \(g \in \mathbb{R}^d\) is a subgradient of \(f\) at \(x\) if for all \(y \in \text{dom}(f)\), we have</p>
+
+\[f(y) \geq f(x) + \langle g, y-x \rangle\]
+
+<p>Also, we define a subdifferential \(\partial f(x)\) denoting the set of all subgradients of \(f\) at \(x\).</p>
+
+<p><strong>(c) Properties of subgradients.</strong></p>
+
+<ul>
+  <li>If \(f\) is differentiable at \(x\in \text{dom}(f)\), then \(\partial f(x) \subseteq \{\nabla f(x)\}\), meaning that the subdifferential either contains the gradient or is empty.</li>
+  <li>If \(f\) is convex, then \(\partial f(x)\) is non-empty for all \(x\in \text{int(dom)}(f)\).</li>
+  <li>If \(\text{dom}(f)\) is convex and \(\partial f(x) \neq \emptyset\) for all \(x\in \text{dom}(f)\), then \(f\) is convex.</li>
+  <li><strong>(Subgradient optimality condition)</strong> If \(\mathbf{0} \in \partial f(x)\), then \(x\) is a global minimum of \(f\).</li>
+</ul>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms. In the first part, I will recite the definitions of convexity, smoothness, and strong convexity, which are fundamental properties in the realm of convex optimization on differentiable functions. In the second part, we will relax to the case of non-differentiable functions and discuss subgradients and proximal operators.]]></summary></entry><entry><title type="html">Rate-distortion theory</title><link href="http://localhost:4000/rate_distortion/" rel="alternate" type="text/html" title="Rate-distortion theory" /><published>2023-12-19T00:00:00+01:00</published><updated>2023-12-19T00:00:00+01:00</updated><id>http://localhost:4000/rate_distortion</id><content type="html" xml:base="http://localhost:4000/rate_distortion/"><![CDATA[<p>In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem.
 The rate-distortion theorem plays a crucial role in modern signal processing, especially in understanding the limit of data compression.
 I will try to keep the material short and concise.</p>
 
