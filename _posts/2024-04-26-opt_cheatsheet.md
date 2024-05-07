@@ -39,6 +39,7 @@ f(y) \geq f(x) + \langle \nabla f(x), y-x \rangle
 $$
 
 Geometrically, this definition implies that the function lies above its tangent line at any point (see Figure 1).
+Or, equivalently, the vector $$(\nabla f(x), -1) \in \mathbb{R}^{d+1}$$ defines a supporting hyperplane to the epigraph of $$f$$ at $$(x, f(x))$$.
 
 **(c) (Second-order characterization)**
 Suppose that $f$ is twice differentiable.
@@ -139,7 +140,9 @@ $$
 f(y) \geq f(x) + \langle g, y-x \rangle
 $$
 
-Also, we define a subdifferential $$\partial f(x)$$ denoting the set of all subgradients of $$f$$ at $$x$$.
+We define a subdifferential $$\partial f(x)$$ denoting the set of all subgradients of $$f$$ at $$x$$.
+Geometrically, $$g$$ is a subgradient of $$f$$ at $$x$$ if the hyperplane defined by $$(g, -1)\in\mathbb{R}^{d+1}$$ supports the epigraph of $$f$$ at $$(x, f(x))$$. 
+
 
 **(c) Properties of subgradients.**
 
