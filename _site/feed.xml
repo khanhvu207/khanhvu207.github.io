@@ -1,6 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-07T16:35:36+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Mathematical optimization cheatsheet</title><link href="http://localhost:4000/opt_cheatsheet/" rel="alternate" type="text/html" title="Mathematical optimization cheatsheet" /><published>2024-04-26T00:00:00+02:00</published><updated>2024-04-26T00:00:00+02:00</updated><id>http://localhost:4000/opt_cheatsheet</id><content type="html" xml:base="http://localhost:4000/opt_cheatsheet/"><![CDATA[<p>In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.
-In the first part, I will recite the definitions of convexity, smoothness, and strong convexity, which are fundamental properties in the realm of convex optimization on differentiable functions.
-In the second part, we will relax to the case of non-differentiable functions and discuss subgradients and proximal operators.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-24T21:47:14+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Weekly Math Puzzle - Week 21/2024</title><link href="http://localhost:4000/aime00_12/" rel="alternate" type="text/html" title="Weekly Math Puzzle - Week 21/2024" /><published>2024-05-24T00:00:00+02:00</published><updated>2024-05-24T00:00:00+02:00</updated><id>http://localhost:4000/aime00_12</id><content type="html" xml:base="http://localhost:4000/aime00_12/"><![CDATA[<p>Me and a friend at ETHZ started to solve some math problems for fun, and we plan to do this weekly.
+To keep track of my progress, I will try to post the solutions to the problems (if I manage to solve them) on my website.
+Also, please spare me if the solutions are not the most elegant ones, I am still learning :)</p>
+
+<p>This week we started with a problem from the AIME (American Invitational Mathematics Examination) in the year 2000.</p>
+
+<h2 id="aime-i-2000-problem-12">AIME I 2000 Problem 12</h2>
+
+<p>Given a function \(f\) for which</p>
+
+\[f(x) = f(398 - x) = f(2158 - x) = f(3214 - x)\]
+
+<p>holds for all real $x,$ what is the largest number of different values that can appear in the list \(f(0),f(1),f(2),\ldots,f(999)\)?</p>
+
+<h2 id="my-solution">My solution</h2>
+
+<p>Since the property holds for all real $x$, we can start to plug in around the given values to see if we can find a pattern:</p>
+
+\[\begin{align}
+f(x) &amp;= f(398 - x) = f(2158 - x) = f(3214 - x)\\
+&amp;= f(398 - (2158 - x)) = f(x - 1760) \tag{1}\\
+&amp;= f(398 - (3214 - x)) = f(x - 2816) \tag{2}\\
+&amp;= f(2158 - (3214 - x)) = f(x - 1056) \tag{3}\\
+&amp;= f(2158 - (398 - x)) = f(x + 1760) \tag{4}\\
+&amp;= f(3214 - (398 - x)) = f(x + 2816) \tag{5}\\
+&amp;= f(3214 - (2158 - x)) = f(x + 1056) \tag{6}
+\end{align}\]
+
+<p>From \((6)\), we can see that the function is periodic with a period of 1056.
+But we can do better than that! Consider plugging \((3)\) into \((4)\), we get:</p>
+
+\[f(x) = f(x - 1056 + 1760) = f(x + 704)\]
+
+<p>This means that the function is also periodic with a period of 704 and so on if we plug in the other equations.
+Starting with a tuple \((1056, 1760, 2816)\), we can generate all the periods of the function by subtracting the smaller number from the larger one.
+For instance, we have the following chain of periods:</p>
+
+\[(1056, 1760, 2816) \rightarrow (704, 1056, 1760) \rightarrow (352, 704, 1056) \rightarrow (352, 352, 704) \rightarrow (0, 352, 352) \rightarrow (0, 0, 352)\]
+
+<p>It holds that \(f(x) = f(x + 352)\).
+This means that the function is periodic with a period of 352, and we can not get any further with this construction.
+So the answer must be at most 352 for now.</p>
+
+<p>For \(x\in[0,398]\), the function \(f(x)\) is symmetric since \(f(x) = f(398 - x)\).
+Furthermore, the function is also symmetric for \(x\in[0, 46]\) since:</p>
+
+\[\begin{align}
+f(x) = f(398 - (352 - x)) = f(46 - x)
+\end{align}\]
+
+<p>Hence, it can only be for \(x\in[\frac{46}{2}, \frac{398}{2}]\) that the function \(f(x)\) can take on different values.
+So the answer is \(199-23+1=\boxed{177}\).</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[Me and a friend at ETHZ started to solve some math problems for fun, and we plan to do this weekly. To keep track of my progress, I will try to post the solutions to the problems (if I manage to solve them) on my website. Also, please spare me if the solutions are not the most elegant ones, I am still learning :)]]></summary></entry><entry><title type="html">Mathematical optimization cheatsheet</title><link href="http://localhost:4000/opt_cheatsheet/" rel="alternate" type="text/html" title="Mathematical optimization cheatsheet" /><published>2024-04-26T00:00:00+02:00</published><updated>2024-04-26T00:00:00+02:00</updated><id>http://localhost:4000/opt_cheatsheet</id><content type="html" xml:base="http://localhost:4000/opt_cheatsheet/"><![CDATA[<p>In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.</p>
+
+<p>In the first part, I will recite the definitions of convexity, smoothness, and strong convexity, which are fundamental properties in the realm of convex optimization on differentiable functions.
+In the second part, we will relax to the case of non-differentiable functions and discuss subgradients, proximal operators and other concepts that are essential in the analysis of non-smooth optimization algorithms.</p>
 
 <h1 id="1-convex-optimization">1. Convex optimization</h1>
 
@@ -56,7 +108,7 @@ If $f$ is $L$-smooth, then $f$ is also $L’$-smooth for all $L’ \geq L$.
 Alternatively, we can use the following equivalent definition:</p>
 
 <p><strong>(b) (Lipschitz continuity of the gradient)</strong>
-\(\| f(x) - \nabla f(y)\| \leq L\| x-y\|\) for all \(x, y \in X\).</p>
+\(\| \nabla f(x) - \nabla f(y)\| \leq L\| x-y\|\) for all \(x, y \in X\).</p>
 
 <p><strong>(c)</strong>
 \(g(x) = \frac{L}{2} x^\top x - f(x)\) is convex.</p>
@@ -103,7 +155,7 @@ Alternatively, we can use the following equivalent definition:</p>
 
 <p>In this section, we define the function \(f\) similar to before, but we make no assumption of differentiability.</p>
 
-<h2 id="22-non-smooth-functions">2.2 Non-smooth functions</h2>
+<h2 id="21-non-smooth-functions">2.1 Non-smooth functions</h2>
 
 <p><strong>(a) Definition.</strong> 
 If \(f\) is not differentiable, or if the gradients of \(f\) exists but are not Lipschitz continuous, then we say that \(f\) is non-smooth.
@@ -125,7 +177,27 @@ Geometrically, \(g\) is a subgradient of \(f\) at \(x\) if the hyperplane define
   <li>If \(f\) is convex, then \(\partial f(x)\) is non-empty for all \(x\in \text{int(dom)}(f)\).</li>
   <li>If \(\text{dom}(f)\) is convex and \(\partial f(x) \neq \emptyset\) for all \(x\in \text{dom}(f)\), then \(f\) is convex.</li>
   <li><strong>(Subgradient optimality condition)</strong> If \(\mathbf{0} \in \partial f(x)\), then \(x\) is a global minimum of \(f\).</li>
-</ul>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms. In the first part, I will recite the definitions of convexity, smoothness, and strong convexity, which are fundamental properties in the realm of convex optimization on differentiable functions. In the second part, we will relax to the case of non-differentiable functions and discuss subgradients and proximal operators.]]></summary></entry><entry><title type="html">Rate-distortion theory</title><link href="http://localhost:4000/rate_distortion/" rel="alternate" type="text/html" title="Rate-distortion theory" /><published>2023-12-19T00:00:00+01:00</published><updated>2023-12-19T00:00:00+01:00</updated><id>http://localhost:4000/rate_distortion</id><content type="html" xml:base="http://localhost:4000/rate_distortion/"><![CDATA[<p>In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem.
+</ul>
+
+<h2 id="22-dual-norms">2.2 Dual norms</h2>
+
+<p><strong>(a) Definition.</strong>
+Given a general norm \(\|\cdot\|\), the dual norm \(\|\cdot\|_*\) is defined as</p>
+
+\[\|z\|_* = \max_{\|x\|\leq 1} \langle z, x \rangle\]
+
+<p><strong>(b) Examples.</strong>
+In general, \(\|\cdot\|_p\) is the dual norm of \(\|\cdot\|_q\) if \(\frac{1}{p} + \frac{1}{q} = 1\).</p>
+
+<ul>
+  <li>The dual norm of the \(\ell_1\) norm is the \(\ell_\infty\) norm.</li>
+  <li>The dual norm of the \(\ell_2\) norm is the \(\ell_2\) norm.</li>
+</ul>
+
+<p><strong>(c) Interpretation of dual norms.</strong>
+(WIP)</p>
+
+<h2 id="23-proximal-operators">2.3 Proximal operators</h2>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.]]></summary></entry><entry><title type="html">Rate-distortion theory</title><link href="http://localhost:4000/rate_distortion/" rel="alternate" type="text/html" title="Rate-distortion theory" /><published>2023-12-19T00:00:00+01:00</published><updated>2023-12-19T00:00:00+01:00</updated><id>http://localhost:4000/rate_distortion</id><content type="html" xml:base="http://localhost:4000/rate_distortion/"><![CDATA[<p>In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem.
 The rate-distortion theorem plays a crucial role in modern signal processing, especially in understanding the limit of data compression.
 I will try to keep the material short and concise.</p>
 

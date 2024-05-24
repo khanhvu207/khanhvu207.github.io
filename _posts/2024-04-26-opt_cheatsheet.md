@@ -6,8 +6,9 @@ published: true
 ---
 
 In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.
+
 In the first part, I will recite the definitions of convexity, smoothness, and strong convexity, which are fundamental properties in the realm of convex optimization on differentiable functions.
-In the second part, we will relax to the case of non-differentiable functions and discuss subgradients and proximal operators.
+In the second part, we will relax to the case of non-differentiable functions and discuss subgradients, proximal operators and other concepts that are essential in the analysis of non-smooth optimization algorithms.
 
 # 1. Convex optimization
 
@@ -73,7 +74,7 @@ If $f$ is $L$-smooth, then $f$ is also $L'$-smooth for all $L' \geq L$.
 Alternatively, we can use the following equivalent definition:
 
 **(b) (Lipschitz continuity of the gradient)**
-$$\| f(x) - \nabla f(y)\| \leq L\| x-y\|$$ for all $$x, y \in X$$.
+$$\| \nabla f(x) - \nabla f(y)\| \leq L\| x-y\|$$ for all $$x, y \in X$$.
 
 **(c)**
 $$g(x) = \frac{L}{2} x^\top x - f(x)$$ is convex.
@@ -126,7 +127,7 @@ Figure 1 above illustrates the complementary roles of smoothness and strong conv
 
 In this section, we define the function $$f$$ similar to before, but we make no assumption of differentiability.
 
-## 2.2 Non-smooth functions
+## 2.1 Non-smooth functions
 
 **(a) Definition.** 
 If $$f$$ is not differentiable, or if the gradients of $$f$$ exists but are not Lipschitz continuous, then we say that $$f$$ is non-smooth.
@@ -150,3 +151,23 @@ Geometrically, $$g$$ is a subgradient of $$f$$ at $$x$$ if the hyperplane define
 - If $$f$$ is convex, then $$\partial f(x)$$ is non-empty for all $$x\in \text{int(dom)}(f)$$.
 - If $$\text{dom}(f)$$ is convex and $$\partial f(x) \neq \emptyset$$ for all $$x\in \text{dom}(f)$$, then $$f$$ is convex.
 - **(Subgradient optimality condition)** If $$\mathbf{0} \in \partial f(x)$$, then $$x$$ is a global minimum of $$f$$.
+
+## 2.2 Dual norms
+
+**(a) Definition.**
+Given a general norm $$\|\cdot\|$$, the dual norm $$\|\cdot\|_*$$ is defined as
+
+$$
+\|z\|_* = \max_{\|x\|\leq 1} \langle z, x \rangle
+$$
+
+**(b) Examples.**
+In general, $$\|\cdot\|_p$$ is the dual norm of $$\|\cdot\|_q$$ if $$\frac{1}{p} + \frac{1}{q} = 1$$.
+
+- The dual norm of the $$\ell_1$$ norm is the $$\ell_\infty$$ norm.
+- The dual norm of the $$\ell_2$$ norm is the $$\ell_2$$ norm.
+
+**(c) Interpretation of dual norms.**
+(WIP)
+
+## 2.3 Proximal operators

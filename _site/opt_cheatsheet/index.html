@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Mathematical optimization cheatsheet - EntropyMaxxing</title>
-<meta name="description" content="In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms. In the first part, I will recite the definitions of convexity, smoothness, and strong convexity, which are fundamental properties in the realm of convex optimization on differentiable functions. In the second part, we will relax to the case of non-differentiable functions and discuss subgradients and proximal operators.">
+<meta name="description" content="In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.">
 
 
   <meta name="author" content="Khánh Vũ">
@@ -26,7 +26,7 @@
 <meta property="og:url" content="http://localhost:4000/opt_cheatsheet/">
 
 
-  <meta property="og:description" content="In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms. In the first part, I will recite the definitions of convexity, smoothness, and strong convexity, which are fundamental properties in the realm of convex optimization on differentiable functions. In the second part, we will relax to the case of non-differentiable functions and discuss subgradients and proximal operators.">
+  <meta property="og:description" content="In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.">
 
 
 
@@ -258,9 +258,10 @@
     
       <h1 id="page-title" class="page__title">Mathematical optimization cheatsheet</h1>
     
-    <p>In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.
-In the first part, I will recite the definitions of convexity, smoothness, and strong convexity, which are fundamental properties in the realm of convex optimization on differentiable functions.
-In the second part, we will relax to the case of non-differentiable functions and discuss subgradients and proximal operators.</p>
+    <p>In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.</p>
+
+<p>In the first part, I will recite the definitions of convexity, smoothness, and strong convexity, which are fundamental properties in the realm of convex optimization on differentiable functions.
+In the second part, we will relax to the case of non-differentiable functions and discuss subgradients, proximal operators and other concepts that are essential in the analysis of non-smooth optimization algorithms.</p>
 
 <h1 id="1-convex-optimization">1. Convex optimization</h1>
 
@@ -316,7 +317,7 @@ If $f$ is $L$-smooth, then $f$ is also $L’$-smooth for all $L’ \geq L$.
 Alternatively, we can use the following equivalent definition:</p>
 
 <p><strong>(b) (Lipschitz continuity of the gradient)</strong>
-\(\| f(x) - \nabla f(y)\| \leq L\| x-y\|\) for all \(x, y \in X\).</p>
+\(\| \nabla f(x) - \nabla f(y)\| \leq L\| x-y\|\) for all \(x, y \in X\).</p>
 
 <p><strong>(c)</strong>
 \(g(x) = \frac{L}{2} x^\top x - f(x)\) is convex.</p>
@@ -363,7 +364,7 @@ Alternatively, we can use the following equivalent definition:</p>
 
 <p>In this section, we define the function \(f\) similar to before, but we make no assumption of differentiability.</p>
 
-<h2 id="22-non-smooth-functions">2.2 Non-smooth functions</h2>
+<h2 id="21-non-smooth-functions">2.1 Non-smooth functions</h2>
 
 <p><strong>(a) Definition.</strong> 
 If \(f\) is not differentiable, or if the gradients of \(f\) exists but are not Lipschitz continuous, then we say that \(f\) is non-smooth.
@@ -387,13 +388,33 @@ Geometrically, \(g\) is a subgradient of \(f\) at \(x\) if the hyperplane define
   <li><strong>(Subgradient optimality condition)</strong> If \(\mathbf{0} \in \partial f(x)\), then \(x\) is a global minimum of \(f\).</li>
 </ul>
 
+<h2 id="22-dual-norms">2.2 Dual norms</h2>
+
+<p><strong>(a) Definition.</strong>
+Given a general norm \(\|\cdot\|\), the dual norm \(\|\cdot\|_*\) is defined as</p>
+
+\[\|z\|_* = \max_{\|x\|\leq 1} \langle z, x \rangle\]
+
+<p><strong>(b) Examples.</strong>
+In general, \(\|\cdot\|_p\) is the dual norm of \(\|\cdot\|_q\) if \(\frac{1}{p} + \frac{1}{q} = 1\).</p>
+
+<ul>
+  <li>The dual norm of the \(\ell_1\) norm is the \(\ell_\infty\) norm.</li>
+  <li>The dual norm of the \(\ell_2\) norm is the \(\ell_2\) norm.</li>
+</ul>
+
+<p><strong>(c) Interpretation of dual norms.</strong>
+(WIP)</p>
+
+<h2 id="23-proximal-operators">2.3 Proximal operators</h2>
+
 
 <!-- <ul class="taxonomy__index">
   
   
     <li>
       <a href="#2024">
-        <strong>2024</strong> <span class="taxonomy__count">1</span>
+        <strong>2024</strong> <span class="taxonomy__count">2</span>
       </a>
     </li>
   
@@ -411,6 +432,46 @@ Geometrically, \(g\) is a subgradient of \(f\) at \(x\) if the hyperplane define
   <section id="2024" class="taxonomy__section">
     <h2 class="archive__subtitle">2024</h2>
     <div class="entries-list">
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/aime00_12/" rel="permalink">Weekly Math Puzzle - Week 21/2024
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Me and a friend at ETHZ started to solve some math problems for fun, and we plan to do this weekly.
+To keep track of my progress, I will try to post the solu...</p>
+  </article>
+</div>
+
       
         
 
@@ -447,7 +508,8 @@ Geometrically, \(g\) is a subgradient of \(f\) at \(x\) if the hyperplane define
 
 
     <p class="archive__item-excerpt" itemprop="description">In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.
-In the first part, I will recite the definiti...</p>
+
+</p>
   </article>
 </div>
 

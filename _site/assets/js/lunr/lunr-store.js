@@ -16,4 +16,10 @@ var store = [{
         "tags": [],
         "url": "/opt_cheatsheet/",
         "teaser": null
+      },{
+        "title": "Weekly Math Puzzle - Week 21/2024",
+        "excerpt":"Me and a friend at ETHZ started to solve some math problems for fun, and we plan to do this weekly. To keep track of my progress, I will try to post the solutions to the problems (if I manage to solve them) on my website. Also, please spare me...","categories": [],
+        "tags": [],
+        "url": "/aime00_12/",
+        "teaser": null
       }]
