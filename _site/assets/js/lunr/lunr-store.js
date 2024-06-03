@@ -20,6 +20,12 @@ var store = [{
         "title": "Weekly Math Puzzle - Week 21/2024",
         "excerpt":"Me and a friend at ETHZ started to solve some math problems for fun, and we plan to do this weekly. To keep track of my progress, I will try to post the solutions to the problems (if I manage to solve them) on my website. Also, please spare me...","categories": [],
         "tags": [],
-        "url": "/aime00_12/",
+        "url": "/weekly_math_2124/",
+        "teaser": null
+      },{
+        "title": "Weekly Math Puzzle - Week 22/2024",
+        "excerpt":"This week we decided to level up the difficulty by attempting two problems from the Putnam competition. Problem 1 (2018 Putnam A5) Let \\(f:\\mathbb{R}\\rightarrow\\mathbb{R}\\) be an indefinitely differentiable function satisfying \\(f(0)=0\\), \\(f(1)=1\\), and \\(f(x)\\geq 0\\) for all \\(x\\in\\mathbb{R}\\). Show that there exists a positive integer $n$ and a real number...","categories": [],
+        "tags": [],
+        "url": "/weekly_math_2224/",
         "teaser": null
       }]

@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Mathematical optimization cheatsheet - EntropyMaxxing</title>
-<meta name="description" content="In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.">
+<!-- begin _includes/seo.html --><title>Weekly Math Puzzle - Week 22/2024 - EntropyMaxxing</title>
+<meta name="description" content="This week we decided to level up the difficulty by attempting two problems from the Putnam competition.">
 
 
   <meta name="author" content="Khánh Vũ">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="EntropyMaxxing">
-<meta property="og:title" content="Mathematical optimization cheatsheet">
-<meta property="og:url" content="http://localhost:4000/opt_cheatsheet/">
+<meta property="og:title" content="Weekly Math Puzzle - Week 22/2024">
+<meta property="og:url" content="http://localhost:4000/weekly_math_2224/">
 
 
-  <meta property="og:description" content="In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2024-04-26T00:00:00+02:00">
+  <meta property="og:description" content="This week we decided to level up the difficulty by attempting two problems from the Putnam competition.">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2024-06-03T00:00:00+02:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/opt_cheatsheet/">
+
+<link rel="canonical" href="http://localhost:4000/weekly_math_2224/">
 
 
 
@@ -256,157 +256,30 @@
 
   <div class="archive">
     
-      <h1 id="page-title" class="page__title">Mathematical optimization cheatsheet</h1>
+      <h1 id="page-title" class="page__title">Weekly Math Puzzle - Week 22/2024</h1>
     
-    <p>In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.</p>
+    <p>This week we decided to level up the difficulty by attempting two problems from the Putnam competition.</p>
 
-<p>In the first part, I will recite the definitions of convexity, smoothness, and strong convexity, which are fundamental properties in the realm of convex optimization on differentiable functions.
-In the second part, we will relax to the case of non-differentiable functions and discuss subgradients, proximal operators and other concepts that are essential in the analysis of non-smooth optimization algorithms.</p>
+<h2 id="problem-1-2018-putnam-a5">Problem 1 (2018 Putnam A5)</h2>
 
-<h1 id="1-convex-optimization">1. Convex optimization</h1>
+<p>Let \(f:\mathbb{R}\rightarrow\mathbb{R}\) be an indefinitely differentiable function satisfying \(f(0)=0\), \(f(1)=1\), and \(f(x)\geq 0\) for all \(x\in\mathbb{R}\).
+Show that there exists a positive integer $n$ and a real number \(x\) such that \(f^{(n)}(x)&lt;0\).</p>
 
-<p>Let us define a function $f: \text{dom}(f)\rightarrow \mathbb{R}$ with $\text{dom}(f) \subseteq \mathbb{R}^d$.
-We assume that $f$ is differentiable, meaning that the gradient $\nabla f(x) \in \mathbb{R}^d$ exists $\forall x \in \text{dom}(f)$.</p>
+<h3 id="my-approach">My approach</h3>
 
-<center>
-    <figure>
-        <img src="../assets/images/smooth_strong_convex.png" alt="smoothness and strong convexity illustration" style="display: inline-block;" />
-        <figcaption> Figure 1. Smoothness and strong convexity play complementary roles in bounding the function values. </figcaption>
-    </figure>
-</center>
+<p>If there exists \(x&lt;y\in\mathbb{R}\) such that \(f(x)&gt;f(y)\), then by the mean value theorem, there exists a point \(c\in(x,y)\) such that \(f'(c)=\frac{f(x)-f(y)}{x-y}&lt;0\).
+So the only interesting case is when \(f\) is non-decreasing on \(\mathbb{R}\), i.e. \(f'(x)\geq 0\) for all \(x\in\mathbb{R}\).
+In this case, \(f(x)=f'(x)=0\) for all \(x\in(-\infty,0]\).</p>
 
-<h2 id="11-convexity">1.1 Convexity</h2>
+<p>From the mean value theorem, there exists some \(c_1\in(0,1)\) such that</p>
 
-<p><strong>(a) Definition.</strong>
-A function $f$ is convex if its domain is a convex set and if for all $x, y \in \text{dom}(f)$ and $\theta \in [0, 1]$, we have</p>
+\[f'(c_1)=\frac{f(1)-f(0)}{1-0}=1\]
 
-\[f(\theta x + (1-\theta)y) \leq \theta f(x) + (1-\theta)f(y)\]
+<p>As before, we can assume that \(f'(x)\) is non-decreasing on \(\mathbb{R}\), and that \(\forall x\in(-\infty,0], f'(x)=0\), \(f'(c_1)=1\).
+Applying the same argument for higher-order derivatives, we can construct a sequence \(1&gt;c_1&gt;c_2&gt;\ldots&gt;c_n&gt;0\) such that \(f^{(n)}(c_n)=1\).</p>
 
-<p>This definition is also known as the Jensen’s inequality.
-Oftentimes, it is more convenient to work with one of the following equivalent definitions:</p>
-
-<p><strong>(b) (First-order characterization)</strong>
-\(f(y) \geq f(x) + \langle \nabla f(x), y-x \rangle\)</p>
-
-<p>Geometrically, this definition implies that the function lies above its tangent line at any point (see Figure 1).
-Or, equivalently, the vector \((\nabla f(x), -1) \in \mathbb{R}^{d+1}\) defines a supporting hyperplane to the epigraph of \(f\) at \((x, f(x))\).</p>
-
-<p><strong>(c) (Second-order characterization)</strong>
-Suppose that $f$ is twice differentiable.
-A function $f$ is convex if its domain is a convex set and if for all $x \in \text{dom}(f)$, we have</p>
-
-\[\nabla^2 f(x) \succeq 0\]
-
-<p>where $\nabla^2 f(x)$ is the Hessian matrix of $f$ at $x$.</p>
-
-<p><strong>(d) (Monotonicity of the gradient)</strong>
-A function $f$ is convex if its domain is a convex set and if for all $x, y \in \text{dom}(f)$, we have</p>
-
-\[\langle \nabla f(y) - \nabla f(x), y-x \rangle \geq 0\]
-
-<h2 id="12-smooth-functions">1.2 Smooth functions</h2>
-
-<p><strong>(a) Definition.</strong>
-Let $X\subseteq \text{dom}(f)$ be a convex set and let $L &gt; 0$. A function $f$ is $L$-smooth on $X$ if for all $x, y \in X$, we have</p>
-
-\[f(y) \leq f(x) + \langle \nabla f(x), y-x \rangle + \frac{L}{2}\|y-x\|^2\]
-
-<p>One can think of this definition as Lipschitz continuity of the gradient map.
-When $f$ is twice differentiable, smoothness implies that the largest eigenvalue of the Hessian is bounded by $L$, e.g. \(\|\nabla^2 f(x)\| \leq L\).
-If $f$ is $L$-smooth, then $f$ is also $L’$-smooth for all $L’ \geq L$.
-Alternatively, we can use the following equivalent definition:</p>
-
-<p><strong>(b) (Lipschitz continuity of the gradient)</strong>
-\(\| \nabla f(x) - \nabla f(y)\| \leq L\| x-y\|\) for all \(x, y \in X\).</p>
-
-<p><strong>(c)</strong>
-\(g(x) = \frac{L}{2} x^\top x - f(x)\) is convex.</p>
-
-<p><strong>(d)</strong>
-\(\langle \nabla f(x) - \nabla f(y), x-y \rangle \leq L\|x-y\|^2\) for all \(x, y \in X\).</p>
-
-<p>These definitions are not actually equivalent, but they are related.
-We have the following relations:</p>
-
-\[[b] \Rightarrow [a] \Leftrightarrow [c] \Leftrightarrow [d]\]
-
-<p>If $f$ is additionally convex, then \([a] \Rightarrow [b]\).</p>
-
-<h2 id="13-strong-convexity">1.3 Strong convexity</h2>
-
-<p><strong>(a) Definition.</strong>
-Let $X\subseteq \text{dom}(f)$ be a convex set and let $\mu &gt; 0$. A function $f$ is $\mu$-strongly convex on $X$ if for all $x, y \in X$, we have</p>
-
-\[f(y) \geq f(x) + \langle \nabla f(x), y-x \rangle + \frac{\mu}{2}\|y-x\|^2\]
-
-<p>The notion of strong convexity complements the notion of smoothness.
-Strong convexity implies that the function grows at least quadratically.
-Moreover, $f$ is strongly convex implies that $f$ is strictly convex and has a unique minimizer.
-And similarly to smoothness, if $f$ is $\mu$-strongly convex, then $f$ is also $\mu’$-strongly convex for all $\mu’ \leq \mu$.
-Alternatively, we can use the following equivalent definition:</p>
-
-<p><strong>(b)</strong>
-\(\| f(x) - \nabla f(y)\| \geq \mu\| x-y\|\) for all \(x, y \in X\).</p>
-
-<p><strong>(c)</strong>
-\(g(x) = f(x) - \frac{\mu}{2} x^\top x\) is convex.</p>
-
-<p><strong>(d)</strong>
-\(\langle \nabla f(x) - \nabla f(y), x-y \rangle \geq \mu\|x-y\|^2\) for all \(x, y \in X\).</p>
-
-<p>The relations are as follows:</p>
-
-\[[b] \Leftarrow [a] \Leftrightarrow [c] \Leftrightarrow [d]\]
-
-<p>Figure 1 above illustrates the complementary roles of smoothness and strong convexity in bounding the function values.</p>
-
-<h1 id="2-non-smooth-optimization">2. Non-smooth optimization</h1>
-
-<p>In this section, we define the function \(f\) similar to before, but we make no assumption of differentiability.</p>
-
-<h2 id="21-non-smooth-functions">2.1 Non-smooth functions</h2>
-
-<p><strong>(a) Definition.</strong> 
-If \(f\) is not differentiable, or if the gradients of \(f\) exists but are not Lipschitz continuous, then we say that \(f\) is non-smooth.
-This definition is exactly the negation of the smoothness property.
-Examples of non-smooth functions include the absolute value function \(f(x) = |x|\), the hinge loss function \(f(x) = \max(0, 1-x)\), or many activation functions in neural networks such as the ReLU function \(f(x) = \max(0, x)\).</p>
-
-<p><strong>(b) Subgradients.</strong>
-A vector \(g \in \mathbb{R}^d\) is a subgradient of \(f\) at \(x\) if for all \(y \in \text{dom}(f)\), we have</p>
-
-\[f(y) \geq f(x) + \langle g, y-x \rangle\]
-
-<p>We define a subdifferential \(\partial f(x)\) denoting the set of all subgradients of \(f\) at \(x\).
-Geometrically, \(g\) is a subgradient of \(f\) at \(x\) if the hyperplane defined by \((g, -1)\in\mathbb{R}^{d+1}\) supports the epigraph of \(f\) at \((x, f(x))\).</p>
-
-<p><strong>(c) Properties of subgradients.</strong></p>
-
-<ul>
-  <li>If \(f\) is differentiable at \(x\in \text{dom}(f)\), then \(\partial f(x) \subseteq \{\nabla f(x)\}\), meaning that the subdifferential either contains the gradient or is empty.</li>
-  <li>If \(f\) is convex, then \(\partial f(x)\) is non-empty for all \(x\in \text{int(dom)}(f)\).</li>
-  <li>If \(\text{dom}(f)\) is convex and \(\partial f(x) \neq \emptyset\) for all \(x\in \text{dom}(f)\), then \(f\) is convex.</li>
-  <li><strong>(Subgradient optimality condition)</strong> If \(\mathbf{0} \in \partial f(x)\), then \(x\) is a global minimum of \(f\).</li>
-</ul>
-
-<h2 id="22-dual-norms">2.2 Dual norms</h2>
-
-<p><strong>(a) Definition.</strong>
-Given a general norm \(\|\cdot\|\), the dual norm \(\|\cdot\|_*\) is defined as</p>
-
-\[\|z\|_* = \max_{\|x\|\leq 1} \langle z, x \rangle\]
-
-<p><strong>(b) Examples.</strong>
-In general, \(\|\cdot\|_p\) is the dual norm of \(\|\cdot\|_q\) if \(\frac{1}{p} + \frac{1}{q} = 1\).</p>
-
-<ul>
-  <li>The dual norm of the \(\ell_1\) norm is the \(\ell_\infty\) norm.</li>
-  <li>The dual norm of the \(\ell_2\) norm is the \(\ell_2\) norm.</li>
-</ul>
-
-<p><strong>(c) Interpretation of dual norms.</strong>
-(WIP)</p>
-
-<h2 id="23-proximal-operators">2.3 Proximal operators</h2>
+<p>From this, we can make \(c_n\) abitrarily close to 0 as \(n\rightarrow\infty\), implying that \(f^{(n)}\) is discontinuous at \(x=0\), e.g. \(f^{(n)}\) becomes a step function at 0.
+This contradicts the assumption that \(f\) is indefinitely differentiable (derivatives of all orders must be continuous), so it is not true that \(f^{(n)}(x)\geq 0\) for all \(n\in\mathbb{N}\) and \(x\in\mathbb{R}\).</p>
 
 
 <!-- <ul class="taxonomy__index">
@@ -460,7 +333,7 @@ In general, \(\|\cdot\|_p\) is the dual norm of \(\|\cdot\|_q\) if \(\frac{1}{p}
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          less than 1 minute read
+          1 minute read
         
       </span>
     

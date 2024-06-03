@@ -23,7 +23,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="EntropyMaxxing">
 <meta property="og:title" content="Weekly Math Puzzle - Week 21/2024">
-<meta property="og:url" content="http://localhost:4000/aime00_12/">
+<meta property="og:url" content="http://localhost:4000/weekly_math_2124/">
 
 
   <meta property="og:description" content="Me and a friend at ETHZ started to solve some math problems for fun, and we plan to do this weekly. To keep track of my progress, I will try to post the solutions to the problems (if I manage to solve them) on my website. Also, please spare me if the solutions are not the most elegant ones, I am still learning :)">
@@ -45,7 +45,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/aime00_12/">
+<link rel="canonical" href="http://localhost:4000/weekly_math_2124/">
 
 
 
@@ -266,13 +266,15 @@ Also, please spare me if the solutions are not the most elegant ones, I am still
 
 <h2 id="aime-i-2000-problem-12">AIME I 2000 Problem 12</h2>
 
+<p><a href="https://artofproblemsolving.com/wiki/index.php/2000_AIME_I_Problems">Link to the problem</a></p>
+
 <p>Given a function \(f\) for which</p>
 
 \[f(x) = f(398 - x) = f(2158 - x) = f(3214 - x)\]
 
 <p>holds for all real $x,$ what is the largest number of different values that can appear in the list \(f(0),f(1),f(2),\ldots,f(999)\)?</p>
 
-<h2 id="my-solution">My solution</h2>
+<h3 id="my-solution">My solution</h3>
 
 <p>Since the property holds for all real $x$, we can start to plug in around the given values to see if we can find a pattern:</p>
 
@@ -297,15 +299,15 @@ For instance, we have the following chain of periods:</p>
 
 \[(1056, 1760, 2816) \rightarrow (704, 1056, 1760) \rightarrow (352, 704, 1056) \rightarrow (352, 352, 704) \rightarrow (0, 352, 352) \rightarrow (0, 0, 352)\]
 
-<p>It holds that \(f(x) = f(x + 352)\).
+<p>So it holds that \(f(x) = f(x + 352)\).
 This means that the function is periodic with a period of 352, and we can not get any further with this construction.
-So the answer must be at most 352 for now.</p>
+The answer must be at most 352 for now.</p>
 
 <p>For \(x\in[0,398]\), the function \(f(x)\) is symmetric since \(f(x) = f(398 - x)\).
 Furthermore, the function is also symmetric for \(x\in[0, 46]\) since:</p>
 
 \[\begin{align}
-f(x) = f(398 - (352 - x)) = f(46 - x)
+f(x) = f(398 - (x + 352)) = f(46 - x)
 \end{align}\]
 
 <p>Hence, it can only be for \(x\in[\frac{46}{2}, \frac{398}{2}]\) that the function \(f(x)\) can take on different values.
@@ -317,7 +319,7 @@ So the answer is \(199-23+1=\boxed{177}\).</p>
   
     <li>
       <a href="#2024">
-        <strong>2024</strong> <span class="taxonomy__count">2</span>
+        <strong>2024</strong> <span class="taxonomy__count">3</span>
       </a>
     </li>
   
@@ -345,7 +347,48 @@ So the answer is \(199-23+1=\boxed{177}\).</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/aime00_12/" rel="permalink">Weekly Math Puzzle - Week 21/2024
+        <a href="/weekly_math_2224/" rel="permalink">Weekly Math Puzzle - Week 22/2024
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          less than 1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">This week we decided to level up the difficulty by attempting two problems from the Putnam competition.
+
+</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/weekly_math_2124/" rel="permalink">Weekly Math Puzzle - Week 21/2024
 </a>
       
     </h2>
