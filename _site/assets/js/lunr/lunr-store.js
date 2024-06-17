@@ -28,4 +28,10 @@ var store = [{
         "tags": [],
         "url": "/weekly_math_2224/",
         "teaser": null
+      },{
+        "title": "Weekly Math Puzzle - Week 24/2024",
+        "excerpt":"Putnam’s problems were tought so we decided to go back to the basics this week. Here are a couple of problems from Problem-solving strategies by Arthur Engel. We think it might be a good idea to stick to a textbook for a while. Problem 1 (Ch. 1, Problem 31) Let...","categories": [],
+        "tags": [],
+        "url": "/weekly_math_2424/",
+        "teaser": null
       }]

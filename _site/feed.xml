@@ -1,4 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-10T13:52:21+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Weekly Math Puzzle - Week 22/2024</title><link href="http://localhost:4000/weekly_math_2224/" rel="alternate" type="text/html" title="Weekly Math Puzzle - Week 22/2024" /><published>2024-06-03T00:00:00+02:00</published><updated>2024-06-03T00:00:00+02:00</updated><id>http://localhost:4000/weekly_math_2224</id><content type="html" xml:base="http://localhost:4000/weekly_math_2224/"><![CDATA[<p>This week we decided to level up the difficulty by attempting two problems from the Putnam competition.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-17T22:20:05+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Weekly Math Puzzle - Week 24/2024</title><link href="http://localhost:4000/weekly_math_2424/" rel="alternate" type="text/html" title="Weekly Math Puzzle - Week 24/2024" /><published>2024-06-12T00:00:00+02:00</published><updated>2024-06-12T00:00:00+02:00</updated><id>http://localhost:4000/weekly_math_2424</id><content type="html" xml:base="http://localhost:4000/weekly_math_2424/"><![CDATA[<p>Putnam’s problems were tought so we decided to go back to the basics this week.
+Here are a couple of problems from <em>Problem-solving strategies</em> by Arthur Engel.
+We think it might be a good idea to stick to a textbook for a while.</p>
+
+<h2 id="problem-1-ch-1-problem-31">Problem 1 (Ch. 1, Problem 31)</h2>
+
+<p>Let \(a_1, a_2, \ldots, a_n\) be a permutation of the numbers \(1, 2, \ldots, n\).
+If \(n\) is odd, then the product \(P=(a_1-1)(a_2-2)\ldots(a_n-n)\) is even.
+Prove this.</p>
+
+<p><em>My approach</em>.
+Assume that the product \(P\) is odd.
+Then, all the factors must be odd, meaning that \(a_i-i\) must be odd for all \(i=1,2,\ldots,n\).
+This is the same as saying that the parity of \(a_i\) is different from the parity of \(i\), e.g. when \(i\) is odd, \(a_i\) must be even and vice versa.
+However, since \(n\) is odd, we have more odd numbers than even numbers in the set \(\{1,2,\ldots,n\}\).
+So it is not possible to match all the odd \(a_i\) with the even \(i\).
+Hence, the product \(P\) must be even.</p>
+
+<h2 id="problem-2-ch-1-problem-8">Problem 2 (Ch. 1, Problem 8)</h2>
+
+<p>There is a positive integer in each square of a rectangular table.
+In each move, you may double each number in a row or subtract 1 from each number of a column.
+Prove that you can reach a table of zeros by a sequence of these permitted moves.</p>
+
+<p><em>My approach</em>. 
+Notice that if you can solve the case of a \(n\times 1\) table, you can solve the case of a \(n\times m\) table by solving the \(m\) columns one by one.</p>
+
+<p>So, let’s focus on the case of a \(n\times 1\) table.
+Let’s denote the numbers in the table as \(a_1, a_2, \ldots, a_n\).
+Without the loss of generality, we can assume that \(a_1 \leq a_2 \leq \ldots \leq a_n\).
+By subtracting 1 from this table \(a_1-1\) times, we get \(a_1=1\) and \(a_i = a_i - a_1 + 1\) for all \(i=2,3,\ldots,n\).
+If there exists an index \(j\) such that \(a_j &gt; 1\) and \(a_{i&lt;j}=1\), we can double the rows \(i=1,2,\ldots,j-1\) as long as the value of \(a_i\) does not exceed \(a_j\). 
+Then, we can repeatedly substract 1 until the smallest number in the table becomes 1 again.
+By repeating this process, we can reach a table of ones.
+And by substracting 1 from the table of ones, we can reach a table of zeros.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[Putnam’s problems were tought so we decided to go back to the basics this week. Here are a couple of problems from Problem-solving strategies by Arthur Engel. We think it might be a good idea to stick to a textbook for a while.]]></summary></entry><entry><title type="html">Weekly Math Puzzle - Week 22/2024</title><link href="http://localhost:4000/weekly_math_2224/" rel="alternate" type="text/html" title="Weekly Math Puzzle - Week 22/2024" /><published>2024-06-03T00:00:00+02:00</published><updated>2024-06-03T00:00:00+02:00</updated><id>http://localhost:4000/weekly_math_2224</id><content type="html" xml:base="http://localhost:4000/weekly_math_2224/"><![CDATA[<p>This week we decided to level up the difficulty by attempting two problems from the Putnam competition.</p>
 
 <h2 id="problem-1-2018-putnam-a5">Problem 1 (2018 Putnam A5)</h2>
 

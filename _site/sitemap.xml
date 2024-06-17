@@ -21,9 +21,16 @@
 <lastmod>2024-06-03T00:00:00+02:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/weekly_math_2424/</loc>
+<lastmod>2024-06-12T00:00:00+02:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/about/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page2/</loc>
 </url>
 </urlset>
