@@ -1,6 +1,6 @@
 ---
 layout: posts
-title: An upper bound for the Kullback-Leibler divergence 
+title: An upper bound for the Kullback Leibler divergence 
 usemathjax: true
 published: true
 ---
