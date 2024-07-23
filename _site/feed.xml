@@ -1,4 +1,71 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-17T22:20:05+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Weekly Math Puzzle - Week 24/2024</title><link href="http://localhost:4000/weekly_math_2424/" rel="alternate" type="text/html" title="Weekly Math Puzzle - Week 24/2024" /><published>2024-06-12T00:00:00+02:00</published><updated>2024-06-12T00:00:00+02:00</updated><id>http://localhost:4000/weekly_math_2424</id><content type="html" xml:base="http://localhost:4000/weekly_math_2424/"><![CDATA[<p>Putnam’s problems were tought so we decided to go back to the basics this week.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-07-24T01:44:59+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">An upper bound for the Kullback-Leibler divergence</title><link href="http://localhost:4000/kl_upper_bound/" rel="alternate" type="text/html" title="An upper bound for the Kullback-Leibler divergence" /><published>2024-07-24T00:00:00+02:00</published><updated>2024-07-24T00:00:00+02:00</updated><id>http://localhost:4000/kl_upper_bound</id><content type="html" xml:base="http://localhost:4000/kl_upper_bound/"><![CDATA[<p>Zürich is so hot now in the night that I couldn’t fall asleep.
+While lying on the bed, I arrived at an interesting upper bound for the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL divergence (relative entropy)</a> between two Bernoulli distributions.
+In this case, the KL divergence is expressed as:</p>
+
+\[D_\text{KL}(p \parallel q) := p\log\left(\frac{p}{q}\right) + (1-p)\log\left(\frac{1-p}{1-q}\right)\]
+
+<p>Here, \(p, q\) denoting the parameters of the two distributions.
+I assume \(p, q \in (0, 1)\) and \(\log(\cdot)\) is the natural logarithm function.
+For other cases like when \(p&gt;0\) and \(q=0\), the KL divergence diverges to infinity.
+I can show that, in this setting, the following holds:</p>
+
+\[D_\text{KL}(p \parallel q) \le \frac{(p - q)^2}{(1-q)q} =: \frac{2D_\text{TV}(p, q)^2}{\mathbb{V}[X]}\]
+
+<p>Above, \(D_\text{TV}(\cdot, \cdot)\) is the <a href="https://en.wikipedia.org/wiki/Total_variation_distance_of_probability_measures">variational distance</a> between two distributions and \(X\) is a random variable distributed according to Bernoulli(\(q\)).
+My result is in fact a looser bound as compared to the <a href="https://en.wikipedia.org/wiki/Pinsker%27s_inequality">reversed Pinsker’s inequality</a> which replaces the denominator with \(\min \{q, 1-q\}\).</p>
+
+<p>For the proof, I define a function \(f(q):=D_\text{KL}(p \parallel q)\) with \(p\) kept as a constant.</p>
+
+<p><strong>Corollary 1.</strong>
+The function \(f\) is convex on \((0, 1)\).</p>
+
+<p><em>Proof</em>.
+\(f\) is convex if and only if \(\forall \lambda \in [0, 1]\) and \(\forall q_1, q_2 \in \text{dom}(f)\):</p>
+
+\[f(\lambda q_1 + (1-\lambda) q_2) \le \lambda f(q_1) + (1-\lambda) f(q_2)\]
+
+<p>Indeed this is true since:</p>
+
+\[\begin{align}
+    f(\lambda q_1 + (1-\lambda) q_2) &amp;= p \log\left(\frac{p}{\lambda q_1 + (1-\lambda) q_2}\right) + (1-p) \log\left(\frac{1-p}{1 - \lambda q_1 - (1-\lambda) q_2}\right) \\
+    &amp;= -p \log\left(\frac{\lambda q_1 + (1-\lambda) q_2}{p}\right) - (1-p) \log\left(\frac{\lambda (1-q_1) + (1-\lambda) (1-q_2)}{1-p}\right) \\ 
+    &amp;\le \lambda \left(p\log\frac{p}{q_1} + (1-p)\log\frac{1-p}{1-q_1} \right) + (1-\lambda) \left(p\log\frac{p}{q_2} + (1-p)\log\frac{1-p}{1-q_2} \right) \\
+    &amp;= \lambda f(q_1) + (1-\lambda) f(q_2)
+\end{align}\]
+
+<p><strong>Corallary 2.</strong>
+\(\forall q_1, q_2 \in \text{dom}(f)\), it holds that:</p>
+
+\[f(q_1) \ge f(q_2) + f'(q_2)(q_1 - q_2)\]
+
+<p>where \(f'\) is the first-order derivative of \(f\) at \(q_2\).</p>
+
+<p><em>Proof</em>.
+Given that \(f\) is convex on its domain, we have:</p>
+
+\[\begin{align}
+    f(\lambda q_1 + (1-\lambda) q_2) &amp;\le \lambda f(q_1) + (1-\lambda) f(q_2) \\
+    f(q_2 + \lambda(q_1 - q_2)) - f(q_2) + \lambda f(q_2) &amp;\le \lambda f(q_1) \\
+    \frac{f(q_2 + \lambda(q_1 - q_2)) - f(q_2)}{\lambda (q_1 - q_2)} (q_1 - q_2) + f(q_2) &amp;\le f(q_1) &amp;\text{(Dividing $\lambda$ both sides)} \\
+    \lim_{\lambda \rightarrow 0} \frac{f(q_2 + \lambda(q_1 - q_2)) - f(q_2)}{\lambda (q_1 - q_2)} (q_1 - q_2) + f(q_2) &amp;\le f(q_1) \\
+    f'(q_2) (q_1 - q_2) + f(q_2) &amp;\le f(q_1)
+\end{align}\]
+
+<p>We can explicitly derive the derivative of \(f\) at a given \(q\):</p>
+
+\[f'(q) = \frac{p - q}{(q - 1)q}\]
+
+<p>Putting everything together, we have the desired upper bound:</p>
+
+\[\begin{align}
+    f(p) &amp;\ge f(q) + f'(q)(p - q) &amp;\text{(Corollary 2)}\\
+    f'(q)(p - q) &amp;\ge f(q) &amp;\text{($f(p)=0$ by definition)}\\
+    \frac{(q - p)^2}{(1 - q)q} &amp;\ge f(q):= D_\text{KL}(p \parallel q)
+\end{align}\]
+
+<p>This bound is particularly useful when it comes to deriving some concentration bounds on the KL divergence with respect to \(q\).
+I will discuss this matter in another blog post.
+It’s 1:44AM now and I need to go to bed for real this time.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[Zürich is so hot now in the night that I couldn’t fall asleep. While lying on the bed, I arrived at an interesting upper bound for the KL divergence (relative entropy) between two Bernoulli distributions. In this case, the KL divergence is expressed as:]]></summary></entry><entry><title type="html">Weekly Math Puzzle - Week 24/2024</title><link href="http://localhost:4000/weekly_math_2424/" rel="alternate" type="text/html" title="Weekly Math Puzzle - Week 24/2024" /><published>2024-06-12T00:00:00+02:00</published><updated>2024-06-12T00:00:00+02:00</updated><id>http://localhost:4000/weekly_math_2424</id><content type="html" xml:base="http://localhost:4000/weekly_math_2424/"><![CDATA[<p>Putnam’s problems were tought so we decided to go back to the basics this week.
 Here are a couple of problems from <em>Problem-solving strategies</em> by Arthur Engel.
 We think it might be a good idea to stick to a textbook for a while.</p>
 

@@ -34,4 +34,10 @@ var store = [{
         "tags": [],
         "url": "/weekly_math_2424/",
         "teaser": null
+      },{
+        "title": "An upper bound for the Kullback-Leibler divergence",
+        "excerpt":"Zürich is so hot now in the night that I couldn’t fall asleep. While lying on the bed, I arrived at an interesting upper bound for the KL divergence (relative entropy) between two Bernoulli distributions. In this case, the KL divergence is expressed as: \\[D_\\text{KL}(p \\parallel q) := p\\log\\left(\\frac{p}{q}\\right) +...","categories": [],
+        "tags": [],
+        "url": "/kl_upper_bound/",
+        "teaser": null
       }]
