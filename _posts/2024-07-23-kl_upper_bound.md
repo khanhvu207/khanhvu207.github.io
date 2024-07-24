@@ -23,7 +23,7 @@ $$
 $$
 
 Above, $$D_\text{TV}(\cdot, \cdot)$$ is the [variational distance](https://en.wikipedia.org/wiki/Total_variation_distance_of_probability_measures) between two distributions and $$X$$ is a random variable distributed according to Bernoulli($$q$$).
-My result is in fact a looser bound as compared to the [reversed Pinsker's inequality](https://en.wikipedia.org/wiki/Pinsker%27s_inequality) which replaces the denominator with $$\min \{q, 1-q\}$$.
+My result is in fact a looser bound as compared to the [reversed Pinsker's inequality](https://en.wikipedia.org/wiki/Pinsker%27s_inequality).
 
 For the proof, I define a function $$f(q):=D_\text{KL}(p \parallel q)$$ with $$p$$ kept as a constant.
 
@@ -47,7 +47,7 @@ $$
     &= \lambda f(q_1) + (1-\lambda) f(q_2)
 \end{align}
 $$
-The inequality above is due to the convexity of $$-\log(\codt)$$ and Jensen's inequality.
+The inequality above is due to the convexity of $$-\log(\cdot)$$ and Jensen's inequality.
 
 **Corallary 2.**
 $$\forall q_1, q_2 \in \text{dom}(f)$$, it holds that:
