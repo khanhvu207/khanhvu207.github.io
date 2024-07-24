@@ -13,7 +13,7 @@ $$
     D_\text{KL}(p \parallel q) := p\log\left(\frac{p}{q}\right) + (1-p)\log\left(\frac{1-p}{1-q}\right)
 $$
 
-Here, $$p, q$$ denoting the parameters of the two distributions.
+Here, $$p, q$$ denote the parameters of the two distributions.
 I assume $$p, q \in (0, 1)$$ and $$\log(\cdot)$$ is the natural logarithm function.
 For other cases like when $$p>0$$ and $$q=0$$, the KL divergence diverges to infinity.
 I can show that, in this setting, the following holds:
@@ -47,6 +47,7 @@ $$
     &= \lambda f(q_1) + (1-\lambda) f(q_2)
 \end{align}
 $$
+The inequality above is due to the convexity of $$-\log(\codt)$$ and Jensen's inequality.
 
 **Corallary 2.**
 $$\forall q_1, q_2 \in \text{dom}(f)$$, it holds that:
@@ -86,6 +87,6 @@ $$
 \end{align}
 $$
 
-This bound is particularly useful when it comes to deriving some concentration bounds on the KL divergence with respect to $$q$$.
+This bound is particularly useful when it comes to deriving some concentration bounds for the KL divergence with respect to $$q$$.
 I will discuss this matter in another blog post.
 It's 1:44AM now and I need to go to bed for real this time.
