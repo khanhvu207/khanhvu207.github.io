@@ -1,10 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-07-24T01:44:59+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">An upper bound for the Kullback-Leibler divergence</title><link href="http://localhost:4000/kl_upper_bound/" rel="alternate" type="text/html" title="An upper bound for the Kullback-Leibler divergence" /><published>2024-07-24T00:00:00+02:00</published><updated>2024-07-24T00:00:00+02:00</updated><id>http://localhost:4000/kl_upper_bound</id><content type="html" xml:base="http://localhost:4000/kl_upper_bound/"><![CDATA[<p>Zürich is so hot now in the night that I couldn’t fall asleep.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-08-09T23:19:51+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Counting with expectation</title><link href="http://localhost:4000/expectation_counting/" rel="alternate" type="text/html" title="Counting with expectation" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/expectation_counting</id><content type="html" xml:base="http://localhost:4000/expectation_counting/"><![CDATA[<p><strong>Problem 10 (Individual test, ARML 2013)</strong>.
+For a positive integer \(n\), let \(C(n)\) equal the number of pairs of consecutive \(1\)’s in the binary representation of \(n\).
+For example, \(C(183)=C(10110111_2)=3\).
+Compute \(C(1) + C(2) + \ldots + C(256)\).</p>
+
+<p><em>Solution</em>.
+You can go ahead with doing casework and will eventually discover some recurrent formulas like in the <a href="https://www.arml.com/ARML/arml_2019/public_contest_files/2009_2014_book/ARML_2009_2014.pdf">intended solution</a>.</p>
+
+<p>However, this problem has a shorter solution that leverages <a href="https://en.wikipedia.org/wiki/Expected_value#Properties:~:text=0.-,Linearity%20of%20expectation,-%3A%5B34">linearity of expectation</a>.
+In short, linearity of expectation means:</p>
+
+\[\mathbb{E}[\mathrm{X}_1 + \mathrm{X}_2 + \ldots + \mathrm{X}_n] = \mathbb{E}[\mathrm{X}_1] + \mathbb{E}[\mathrm{X}_2] + \ldots + \mathbb{E}[\mathrm{X}_n]\]
+
+<p>This holds regardless of whether these random variables are dependent or not.
+Now, we can rewrite the target quantity in term of an expectation:</p>
+
+\[\sum_{i=1}^{256} C(i) = 256 \cdot \mathbb{E}[C(\mathrm{X})],\]
+
+<p>for \(\mathrm{X}\) being a discrete RV drawn uniformly from \(\{1, 2, \ldots, 256\}\).
+Let \(\text{bin}(\mathrm{X})\) denotes the binary representation of \(\mathrm{X}\) and \(\text{bin}(\mathrm{X})_i\) denotes the \(i\)-th bit from the left.
+Let \(Z_i = [\text{bin}(\mathrm{X})_i = 1 \land \text{bin}(\mathrm{X})_{i+1} = 1]\) be an indicator function that takes value 1 if both \(i\)-th and \((i+1)\)-th bits are \(1\)’s, and otherwise takes value 0.
+Given this, we can write</p>
+
+\[\begin{align}
+\mathbb{E}[C(\mathrm{X})] &amp;= \mathbb{E}\left[\sum_{i=1}^7 Z_i\right] \\
+&amp;= \sum_{i=1}^7 \mathbb{E}[Z_i] &amp;\text{(Linearity of expectation)}\\ 
+&amp;= \sum_{i=1}^7 \mathbb{P}\left(\text{bin}(\mathrm{X})_i = 1 \land \text{bin}(\mathrm{X})_{i+1} = 1\right)\\
+&amp;= 7\cdot \frac{1}{2^2} = \frac{7}{4}
+\end{align}\]
+
+<p>The answer would then be \(256 \cdot \frac{7}{4} =\boxed{448}\).
+Cute trick isn’t it?</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[Problem 10 (Individual test, ARML 2013). For a positive integer \(n\), let \(C(n)\) equal the number of pairs of consecutive \(1\)’s in the binary representation of \(n\). For example, \(C(183)=C(10110111_2)=3\). Compute \(C(1) + C(2) + \ldots + C(256)\).]]></summary></entry><entry><title type="html">An upper bound for the Kullback-Leibler divergence</title><link href="http://localhost:4000/kl_upper_bound/" rel="alternate" type="text/html" title="An upper bound for the Kullback-Leibler divergence" /><published>2024-07-23T00:00:00+02:00</published><updated>2024-07-23T00:00:00+02:00</updated><id>http://localhost:4000/kl_upper_bound</id><content type="html" xml:base="http://localhost:4000/kl_upper_bound/"><![CDATA[<p>Zürich is so hot now in the night that I couldn’t fall asleep.
 While lying on the bed, I arrived at an interesting upper bound for the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL divergence (relative entropy)</a> between two Bernoulli distributions.
 In this case, the KL divergence is expressed as:</p>
 
 \[D_\text{KL}(p \parallel q) := p\log\left(\frac{p}{q}\right) + (1-p)\log\left(\frac{1-p}{1-q}\right)\]
 
-<p>Here, \(p, q\) denoting the parameters of the two distributions.
+<p>Here, \(p, q\) denote the parameters of the two distributions.
 I assume \(p, q \in (0, 1)\) and \(\log(\cdot)\) is the natural logarithm function.
 For other cases like when \(p&gt;0\) and \(q=0\), the KL divergence diverges to infinity.
 I can show that, in this setting, the following holds:</p>
@@ -12,7 +43,7 @@ I can show that, in this setting, the following holds:</p>
 \[D_\text{KL}(p \parallel q) \le \frac{(p - q)^2}{(1-q)q} =: \frac{2D_\text{TV}(p, q)^2}{\mathbb{V}[X]}\]
 
 <p>Above, \(D_\text{TV}(\cdot, \cdot)\) is the <a href="https://en.wikipedia.org/wiki/Total_variation_distance_of_probability_measures">variational distance</a> between two distributions and \(X\) is a random variable distributed according to Bernoulli(\(q\)).
-My result is in fact a looser bound as compared to the <a href="https://en.wikipedia.org/wiki/Pinsker%27s_inequality">reversed Pinsker’s inequality</a> which replaces the denominator with \(\min \{q, 1-q\}\).</p>
+My result is in fact a looser bound as compared to the <a href="https://en.wikipedia.org/wiki/Pinsker%27s_inequality">reversed Pinsker’s inequality</a>.</p>
 
 <p>For the proof, I define a function \(f(q):=D_\text{KL}(p \parallel q)\) with \(p\) kept as a constant.</p>
 
@@ -26,12 +57,13 @@ The function \(f\) is convex on \((0, 1)\).</p>
 
 <p>Indeed this is true since:</p>
 
-\[\begin{align}
+<p>\(\begin{align}
     f(\lambda q_1 + (1-\lambda) q_2) &amp;= p \log\left(\frac{p}{\lambda q_1 + (1-\lambda) q_2}\right) + (1-p) \log\left(\frac{1-p}{1 - \lambda q_1 - (1-\lambda) q_2}\right) \\
     &amp;= -p \log\left(\frac{\lambda q_1 + (1-\lambda) q_2}{p}\right) - (1-p) \log\left(\frac{\lambda (1-q_1) + (1-\lambda) (1-q_2)}{1-p}\right) \\ 
     &amp;\le \lambda \left(p\log\frac{p}{q_1} + (1-p)\log\frac{1-p}{1-q_1} \right) + (1-\lambda) \left(p\log\frac{p}{q_2} + (1-p)\log\frac{1-p}{1-q_2} \right) \\
     &amp;= \lambda f(q_1) + (1-\lambda) f(q_2)
-\end{align}\]
+\end{align}\)
+The inequality above is due to the convexity of \(-\log(\cdot)\) and Jensen’s inequality.</p>
 
 <p><strong>Corallary 2.</strong>
 \(\forall q_1, q_2 \in \text{dom}(f)\), it holds that:</p>
@@ -63,7 +95,7 @@ Given that \(f\) is convex on its domain, we have:</p>
     \frac{(q - p)^2}{(1 - q)q} &amp;\ge f(q):= D_\text{KL}(p \parallel q)
 \end{align}\]
 
-<p>This bound is particularly useful when it comes to deriving some concentration bounds on the KL divergence with respect to \(q\).
+<p>This bound is particularly useful when it comes to deriving some concentration bounds for the KL divergence with respect to \(q\).
 I will discuss this matter in another blog post.
 It’s 1:44AM now and I need to go to bed for real this time.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[Zürich is so hot now in the night that I couldn’t fall asleep. While lying on the bed, I arrived at an interesting upper bound for the KL divergence (relative entropy) between two Bernoulli distributions. In this case, the KL divergence is expressed as:]]></summary></entry><entry><title type="html">Weekly Math Puzzle - Week 24/2024</title><link href="http://localhost:4000/weekly_math_2424/" rel="alternate" type="text/html" title="Weekly Math Puzzle - Week 24/2024" /><published>2024-06-12T00:00:00+02:00</published><updated>2024-06-12T00:00:00+02:00</updated><id>http://localhost:4000/weekly_math_2424</id><content type="html" xml:base="http://localhost:4000/weekly_math_2424/"><![CDATA[<p>Putnam’s problems were tought so we decided to go back to the basics this week.
 Here are a couple of problems from <em>Problem-solving strategies</em> by Arthur Engel.

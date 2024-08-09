@@ -40,4 +40,10 @@ var store = [{
         "tags": [],
         "url": "/kl_upper_bound/",
         "teaser": null
+      },{
+        "title": "Counting with expectation",
+        "excerpt":"Problem 10 (Individual test, ARML 2013). For a positive integer \\(n\\), let \\(C(n)\\) equal the number of pairs of consecutive \\(1\\)’s in the binary representation of \\(n\\). For example, \\(C(183)=C(10110111_2)=3\\). Compute \\(C(1) + C(2) + \\ldots + C(256)\\). Solution. You can go ahead with doing casework and will eventually discover...","categories": [],
+        "tags": [],
+        "url": "/expectation_counting/",
+        "teaser": null
       }]
