@@ -107,7 +107,7 @@ And similarly to smoothness, if $f$ is $\mu$-strongly convex, then $f$ is also $
 Alternatively, we can use the following equivalent definition:
 
 **(b)**
-$$\| f(x) - \nabla f(y)\| \geq \mu\| x-y\|$$ for all $$x, y \in X$$.
+$$\| \nabla f(x) - \nabla f(y)\| \geq \mu\| x-y\|$$ for all $$x, y \in X$$.
 
 **(c)**
 $$g(x) = f(x) - \frac{\mu}{2} x^\top x$$ is convex.
