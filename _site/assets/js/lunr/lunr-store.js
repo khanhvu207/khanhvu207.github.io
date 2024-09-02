@@ -46,4 +46,10 @@ var store = [{
         "tags": [],
         "url": "/expectation_counting/",
         "teaser": null
+      },{
+        "title": "Jane Street Puzzle - August 2024",
+        "excerpt":"I decided to slack off my exam studying with Jane Street’s puzzle. I first read the problem in early August, forgot about it, and then submitted my answer on August 16—and got it right on the first try! (username: Khanh Vu). This month’s puzzle involves straightforward state analysis with a...","categories": [],
+        "tags": [],
+        "url": "/jane_street_aug24/",
+        "teaser": null
       }]

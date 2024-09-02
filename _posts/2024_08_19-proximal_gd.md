@@ -1,8 +1,7 @@
 ---
 layout: posts
-title: A cheatsheet to mathematical optimization
+title: A proximal perspective on gradient descent
 usemathjax: true
 published: false
 ---
-
 
