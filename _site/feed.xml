@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-09-02T02:11:15+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Jane Street Puzzle - August 2024</title><link href="http://localhost:4000/jane_street_aug24/" rel="alternate" type="text/html" title="Jane Street Puzzle - August 2024" /><published>2024-08-30T00:00:00+02:00</published><updated>2024-08-30T00:00:00+02:00</updated><id>http://localhost:4000/jane_street_aug24</id><content type="html" xml:base="http://localhost:4000/jane_street_aug24/"><![CDATA[<!-- Personal remarks -->
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-09-03T20:37:12+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Jane Street Puzzle - August 2024</title><link href="http://localhost:4000/jane_street_aug24/" rel="alternate" type="text/html" title="Jane Street Puzzle - August 2024" /><published>2024-08-30T00:00:00+02:00</published><updated>2024-08-30T00:00:00+02:00</updated><id>http://localhost:4000/jane_street_aug24</id><content type="html" xml:base="http://localhost:4000/jane_street_aug24/"><![CDATA[<!-- Personal remarks -->
 <p>I decided to slack off my exam studying with Jane Street’s puzzle.
 I first read the problem in early August, forgot about it, and then submitted my answer on August 16—and got it right on the first try! (username: Khanh Vu).
 This month’s puzzle involves straightforward state analysis with a nice probability garnish.</p>
@@ -17,8 +17,8 @@ If the token traverses an edge labeled B, Beren wins; otherwise, Aaron wins.</p>
 
 <h2 id="my-approach">My approach</h2>
 
-<p>But, what does it mean for Aaron to win?
-The universe that Aaron and Beren reside in is controlled by a demon (?).
+<p>What does it mean for Aaron to win?
+The universe that Aaron and Beren reside in is controlled by a demon, I assume.
 This demon loves upside down binary trees, so it generates an infinite number of binary trees out of boredom.
 Among these trees, if there exists a tree that allows Aaron to keep playing indefinitely, then we say that he wins with non-zero probability.</p>
 
@@ -46,7 +46,7 @@ Otherwise, he moves the token down to the child node \(v_1\) or \(v_2\), dependi
     </figure>
 </center>
 
-<p>When the token is in Beren’s control, Aaron’s only chance of winning is if both edges are labeled \((\mathrm{A}, \mathrm{A})\). 
+<p>When the token is in Beren’s control, Aaron’s only chance of winning is if both edges are labeled \((\mathrm{A}, \mathrm{A})\).
 In any other case, Beren wins by moving the token along the edge labeled \(\mathrm{B}\).</p>
 
 <p>Formally, let \(w_u\) be the event that Aaron wins if he starts his turn at node \(u\).
@@ -59,8 +59,13 @@ Then, we have the following recursive relation:</p>
     \mathbb{P}(w_v) &amp;= p^2 \cdot \mathbb{P}(w_{u_1} \land w_{u_2}) = p^2 \cdot \mathbb{P}(w_u)^2 &amp;\text{(2)} 
 \end{align}\]
 
-<p>Eq. (2) used the fact that \(w_{u_1}\) and \(w_{u_2}\) are independent events.
-From the sum rule of probability, we know that:</p>
+<p>Eq. (2) used the fact that \(w_{u_1}\) and \(w_{u_2}\) are independent events.</p>
+
+<p>To break things down for clarity, Eq. (1) and (2) are composed of terms capturing the states in Fig. 1 and 2 respectively.
+For instance, the term \(p^2 \cdot \mathbb{P}(w_{v_1} \lor w_{v_2})\) in Eq. (1) accounts for the state where both edges connecting \(u\) to children \(v_1, v_2\) are labeled \((\mathrm{A}, \mathrm{A})\).
+In this case, Aaron wins (e.g. \(w_u\) holds) if either \(w_{v_1}\) or \(w_{v_2}\) holds.</p>
+
+<p>Now, from the sum rule of probability, we know that:</p>
 
 \[\newcommand{\ind}{\perp\!\!\!\!\perp} 
 \begin{align}
@@ -76,8 +81,7 @@ Combining the fact above and plugging (2) into (1), we arrive at the following i
 \end{align}\]
 
 <p>Let the left-hand side be defined as \(f(x) := x\) and the right-hand side as \(g(x) := 2x^2p^3 - x^4p^6\). 
-The game has just started on a fresh tree (the demon grows this tree as the game goes) so it’s Aaron turn and the token is located at the root \(u\).
-The problem now is to find a value \(p_0 \in (0, 1)\) such that for all \(p &gt; p_0\), the function \(f(x)\) intersects with \(g(x)\) at some \(x:=\mathbb{P}(w_u) &gt; 0\).
+Graphically, the problem is now to find a value \(p_0 \in (0, 1)\) such that for all \(p &gt; p_0\), the function \(f(x)\) intersects with \(g(x)\) at some \(x:=\mathbb{P}(w_u) &gt; 0\).
 <a href="https://www.wolframalpha.com/input?i=x+%3D+2x%5E2p%5E3+-+x%5E4p%5E3+%3E+0">Solving for \(p_0\)</a>, we get \(\boxed{\frac{\sqrt{3}}{2^{5/6}}}\approx 0.972\).</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[I decided to slack off my exam studying with Jane Street’s puzzle. I first read the problem in early August, forgot about it, and then submitted my answer on August 16—and got it right on the first try! (username: Khanh Vu). This month’s puzzle involves straightforward state analysis with a nice probability garnish.]]></summary></entry><entry><title type="html">Counting with expectation</title><link href="http://localhost:4000/expectation_counting/" rel="alternate" type="text/html" title="Counting with expectation" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/expectation_counting</id><content type="html" xml:base="http://localhost:4000/expectation_counting/"><![CDATA[<p><strong>Problem 10 (Individual test, ARML 2013)</strong>.
 For a positive integer \(n\), let \(C(n)\) equal the number of pairs of consecutive \(1\)’s in the binary representation of \(n\).
 For example, \(C(183)=C(10110111_2)=3\).

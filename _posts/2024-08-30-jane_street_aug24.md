@@ -24,8 +24,8 @@ You can read the full problem statement here at: [www.janestreet.com/puzzles/cur
 
 ## My approach
 
-But, what does it mean for Aaron to win?
-The universe that Aaron and Beren reside in is controlled by a demon (?).
+What does it mean for Aaron to win?
+The universe that Aaron and Beren reside in is controlled by a demon, I assume.
 This demon loves upside down binary trees, so it generates an infinite number of binary trees out of boredom.
 Among these trees, if there exists a tree that allows Aaron to keep playing indefinitely, then we say that he wins with non-zero probability.
 
@@ -53,7 +53,7 @@ Otherwise, he moves the token down to the child node $$v_1$$ or $$v_2$$, dependi
     </figure>
 </center>
 
-When the token is in Beren's control, Aaron's only chance of winning is if both edges are labeled $$(\mathrm{A}, \mathrm{A})$$. 
+When the token is in Beren's control, Aaron's only chance of winning is if both edges are labeled $$(\mathrm{A}, \mathrm{A})$$.
 In any other case, Beren wins by moving the token along the edge labeled $$\mathrm{B}$$.
 
 Formally, let $$w_u$$ be the event that Aaron wins if he starts his turn at node $$u$$.
@@ -69,7 +69,12 @@ $$
 $$
 
 Eq. (2) used the fact that $$w_{u_1}$$ and $$w_{u_2}$$ are independent events.
-From the sum rule of probability, we know that:
+
+To break things down for clarity, Eq. (1) and (2) are composed of terms capturing the states in Fig. 1 and 2 respectively.
+For instance, the term $$p^2 \cdot \mathbb{P}(w_{v_1} \lor w_{v_2})$$ in Eq. (1) accounts for the state where both edges connecting $$u$$ to children $$v_1, v_2$$ are labeled $$(\mathrm{A}, \mathrm{A})$$.
+In this case, Aaron wins (e.g. $$w_u$$ holds) if either $$w_{v_1}$$ or $$w_{v_2}$$ holds.
+
+Now, from the sum rule of probability, we know that:
 
 $$
 \newcommand{\ind}{\perp\!\!\!\!\perp} 
@@ -89,7 +94,6 @@ $$
 $$
 
 Let the left-hand side be defined as $$f(x) := x$$ and the right-hand side as $$g(x) := 2x^2p^3 - x^4p^6$$. 
-The game has just started on a fresh tree (the demon grows this tree as the game goes) so it's Aaron turn and the token is located at the root $$u$$.
-The problem now is to find a value $$p_0 \in (0, 1)$$ such that for all $$p > p_0$$, the function $$f(x)$$ intersects with $$g(x)$$ at some $$x:=\mathbb{P}(w_u) > 0$$.
+Graphically, the problem is now to find a value $$p_0 \in (0, 1)$$ such that for all $$p > p_0$$, the function $$f(x)$$ intersects with $$g(x)$$ at some $$x:=\mathbb{P}(w_u) > 0$$.
 [Solving for $$p_0$$](https://www.wolframalpha.com/input?i=x+%3D+2x%5E2p%5E3+-+x%5E4p%5E3+%3E+0), we get $$\boxed{\frac{\sqrt{3}}{2^{5/6}}}\approx 0.972$$.
 
