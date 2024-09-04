@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>An upper bound for the Kullback-Leibler divergence - EntropyMaxxing</title>
-<meta name="description" content="Zürich is so hot now in the night that I couldn’t fall asleep. While lying on the bed, I arrived at an interesting upper bound for the KL divergence (relative entropy) between two Bernoulli distributions. In this case, the KL divergence is expressed as:">
+<!-- begin _includes/seo.html --><title>Jane Street Puzzle - August 2024 - EntropyMaxxing</title>
+<meta name="description" content="I decided to slack off my exam studying with Jane Street’s puzzle. I first read the problem in early August, forgot about it, and then submitted my answer on August 16—and got it right on the first try! (username: Khanh Vu). This month’s puzzle involves straightforward state analysis with a nice probability garnish.">
 
 
   <meta name="author" content="Khánh Vũ">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="EntropyMaxxing">
-<meta property="og:title" content="An upper bound for the Kullback-Leibler divergence">
-<meta property="og:url" content="http://localhost:4000/kl_upper_bound/">
+<meta property="og:title" content="Jane Street Puzzle - August 2024">
+<meta property="og:url" content="http://localhost:4000/jane_street_aug24/">
 
 
-  <meta property="og:description" content="Zürich is so hot now in the night that I couldn’t fall asleep. While lying on the bed, I arrived at an interesting upper bound for the KL divergence (relative entropy) between two Bernoulli distributions. In this case, the KL divergence is expressed as:">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2024-07-23T00:00:00+02:00">
+  <meta property="og:description" content="I decided to slack off my exam studying with Jane Street’s puzzle. I first read the problem in early August, forgot about it, and then submitted my answer on August 16—and got it right on the first try! (username: Khanh Vu). This month’s puzzle involves straightforward state analysis with a nice probability garnish.">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2024-09-03T00:00:00+02:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/kl_upper_bound/">
+
+<link rel="canonical" href="http://localhost:4000/jane_street_aug24/">
 
 
 
@@ -280,77 +280,94 @@
 
   <div class="archive">
     
-      <h1 id="page-title" class="page__title">An upper bound for the Kullback-Leibler divergence</h1>
+      <h1 id="page-title" class="page__title">Jane Street Puzzle - August 2024</h1>
     
-    <p>Zürich is so hot now in the night that I couldn’t fall asleep.
-While lying on the bed, I arrived at an interesting upper bound for the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL divergence (relative entropy)</a> between two Bernoulli distributions.
-In this case, the KL divergence is expressed as:</p>
+    <!-- Personal remarks -->
+<p>I decided to slack off my exam studying with Jane Street’s puzzle.
+I first read the problem in early August, forgot about it, and then submitted my answer on August 16—and got it right on the first try! (username: Khanh Vu).
+This month’s puzzle involves straightforward state analysis with a nice probability garnish.</p>
 
-\[D_\text{KL}(p \parallel q) := p\log\left(\frac{p}{q}\right) + (1-p)\log\left(\frac{1-p}{1-q}\right)\]
+<h2 id="the-problem">The problem</h2>
 
-<p>Here, \(p, q\) denote the parameters of the two distributions.
-I assume \(p, q \in (0, 1)\) and \(\log(\cdot)\) is the natural logarithm function.
-For other cases like when \(p&gt;0\) and \(q=0\), the KL divergence diverges to infinity.
-I can show that, in this setting, the following holds:</p>
+<p>Aaron and Beren play a game on an infinite complete binary tree where each edge is independently labeled as \(\mathrm{A}\) with probability \(p\) and \(\mathrm{B}\) otherwise.
+The game starts with Aaron at the root, and the players take turns moving a shared token down the tree.
+On each turn, the active player chooses one of the two child nodes to move the token to.
+If the token traverses an edge labeled B, Beren wins; otherwise, Aaron wins.</p>
 
-\[D_\text{KL}(p \parallel q) \le \frac{(p - q)^2}{(1-q)q} =: \frac{2D_\text{TV}(p, q)^2}{\mathbb{V}[X]}\]
+<p>The goal is to find the <a href="https://en.wikipedia.org/wiki/Infimum_and_supremum">infimum</a> of all probabilities \(p\) for which Aaron has a nonzero probability of winning. 
+<!-- This infimum represents the smallest probability $$p$$ at which Aaron’s chance of winning is not zero, considering that Beren can choose a path that includes at least one edge labeled B. --></p>
 
-<p>Above, \(D_\text{TV}(\cdot, \cdot)\) is the <a href="https://en.wikipedia.org/wiki/Total_variation_distance_of_probability_measures">variational distance</a> between two distributions and \(X\) is a random variable distributed according to Bernoulli(\(q\)).
-My result is in fact a looser bound as compared to the <a href="https://en.wikipedia.org/wiki/Pinsker%27s_inequality">reversed Pinsker’s inequality</a>.</p>
+<p>You can read the full problem statement here at: <a href="https://www.janestreet.com/puzzles/tree-edge-triage-index/">www.janestreet.com/puzzles/current-puzzle/</a>.</p>
 
-<p>For the proof, I define a function \(f(q):=D_\text{KL}(p \parallel q)\) with \(p\) kept as a constant.</p>
+<h2 id="my-approach">My approach</h2>
 
-<p><strong>Corollary 1.</strong>
-The function \(f\) is convex on \((0, 1)\).</p>
+<p>What does it mean for Aaron to win?
+The universe that Aaron and Beren reside in is controlled by a demon, I assume.
+This demon loves upside down binary trees, so it generates an infinite number of binary trees out of boredom.
+Among these trees, if there exists a tree that allows Aaron to keep playing indefinitely, then we say that he wins with non-zero probability.</p>
 
-<p><em>Proof</em>.
-\(f\) is convex if and only if \(\forall \lambda \in [0, 1]\) and \(\forall q_1, q_2 \in \text{dom}(f)\):</p>
+<p>The demon grows a tree in the following fashion:
+A tree starts with a root, and at each time step, every leaf node grows two child nodes.
+The edges connecting each parent to its children are labeled \(\mathrm{A}\) with probability \(p\), and \(\mathrm{B}\) otherwise.
+As \(p\) gets closer to \(1\), it is more likely for Aaron to win.
+So it makes sense that the problem asks for some sort of a lower bound for such \(p\).</p>
 
-\[f(\lambda q_1 + (1-\lambda) q_2) \le \lambda f(q_1) + (1-\lambda) f(q_2)\]
+<center>
+    <figure>
+        <img src="../assets/images/jane_street/js00.png" alt="cases" style="display: inline-block;" />
+        <figcaption> <em>Figure 1. When it's Aaron turn, there are four scenarios.</em> </figcaption>
+    </figure>
+</center>
 
-<p>Indeed this is true since:</p>
+<p>We can zoom in and examine the local picture.
+Assuming that it’s Aaron turn and the token is at a node \(u\), the only state that makes him lose immediately is when the two edges are labeled \((\mathrm{B}, \mathrm{B})\) (state \(4\) in Figure \(1\)).
+Otherwise, he moves the token down to the child node \(v_1\) or \(v_2\), depending on the prospect of the two options (or it is possible at all to move the token to \(v_i\) if the edge is labeled \(\mathrm{B}\)).</p>
 
-<p>\(\begin{align}
-    f(\lambda q_1 + (1-\lambda) q_2) &amp;= p \log\left(\frac{p}{\lambda q_1 + (1-\lambda) q_2}\right) + (1-p) \log\left(\frac{1-p}{1 - \lambda q_1 - (1-\lambda) q_2}\right) \\
-    &amp;= -p \log\left(\frac{\lambda q_1 + (1-\lambda) q_2}{p}\right) - (1-p) \log\left(\frac{\lambda (1-q_1) + (1-\lambda) (1-q_2)}{1-p}\right) \\ 
-    &amp;\le \lambda \left(p\log\frac{p}{q_1} + (1-p)\log\frac{1-p}{1-q_1} \right) + (1-\lambda) \left(p\log\frac{p}{q_2} + (1-p)\log\frac{1-p}{1-q_2} \right) \\
-    &amp;= \lambda f(q_1) + (1-\lambda) f(q_2)
-\end{align}\)
-The inequality above is due to the convexity of \(-\log(\cdot)\) and Jensen’s inequality.</p>
+<center>
+    <figure>
+        <img src="../assets/images/jane_street/js01.png" alt="cases" style="display: inline-block;" />
+        <figcaption> <em>Figure 2. When it's Beren turn, only the first state allows the game to continue.</em> </figcaption>
+    </figure>
+</center>
 
-<p><strong>Corallary 2.</strong>
-\(\forall q_1, q_2 \in \text{dom}(f)\), it holds that:</p>
+<p>When the token is in Beren’s control, Aaron’s only chance of winning is if both edges are labeled \((\mathrm{A}, \mathrm{A})\).
+In any other case, Beren wins by moving the token along the edge labeled \(\mathrm{B}\).</p>
 
-\[f(q_1) \ge f(q_2) + f'(q_2)(q_1 - q_2)\]
-
-<p>where \(f'\) is the first-order derivative of \(f\) at \(q_2\).</p>
-
-<p><em>Proof</em>.
-Given that \(f\) is convex on its domain, we have:</p>
-
-\[\begin{align}
-    f(\lambda q_1 + (1-\lambda) q_2) &amp;\le \lambda f(q_1) + (1-\lambda) f(q_2) \\
-    f(q_2 + \lambda(q_1 - q_2)) - f(q_2) + \lambda f(q_2) &amp;\le \lambda f(q_1) \\
-    \frac{f(q_2 + \lambda(q_1 - q_2)) - f(q_2)}{\lambda (q_1 - q_2)} (q_1 - q_2) + f(q_2) &amp;\le f(q_1) &amp;\text{(Dividing $\lambda$ both sides)} \\
-    \lim_{\lambda \rightarrow 0} \frac{f(q_2 + \lambda(q_1 - q_2)) - f(q_2)}{\lambda (q_1 - q_2)} (q_1 - q_2) + f(q_2) &amp;\le f(q_1) \\
-    f'(q_2) (q_1 - q_2) + f(q_2) &amp;\le f(q_1)
-\end{align}\]
-
-<p>We can explicitly derive the derivative of \(f\) at a given \(q\):</p>
-
-\[f'(q) = \frac{p - q}{(q - 1)q}\]
-
-<p>Putting everything together, we have the desired upper bound:</p>
+<p>Formally, let \(w_u\) be the event that Aaron wins if he starts his turn at node \(u\).
+Now, node \(u\) has children \(v_1\) and \(v_2\).
+Let \(w_{v_1}\) be the event that Aaron wins if it’s Beren’s turn and the token is at node \(v_1\), and similarly, let \(w_{v_2}\) represent the event that Aaron wins if it’s Beren’s turn and the token is at node \(v_2\).
+Then, we have the following recursive relation:</p>
 
 \[\begin{align}
-    f(p) &amp;\ge f(q) + f'(q)(p - q) &amp;\text{(Corollary 2)}\\
-    f'(q)(p - q) &amp;\ge f(q) &amp;\text{($f(p)=0$ by definition)}\\
-    \frac{(q - p)^2}{(1 - q)q} &amp;\ge f(q):= D_\text{KL}(p \parallel q)
+    \mathbb{P}(w_u) &amp;= p^2 \cdot \mathbb{P}(w_{v_1} \lor w_{v_2}) + p(1-p)\cdot\mathbb{P}(w_{v_1}) + (1-p)p\cdot\mathbb{P}(w_{v_2}) &amp;\text{(1)} \\
+    \mathbb{P}(w_v) &amp;= p^2 \cdot \mathbb{P}(w_{u_1} \land w_{u_2}) = p^2 \cdot \mathbb{P}(w_u)^2 &amp;\text{(2)} 
 \end{align}\]
 
-<p>This bound is particularly useful when it comes to deriving some concentration bounds for the KL divergence with respect to \(q\).
-I will discuss this matter in another blog post.
-It’s 1:44AM now and I need to go to bed for real this time.</p>
+<p>Eq. (2) used the fact that \(w_{u_1}\) and \(w_{u_2}\) are independent events.</p>
+
+<p>To break things down for clarity, Eq. (1) and (2) are composed of terms capturing the states in Fig. 1 and 2 respectively.
+For instance, the term \(p^2 \cdot \mathbb{P}(w_{v_1} \lor w_{v_2})\) in Eq. (1) accounts for the state where both edges connecting \(u\) to children \(v_1, v_2\) are labeled \((\mathrm{A}, \mathrm{A})\).
+In this case, Aaron wins (e.g. \(w_u\) holds) if either \(w_{v_1}\) or \(w_{v_2}\) holds.</p>
+
+<p>Now, from the sum rule of probability, we know that:</p>
+
+\[\newcommand{\ind}{\perp\!\!\!\!\perp} 
+\begin{align}
+    \mathbb{P}(w_{v_1} \lor w_{v_2}) &amp;= \mathbb{P}(w_{v_1}) + \mathbb{P}(w_{v_2}) - \mathbb{P}(w_{v_1} \land w_{v_2}) \\
+    &amp;= 2\mathbb{P}(w_v) - \mathbb{P}(w_v)^2 &amp;(\text{since $w_{v_1} \ind w_{v_2}$})
+\end{align}\]
+
+<p>For brevity, let \(x:= \mathbb{P}(w_u)\).
+Combining the fact above and plugging (2) into (1), we arrive at the following identity:</p>
+
+\[\begin{align}
+    x &amp;= 2x^2p^3 - x^4p^6
+\end{align}\]
+
+<p>Let the left-hand side be defined as \(f(x) := x\) and the right-hand side as \(g(x) := 2x^2p^3 - x^4p^6\). 
+Graphically, the problem is now to find a value \(p_0 \in (0, 1)\) such that for all \(p &gt; p_0\), the function \(f(x)\) intersects with \(g(x)\) at some \(x:=\mathbb{P}(w_u) &gt; 0\).
+<a href="https://www.wolframalpha.com/input?i=x+%3D+2x%5E2p%5E3+-+x%5E4p%5E3+%3E+0">Solving for \(p_0\)</a>, we get \(\boxed{\frac{\sqrt{3}}{2^{5/6}}}\approx 0.972\).</p>
+
 
 
 <!-- <ul class="taxonomy__index">
