@@ -20,7 +20,7 @@ If the token traverses an edge labeled B, Beren wins; otherwise, Aaron wins.
 The goal is to find the [infimum](https://en.wikipedia.org/wiki/Infimum_and_supremum) of all probabilities $$p$$ for which Aaron has a nonzero probability of winning. 
 <!-- This infimum represents the smallest probability $$p$$ at which Aaron’s chance of winning is not zero, considering that Beren can choose a path that includes at least one edge labeled B. -->
 
-You can read the full problem statement here at: [www.janestreet.com/puzzles/current-puzzle/](https://www.janestreet.com/puzzles/tree-edge-triage-index/).
+You can read the full problem statement here at: [www.janestreet.com/puzzles/tree-edge-triage-index/](https://www.janestreet.com/puzzles/tree-edge-triage-index/).
 
 ## My approach
 
