@@ -1,0 +1,813 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Modern hashing made simple - EntropyMaxxing</title>
+<meta name="description" content="This is a short personal note on “Modern Hashing Made Simple” by Bender et al. (2024). I’m going to present this paper for the Advanced Graph Algorithms and Optimization Seminar (Fall 2024) at ETH Zürich. My personal goal is to understand the paper well enough to present it in a clear and engaging way.">
+
+
+  <meta name="author" content="Khánh Vũ">
+  
+  <meta property="article:author" content="Khánh Vũ">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="EntropyMaxxing">
+<meta property="og:title" content="Modern hashing made simple">
+<meta property="og:url" content="http://localhost:4000/modern_hashing/">
+
+
+  <meta property="og:description" content="This is a short personal note on “Modern Hashing Made Simple” by Bender et al. (2024). I’m going to present this paper for the Advanced Graph Algorithms and Optimization Seminar (Fall 2024) at ETH Zürich. My personal goal is to understand the paper well enough to present it in a clear and engaging way.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2024-12-08T00:00:00+01:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/modern_hashing/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Khánh Vũ",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="EntropyMaxxing Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- for mathjax support -->
+<!-- 
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js", "AMSmath.js", "AMSsymbols.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\[","\]"], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      messageStyle: "none",
+      "HTML-CSS": { availableFonts: ["TeX"] }
+    });
+  </script>
+  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+ -->
+
+<!-- for mathjax support -->
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js", "AMSmath.js", "AMSsymbols.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\]"], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      messageStyle: "none",
+      "HTML-CSS": { availableFonts: ["TeX"] },
+      TeX: {
+        Macros: {
+        }
+      }
+    });
+  </script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js"></script>
+
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--posts">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          EntropyMaxxing
+          
+        </a>
+        <div class="cute-gif">
+          <img src="../assets/images/penguin.gif" style="width: 25%; display: inline-block;" alt="cute gif">
+        </div>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/avatar.png" alt="Khánh Vũ" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Khánh Vũ</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>i’m just a chill guy :)</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <div class="archive">
+    
+      <h1 id="page-title" class="page__title">Modern hashing made simple</h1>
+    
+    <!-- Introduction -->
+<p>This is a short personal note on <a href="https://epubs.siam.org/doi/10.1137/1.9781611977936.33">“Modern Hashing Made Simple” by Bender et al. (2024)</a>.
+I’m going to present this paper for the <a href="https://kyng.inf.ethz.ch/courses/AGAO24seminar/">Advanced Graph Algorithms and Optimization Seminar (Fall 2024)</a> at ETH Zürich.
+My personal goal is to understand the paper well enough to present it in a clear and engaging way.</p>
+
+<p><strong>The set-up.</strong>
+We want to store \(n\) items in a hash table that supports three operations: querying, insertion, and deletion.
+We assume that the <a href="https://en.wikipedia.org/wiki/Word_(computer_architecture)">word size</a> \(w=\Theta(\log n)\).
+Our goal is to design such a hash table that is <em>time-efficient</em> and <em>space-efficient</em>.
+By time-efficient, I mean that the execution time of each operation should be sublinear in \(n\), ideally \(\mathcal{O}(1)\) (on average or with high probability).
+And by space-efficient, I mean that the total number of bits used by the hash table should be of order \((1+o(1))n w\), because otherwise we can achieve constant time execution by storing all items in an long array with zero hash collisions.</p>
+
+<p>Here’s a small anecdote to start with:
+Most hashing algorithms with space \((1+o(1))n w\), such as <a href="https://en.cppreference.com/w/cpp/container/unordered_map">std::unordered_map in C++</a> or <a href="https://en.wikipedia.org/wiki/Linear_probing">linear probing</a>, support querying, insertion, and deletion operations in <strong>\(\mathcal{O}(1)\) time on average</strong>.
+However, they can degrade to <strong>\(\mathcal{O}(n)\) time in the worst case</strong>.
+Many modern work has led to hashing algorithms that guarantee <strong>\(\mathcal{O}(1)\) time with high probability</strong> for all operations.
+This is a much stronger guarantee than the average-case constant time of traditional hashing algorithms, since the probability of a bad event is exponentially small in the input size (usually being bounded by \(1/\text{poly}(n)\)).</p>
+
+<p>However, these modern hashing algorithms are often more complex and thus harder to explain than traditional hashing algorithms.
+The paper by Bender et al. presents a simple and practical hashing algorithm that achieves the said strong guarantee.</p>
+
+<h2 id="the-roadmap">The roadmap</h2>
+
+<p>Throughout this work, we assume to have access to a fully random hash function \(f\), meaning that the output of \(f\) is <em>uniformly distributed</em> over the range of possible hash values.
+The paper is structured as follows:</p>
+
+<ol>
+  <li>
+    <p><strong>Slow partition hash table.</strong>
+We start with a simple hash table that is partitioned into blocks of size \(\mathcal{O}(\log^3(n))\).
+The time complexity for insertion is constant w.h.p., but the time complexity for querying and deletion is linear in block size.
+The space complexity is \(nw + \mathcal{O}(n)\) bits.</p>
+  </li>
+  <li>
+    <p><strong>Indexed partition hash table.</strong>
+Building on the slow partition hash table, we introduce an index that allows us to query and delete in worst-case constant time (an improvement!) but insertion time is constant on average (a degradation).
+We will make use of a data structure called <a href="https://en.wikipedia.org/wiki/B-tree">B-tree</a> to maintain the index.
+The space complexity is \(nw + \mathcal{O}(n\log \log n)\) bits, which has an extra overhead of \(\log \log n\) bits compared to the slow partition hash table.</p>
+  </li>
+  <li>
+    <p><strong>Partition hash table.</strong>
+We will further introduce an extra layer of processing to achieve constant time w.h.p. for insertion and deletion operations.
+The core idea is to <a href="https://en.wikipedia.org/wiki/Amortized_analysis">amortize</a> the cost of insertion, which is occasionally expensive, over multiple insertions and deletions.
+We will use a data structure called <a href="https://en.wikipedia.org/wiki/Trie">k-tries</a> to maintain a growing buffer that store the upcoming insertions and deletions, and a shrinking buffer that executes these operations in parallel.
+The space complexity is \(nw + \mathcal{O}(n\log \log n)\) bits.</p>
+  </li>
+</ol>
+
+<h2 id="slow-partition-hash-table">Slow partition hash table</h2>
+
+<p>As a starting point, we will use an array of size \(n\) to represent our hash table and partition it into \(n/\log^3(n)\) blocks of size \(\log^3(n)\).</p>
+
+<p>To insert a new item \(x\), we first hash it to a random block \(f(x)\) and insert it to the first empty slot \(k\) from the left of the block.
+We can maintain this left-aligned invariant by maintaining a \(\mathcal{O}(\log \log n)\)-bit counter for each block that keeps track of the number of items in the block.
+So each time we insert an item, we insert it to the slot \(k+1\) and increment the counter by one.
+However, if the block is full, we rebuild the entire hash table by choosing a new random hash function and rehashing all items.
+For deletion, we linearly scan the block to find the item and remove it, and move the right-most item to the empty slot and decrement the counter by one.
+For querying, we linearly scan the block to find the item.</p>
+
+<p>The time complexity for deletion and querying is linear in the block size, which is \(\log^3(n)\).
+The time complexity for insertion is constant unless we need to rebuild the hash table.
+If we introduce a small slack factor \(\color{darkorange}{c\log^2(n)}\) to the block size, the probability of having a block with more than \(\log^3(n) + \color{darkorange}{c\log^2(n)}\) items is very small, e.g. at most \(1/\text{poly}(n)\).
+This fact is a consequence of the <a href="https://en.wikipedia.org/wiki/Chernoff_bound">Chernoff’s bound</a>.
+So on average, the runtime of insertion is constant with high probability.
+Overall, the space complexity is \(nw + \mathcal{O}(n)\) bits.</p>
+
+<h2 id="indexed-partition-hash-table">Indexed partition hash table</h2>
+
+<p>In the previous step, we simply neglected deletions/queries in order to achieve constant time insertion w.h.p.
+To make deletions/queries efficient, we will introduce an index for each block that allows us to find the location of an item in constant time.</p>
+
+<p>One naive way to index a block is to use a hash function \(g:B\rightarrow [\log^3(n)]\) that maps each item in block \(B\) to a unique index in the block.
+The probability of having a collision for any pair \(x, y\in B\) is:</p>
+
+\[\begin{align}
+    \Pr(g(x) = g(y)) = \frac{1}{\log^3(n)}
+\end{align}\]
+
+<p>By union bound, the probability of any collisions occuring is at most \(\text{card}(B)^2 \frac{1}{\log^3(n)} = \log^3(n)\), which is a vacuous bound.</p>
+
+<p>Instead, we assign all items \(x\) within a block to distinct \(\Theta(\log\log n)\)-bit fingerprints \(g(x)\).
+Here, we specifically choose \(g: B \rightarrow [\log^9(n)]\), which will allow us to show that the probability of having a fingerprint collision is at most \(1/\log^3(n)\) (the proof is similar to the previous one).
+If the fingerprints are not distinct, we redo the assignment of fingerprints using a new random hash function.</p>
+
+<p>Next, we will maintain a data structure for each block called <em>query-mapper</em> that maps each fingerprint \(g(x)\) to the corresponding position \(i\in \mathcal{O}(\log^3 n)\) where the item \(x\) is stored in that block.
+In itself, the query-mapper is nothing but a hash table that maps fingerprints to positions (isn’t this the problem we are trying to solve?).
+However, notice that the fingerprints and positions are \(\Theta(\log\log n)\) bits long, which means that the key-value pairs are small enough to be stored in a special data structure called B-tree.
+The exact details of how B-tree works are not important, but the key idea is that it allows us to query/insert/delete in worst-case constant time with a small memory overhead of \(m\log\log n\) bits, where \(m=\text{polylog}(n)\) is the number of key-value pairs in the B-tree.</p>
+
+<p>The query-mapper will interact with our hash table in the following way:</p>
+<ul>
+  <li>
+    <p>To insert an item \(x\), we first check if the fingerprint \(g(x)\) is already in the query-mapper.
+If it is, there is a fingerprint collision and we need to rebuild the index from scratch (for this block only).
+Otherwise, we insert the item to the first empty position \(k\) and add the key-value pair \((g(x), k)\) to the query-mapper.</p>
+  </li>
+  <li>
+    <p>To query an item \(x\), we simply look up the fingerprint \(g(x)\) in the query-mapper to find the position \(k\) where the item is stored.</p>
+  </li>
+  <li>
+    <p>To delete an item \(x\), we look up the fingerprint \(g(x)\) in the query-mapper to find the position \(k\) where the item is stored, remove the item from the hash table and potentially move the right-most item \(x'\) to the empty slot to keep the hash table left-aligned, and delete the key-value pair \((g(x), k)\) and update the position for \(x'\) in the query-mapper.</p>
+  </li>
+</ul>
+
+<p>Overall, the time complexity for querying and deletion is constant in the worst case.
+The time complexity for insertion is constant on average however.
+We need to rebuild the index only when there is a fingerprint collision (which happens with probability of at most \(1/\log^3(n)\)).
+The time complexity for rebuilding the index is \(\mathcal{O}(\log^3(n))\), which is the same as the block size.
+There is also a chance that we need to rebuild the index several times in a row, but the expected time spent on rebuilding is still constant:</p>
+
+\[\sum_{i=1}^{\infty} \mathcal{O}(\log^3 n) \cdot \mathcal{O}(1/\log^3 n)^i = \mathcal{O}(1)\]
+
+<p>The space complexity is \(nw + \mathcal{O}(n\log\log n)\) bits, which has an extra overhead of \(\log\log n\) bits compared to the slow partition hash table.</p>
+
+<h2 id="partition-hash-table">Partition hash table</h2>
+
+<p>The last step is to make insertion and deletion operations constant time w.h.p while maintaining the constant time worst-case guarantee for querying.
+We will use a trick called <em>deamortization</em> to achieve this.
+The core idea is to deamortize the cost of insertion, so if they formerly required \(\mathcal{O}(1)\) time on average, they now require \(\mathcal{O}(1)\) time w.h.p.
+One interesting remark is that this trick can be extended to apply to any hash tables.</p>
+
+<p>We maintain two type of buffers: a growing buffer and a shrinking buffer.
+We will use a data structure called k-tries to implement these buffers, with \(k=\sqrt{n}\), and they store up to \(n^{1/4}\) items of \(w\) bits each.
+Again, the exact details of how k-tries work are not important, but the key idea is that they allow us to insert/delete/query in worst-case constant time with a small memory overhead of \(\mathcal{O}(n^{0.75}\log n)\) bits.</p>
+
+<p>The growing buffer receives the upcoming insertions/deletions while the shrinking buffer has their items removed as they are executed.
+For each insertion/deletion being added to the growing buffer, we spend a constant \(c&gt;1\) amount of time executing the operations in the shrinking buffer in the actual hash table.
+We will guarantee that whenever the growing buffer reaches size \(n^{1/4}\), the shrinking buffer is empty, and they switch roles.</p>
+
+<p>We will prove the following claim: <em>Any batch \(Q\) of \(n^{1/4}\) insertions/deletions can be executed in total \(\mathcal{O}(n^{1/4})\) time w.h.p</em>.</p>
+
+<p>Why is this so crucial?
+The shrinking trie is slowly being cleared out as new operations occur.
+If every batch of \(n^{1/4}\) operations can be done in \(O(n^{1/4})\) total time w.h.p, that means each operation’s amortized cost is constant (since \(O(n^{1/4}) / n^{1/4} = O(1)\)).
+As a result, by proving this claim, we ensure the shrinking trie will be emptied at a rate that keeps the entire hash table’s performance near constant time per update. 
+In other words, if we can show that even a fairly large batch of operations doesn’t cause a time blow-up, then doing a little work per operation (just constant time on average) suffices to keep things running smoothly.</p>
+
+<p><em>Proof sketch of the claim:</em>
+Let \(A_1, A_2, \ldots, A_{n/\log^3(n)}\) be the number of insertion/deletion operations from \(Q\) that get mapped to the \(i\)-th block.
+We’ve shown that, with high probability, \(A_i \le \mathcal{O}(\log^3(n))\) for all \(i\).
+Let \(X_1, X_2, \ldots, X_{n/\log^3(n)}\) be the amount of time needed to execute the operations from \(A_i\) on the \(i\)-th block.
+In the worst case, we can show that \(X_i \le \mathcal{O}(\log^7(n))\) with high probability (this is simply because there are at most \(\log^3(n)\) operations to execute in \(A_i\), the cost of rebuilding is \(\mathcal{O}(\log^3(n))\), and w.h.p there will be \(\mathcal{O}(\log n)\) rebuild attempts).
+Furthermore, we have \(\mathbb{E}[X_i] \le \mathcal{O}(|A_i|)\) by linearity of expectation and the fact that each operation in \(A_i\) takes constant time on average (shown in the previous section).
+By Chernoff’s bound, we can show that \(X:=\sum_{i=1}^{n/\log^3(n)} X_i \le \mathcal{O}(n^{1/4})\) with high probability.</p>
+
+<p>The space complexity is \(nw + \mathcal{O}(n\log\log n)\) bits, which is the same as the indexed partition hash table.</p>
+
+
+<!-- <ul class="taxonomy__index">
+  
+  
+    <li>
+      <a href="#2024">
+        <strong>2024</strong> <span class="taxonomy__count">5</span>
+      </a>
+    </li>
+  
+    <li>
+      <a href="#2023">
+        <strong>2023</strong> <span class="taxonomy__count">2</span>
+      </a>
+    </li>
+  
+</ul> -->
+
+<!-- 
+
+
+  <section id="2024" class="taxonomy__section">
+    <h2 class="archive__subtitle">2024</h2>
+    <div class="entries-list">
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/modern_hashing/" rel="permalink">Modern hashing made simple
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          9 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+This is a short personal note on “Modern Hashing Made Simple” by Bender et al. (2024).
+I’m going to present this paper for the Advanced Graph Algorithms and...</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jane_street_aug24/" rel="permalink">Jane Street Puzzle - August 2024
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+I decided to slack off my exam studying with Jane Street’s puzzle.
+I first read the problem in early August, forgot about it, and then submitted my answer o...</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/expectation_counting/" rel="permalink">Counting with expectation
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Problem 10 (Individual test, ARML 2013).
+For a positive integer \(n\), let \(C(n)\) equal the number of pairs of consecutive \(1\)’s in the binary representa...</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/kl_upper_bound/" rel="permalink">An upper bound for the Kullback-Leibler divergence
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Zürich is so hot now in the night that I couldn’t fall asleep.
+While lying on the bed, I arrived at an interesting upper bound for the KL divergence (relativ...</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/opt_cheatsheet/" rel="permalink">Mathematical optimization cheatsheet
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.
+
+</p>
+  </article>
+</div>
+
+      
+    </div>
+    <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
+  </section>
+
+  <section id="2023" class="taxonomy__section">
+    <h2 class="archive__subtitle">2023</h2>
+    <div class="entries-list">
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/rate_distortion/" rel="permalink">Rate-distortion theory
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          7 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of t...</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/channel_coding_proof/" rel="permalink">Noisy-channel coding theorem
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          9 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Here is my second attempt to understand the proof for the channel coding theorem.
+My initial exposure to this concept was through Professor Amos Lapidoth’s l...</p>
+  </article>
+</div>
+
+      
+    </div>
+    <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
+  </section>
+ -->
+
+  </div>
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/khanhvu207" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/khanhvu207" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2024 Khánh Vũ. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
