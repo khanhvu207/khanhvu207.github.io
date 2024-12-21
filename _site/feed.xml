@@ -1,4 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-12-11T02:16:34+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Modern hashing made simple</title><link href="http://localhost:4000/modern_hashing/" rel="alternate" type="text/html" title="Modern hashing made simple" /><published>2024-12-08T00:00:00+01:00</published><updated>2024-12-08T00:00:00+01:00</updated><id>http://localhost:4000/modern_hashing</id><content type="html" xml:base="http://localhost:4000/modern_hashing/"><![CDATA[<!-- Introduction -->
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-12-21T03:57:30+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Why I think mathematics is beautiful</title><link href="http://localhost:4000/why_i_do_math/" rel="alternate" type="text/html" title="Why I think mathematics is beautiful" /><published>2024-12-13T00:00:00+01:00</published><updated>2024-12-13T00:00:00+01:00</updated><id>http://localhost:4000/why_i_do_math</id><content type="html" xml:base="http://localhost:4000/why_i_do_math/"><![CDATA[<p>A friend of mine asked me why I think mathematics is beautiful.
+I believe the exact answer does not matter, but it is important to have an answer.</p>
+
+<p>Years ago, I visited the Rijksmuseum in Amsterdam—it is one of the biggest museums in the Northern European region.
+In my memories, there was something <em>beautiful</em> about the Dutch oil paintings from three centuries ago.
+The composition is simple and direct, usually composed of a natural landscape under a light blue sky and cotton-like clouds.</p>
+
+<center>
+    <figure>
+        <img src="../assets/images/geest_bridge.png" alt="View near the Geest Bridge by Johan Hendrik Weissenbruch" style="width: 80%; display: inline-block;" />
+        <figcaption><small>"View near the Geest Bridge" by Johan Hendrik Weissenbruch (1824–1903), oil on panel, 1868.</small></figcaption>
+    </figure>
+</center>
+
+<p>There is nothing particularly profound about these kinds of paintings, and they were not meant to showcase how skillful the painters who painted them were.
+But the paintings spoke to me, they was telling me that the appreciation for being present in the moment is a universal human experience.
+Our lives always move forward and are filled with uncertainties, but the beauty of this world, this reality is always there, waiting for us to notice it.
+It is easy to find nothing in everything, but it takes effort to find everything in nothing.</p>
+
+<p>Like arts, mathematics reveals a dimension of us.
+In my early years of education, mathematics is usually portrayed as a strictly logical and rigorous discipline.
+It was taught as if mathematics is an absolute truth, and the only way to understand it is to follow the rules.
+However, the more I study mathematics, the more I realize that mathematics is just a vehicle for our mind to explore the unknown, and it is allowed to be imperfect and <a href="https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems">incomplete</a>.
+Throughout the history of mathematics, we evolved our understanding as a collective, <a href="https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox">old flaws</a> were <a href="https://en.wikipedia.org/wiki/Measurable_space">patched</a>, and <a href="https://en.wikipedia.org/wiki/Continuum_hypothesis">new ones</a> were discovered.
+It is reflection that, in the end, we are all human beings, we are all struggling to make sense of this reality.
+This realization is what makes mathematics beautiful to me.
+<!-- It also changes the way I approach mathematics, I always try to push the boundaries of my intuition and my mental representation of mathematical objects, and leave the rigor to the end.  --></p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[A friend of mine asked me why I think mathematics is beautiful. I believe the exact answer does not matter, but it is important to have an answer.]]></summary></entry><entry><title type="html">Modern hashing made simple</title><link href="http://localhost:4000/modern_hashing/" rel="alternate" type="text/html" title="Modern hashing made simple" /><published>2024-12-08T00:00:00+01:00</published><updated>2024-12-08T00:00:00+01:00</updated><id>http://localhost:4000/modern_hashing</id><content type="html" xml:base="http://localhost:4000/modern_hashing/"><![CDATA[<!-- Introduction -->
 <p>This is a short personal note on <a href="https://epubs.siam.org/doi/10.1137/1.9781611977936.33">“Modern Hashing Made Simple” by Bender et al. (2024)</a>.
 I’m going to present this paper for the <a href="https://kyng.inf.ethz.ch/courses/AGAO24seminar/">Advanced Graph Algorithms and Optimization Seminar (Fall 2024)</a> at ETH Zürich.
 My personal goal is to understand the paper well enough to present it in a clear and engaging way.</p>

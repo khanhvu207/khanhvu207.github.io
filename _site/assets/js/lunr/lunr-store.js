@@ -40,4 +40,10 @@ var store = [{
         "tags": [],
         "url": "/modern_hashing/",
         "teaser": null
+      },{
+        "title": "Why I think mathematics is beautiful",
+        "excerpt":"A friend of mine asked me why I think mathematics is beautiful. I believe the exact answer does not matter, but it is important to have an answer. Years ago, I visited the Rijksmuseum in Amsterdam—it is one of the biggest museums in the Northern European region. In my memories,...","categories": [],
+        "tags": [],
+        "url": "/why_i_do_math/",
+        "teaser": null
       }]
