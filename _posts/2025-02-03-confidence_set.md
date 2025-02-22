@@ -1,0 +1,103 @@
+---
+layout: posts
+title: The upper confidence bound algorithm
+usemathjax: true
+published: false
+---
+
+<!-- ## A primer on bandits -->
+Bandits are a class of reinforcement learning (RL) problems where a learner has to choose between different actions, each of which has an unknown reward.
+The key difference between bandits and RL problems is that in bandits, there is an absence of states or transition between states.
+Through interaction with the environment, the learner learns the reward distribution of each action and tries to maximize its cumulative reward.
+
+In this blog post, we will discuss the upper confidence bound (UCB) algorithm, which is a popular algorithm for solving bandit problems.
+
+## A primer on stochastic bandits (Lattimore and Szepesvári, 2020)
+
+A stochastic bandit is a collection of distributions $$\nu = \{P_a : a\in \mathcal{A} \}$$ in which:
+
+- The learner interacts with the environment for $n$ rounds. We call $n$ the time horizon.
+- At each round $t$, the learner selects an action $$A_t \in \mathcal{A}$$ and receives a reward $$X_t \sim P_{A_t}$$.
+In this blog post, we assume that $$X_t$$ is a $$1$$-sub-Gaussian random variable with mean $$\mu_a := \mathbb{E}[X | A = a]$$ and variance at most $$1$$.
+- The sequence of outcomes is denoted by $$A_1, X_1, A_2, X_2, \ldots, A_n, X_n$$.
+
+In additional, it has to satisfy two statistical assumptions:
+
+1. The conditional distribution $X_t$ given $A_1, X_1, \ldots, A_{t-1}, X_{t-1}, A_t$ is $$P_{A_t}$$, capturing the fact that the environment samples rewards from the distribution corresponding to the action selected by the learner.
+2. The conditional law of action $A_t$ given $A_1, X_1, \ldots, A_{t-1}, X_{t-1}$ is $$\pi_t(\cdot \mid A_1, X_1, \ldots, A_{t-1}, X_{t-1})$$, where $\pi_t$ is a probability distribution over the action space $\mathcal{A}$.
+The learner is thus characterized by the sequence of probability distributions $\pi_1, \pi_2, \ldots, \pi_n$.
+Importantly, the assumption here is that the learner cannot use the future to make decisions.
+
+The usual metric to evaluate the performance of the learner is the _expected regret_, which is defined as the difference between the cumulative reward of the optimal policy and the cumulative reward of the learner:
+
+$$
+\begin{align}
+R_n := n \mu^* - \mathbb{E}\left[\sum_{t=1}^n X_t\right]
+\end{align}
+$$
+
+where $$\mu^* := \max_{a\in \mathcal{A}} \mu_a$$ is the mean of the optimal action.
+
+From the above formulation, the optimal policy is indeed the one that selects the action with the highest expected reward at each round.
+The goal of the learner is to _minimize the expected regret_ by devising a good policy.
+It is worth emphasizing that this is not an optimization problem; the learner does not know the reward distributions $$\nu$$ and has to learn them through interaction with the environment.
+
+## The UCB algorithm
+
+The crux of this algorithm relies on the _optimism principle_, which states that the learner should be optimistic about the reward of each action.
+Why is this a good idea?
+We shall see that this philosophy leads to a good balance between exploration and exploitation.
+
+In particular, the UCB algorithm maintains an upper confidence bound for each action, denoted by $$\text{UCB}_a(t-1)$$.
+At each round, the learner selects the action with the highest UCB and receives the corresponding reward.
+Concretely, we have the following steps for every round $$t=1,2,\ldots,n$$:
+
+1. Select action $$A_t = \underset{a\in \mathcal{A}}{\text{argmax}}~\text{UCB}_a(t-1)$$.
+2. Observe reward $$X_t \sim P_{A_t}$$.
+
+What should we choose as the UCB?
+By the optimism principle, $$\text{UCB}_a(t-1)$$ should be an overestimate of $$\mu_a := \mathbb{E}[X | A = a]$$ and should converge to it as the number of rounds increases.
+Specifically, we define the UCB as follows:
+
+$$
+\begin{align}
+\text{UCB}_a(t-1, \delta) = \hat{\mu}_a(t-1) + \color{darkred}{\underbrace{\sqrt{\frac{2\log(1/\delta)}{T_a(t-1)}}}_{\text{Exploration bonus}}} \tag{1} \label{eq:ucb}
+\end{align}
+$$
+
+where $$T_a(t-1)$$ is the number of times action $$a$$ has been selected up to round $$t-1$$ and $$\delta$$ is a confidence parameter.
+The term $$\hat{\mu}_a(t-1)$$ is the empirical mean of the rewards of action $$a$$ up to round $$t-1$$:
+
+$$
+\begin{align}
+\hat{\mu}_a(t-1) := \frac{1}{T_a(t-1)}\sum_{s=1}^{t-1} \mathbb{I}(A_s = a)X_s,
+\end{align}
+$$
+
+One small remark is that this choice of UCB is not unique; there are other ways to define the UCB.
+In essence, this form of UCB in Eq. $$\ref{eq:ucb}$$ is almost an inverse of the [Hoeffding inequality](https://en.wikipedia.org/wiki/Hoeffding%27s_inequality) with one caveat that the count $$T_a(t-1)$$ in the denominator is a random variable as well.
+We can think of the term $$\sqrt{\frac{2\log(1/\delta)}{T_a(t-1)}}$$ as an _exploration bonus_ that encourages the learner to explore actions that have not been selected frequently (notice the inverse relationship between $$T_a(t-1)$$ and the exploration bonus).
+And at the same time, choosing $$\delta$$ is a delicate problem; a small value of $$\delta$$ leads to a more aggressive exploration, while a large value of $$\delta$$ leads to premature abandonment of the optimal action.
+
+## Theoretical guarantees of UCB
+
+The UCB algorithm has been shown to have a sublinear regret bound:
+
+<p style="background-color: lightblue; padding: 10px;">
+    <strong>Theorem (Lattimore and Szepesvári, 2020).</strong> If $\delta=1/n^2$, then the regret of the UCB algorithm is bounded by
+    \[
+        R_n = \mathcal{O}(\sqrt{nk\log n})
+    \]
+</p>
+
+As an intermediate step, we first prove a weaker result:
+
+**Lemma.** If $\delta=1/n^2$, then the regret of the UCB algorithm is bounded by
+
+$$
+\begin{align}
+R_n \leq 3\sum_{i=1}^k \Delta_i + \sum_{i: \Delta_i \geq 0} \frac{16\log(n)}{\Delta_i}
+\end{align}
+$$
+
+where $$\Delta_i := \mu^* - \mu_i$$ is the gap between the optimal action and action $$i$$.

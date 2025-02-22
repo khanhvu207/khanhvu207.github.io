@@ -20,6 +20,9 @@ body {
   margin-right: auto;
   max-width: 1500px;
   width: 80%;
+  text-align: justify;
+  // hyphens: auto;
+  word-wrap: break-word;
   &.overflow--hidden {
     /* when primary navigation is visible, the content in the background won't scroll */
     overflow: hidden;
