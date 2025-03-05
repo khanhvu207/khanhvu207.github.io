@@ -77,7 +77,7 @@ $$
 So if we define the confidence set $$C_n$$ as
 
 $$
-    C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta_\star\|_{V}^2 \leq \frac{\sigma^2}{n} \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right\},
+    C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq \frac{\sigma^2}{n} \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right\},
 $$
 
 then it is a $$(1-\delta)$$-confidence set for $$\theta_\star$$.
