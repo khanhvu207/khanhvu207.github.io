@@ -18,9 +18,9 @@ body {
   counter-reset: sidenote-counter;
   margin-left: 5%;
   margin-right: auto;
-  max-width: 1500px;
-  width: 80%;
-  text-align: justify;
+  max-width: 1800px;
+  width: 100%;
+  // text-align: justify;
   // hyphens: auto;
   word-wrap: break-word;
   &.overflow--hidden {

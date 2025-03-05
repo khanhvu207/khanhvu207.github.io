@@ -18,7 +18,7 @@ A stochastic bandit is a collection of distributions $$\nu = \{P_a : a\in \mathc
 
 - The learner interacts with the environment for $n$ rounds. We call $n$ the time horizon.
 - At each round $t$, the learner selects an action $$A_t \in \mathcal{A}$$ and receives a reward $$X_t \sim P_{A_t}$$.
-In this blog post, we assume that $$X_t$$ is a $$1$$-sub-Gaussian random variable with mean $$\mu_a := \mathbb{E}[X | A = a]$$ and variance at most $$1$$.
+In this blog post, we assume that $$X_t$$ is a $$1$$-sub-Gaussian random variable with mean $$\mu_a := \mathbb{E}[X | A = a]$$ and variance of at most $$1$$.
 - The sequence of outcomes is denoted by $$A_1, X_1, A_2, X_2, \ldots, A_n, X_n$$.
 
 In additional, it has to satisfy two statistical assumptions:

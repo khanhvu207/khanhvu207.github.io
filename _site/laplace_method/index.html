@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Jane Street Puzzle - August 2024 - EntropyMaxxing</title>
-<meta name="description" content="I decided to slack off my exam studying with Jane Street’s puzzle. I first read the problem in early August, forgot about it, and then submitted my answer on August 16—and got it right on the first try! (username: Khanh Vu). This month’s puzzle involves straightforward state analysis with a nice probability garnish.">
+<!-- begin _includes/seo.html --><title>Confidence sets under asymptotic normality assumption - EntropyMaxxing</title>
+<meta name="description" content="In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence interval. Confidence sets are a way to quantify the uncertainty in our estimates. At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities. We shall explore this in a setting where the estimator is asymptotically normal under some regularity conditions.">
 
 
   <meta name="author" content="Khánh Vũ">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="EntropyMaxxing">
-<meta property="og:title" content="Jane Street Puzzle - August 2024">
-<meta property="og:url" content="http://localhost:4000/jane_street_aug24/">
+<meta property="og:title" content="Confidence sets under asymptotic normality assumption">
+<meta property="og:url" content="http://localhost:4000/laplace_method/">
 
 
-  <meta property="og:description" content="I decided to slack off my exam studying with Jane Street’s puzzle. I first read the problem in early August, forgot about it, and then submitted my answer on August 16—and got it right on the first try! (username: Khanh Vu). This month’s puzzle involves straightforward state analysis with a nice probability garnish.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2024-09-03T00:00:00+02:00">
+  <meta property="og:description" content="In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence interval. Confidence sets are a way to quantify the uncertainty in our estimates. At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities. We shall explore this in a setting where the estimator is asymptotically normal under some regularity conditions.">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2025-03-03T00:00:00+01:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/jane_street_aug24/">
+
+<link rel="canonical" href="http://localhost:4000/laplace_method/">
 
 
 
@@ -280,94 +280,69 @@
 
   <div class="archive">
     
-      <h1 id="page-title" class="page__title">Jane Street Puzzle - August 2024</h1>
+      <h1 id="page-title" class="page__title">Confidence sets under asymptotic normality assumption</h1>
     
-    <!-- Personal remarks -->
-<p>I decided to slack off my exam studying with Jane Street’s puzzle.
-I first read the problem in early August, forgot about it, and then submitted my answer on August 16—and got it right on the first try! (username: Khanh Vu).
-This month’s puzzle involves straightforward state analysis with a nice probability garnish.</p>
+    <p>In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the <a href="https://en.wikipedia.org/wiki/Confidence_interval">95% confidence interval</a>.
+Confidence sets are a way to quantify the uncertainty in our estimates.
+At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities.
+We shall explore this in a setting where the estimator is <a href="https://en.wikipedia.org/wiki/Asymptotic_distribution#Central_limit_theorem">asymptotically normal</a> under some regularity conditions.</p>
 
-<h2 id="the-problem">The problem</h2>
+<h2 id="linear-regression-with-fixed-design">Linear regression with fixed design</h2>
 
-<p>Aaron and Beren play a game on an infinite complete binary tree where each edge is independently labeled as \(\mathrm{A}\) with probability \(p\) and \(\mathrm{B}\) otherwise.
-The game starts with Aaron at the root, and the players take turns moving a shared token down the tree.
-On each turn, the active player chooses one of the two child nodes to move the token to.
-If the token traverses an edge labeled B, Beren wins; otherwise, Aaron wins.</p>
+<p><strong>The setting.</strong>
+We observe \(n\) samples \(\{(Y_t, x_t)\}_{t=1}^n\) that follows the linear regression model</p>
 
-<p>The goal is to find the <a href="https://en.wikipedia.org/wiki/Infimum_and_supremum">infimum</a> of all probabilities \(p\) for which Aaron has a nonzero probability of winning. 
-<!-- This infimum represents the smallest probability $$p$$ at which Aaron’s chance of winning is not zero, considering that Beren can choose a path that includes at least one edge labeled B. --></p>
+\[Y_t = \langle x_t, \theta_\star \rangle + \eta_t,\]
 
-<p>You can read the full problem statement here at: <a href="https://www.janestreet.com/puzzles/tree-edge-triage-index/">www.janestreet.com/puzzles/tree-edge-triage-index/</a>.</p>
+<p>where the design vector \(x_t \in \mathbb{R}^d\) is fixed and known, the noise \(\eta_t\) is drawn i.i.d from a Gaussian \(\mathcal{N}(0, \sigma^2)\) and the parameter of interest is \(\theta_\star \in \mathbb{R}^d\).
+For simplicity, we assume that the Gram matrix \(V:= X^\top X = \sum_{t=1}^n x_t x_t^\top\) is non-singular (here, \(X = [x_1^\top, \ldots, x_n^\top]^\top\)).</p>
 
-<h2 id="my-approach">My approach</h2>
+<p>Our goal is to construct a confidence set \(C_n\) such that \(\Pr(\theta_\star \in C_n) \geq 1 - \delta\) for some confidence level \(\delta \in (0, 1)\).
+We will start with the maximum-likelihood estimator and then derive the asymptotic distribution of the estimator.
+Under the above assumptions, the maximum-likelihood estimator \(\hat{\theta}\) is given by</p>
 
-<p>What does it mean for Aaron to win?
-The universe that Aaron and Beren reside in is controlled by a demon, I assume.
-This demon loves upside down binary trees, so it generates an infinite number of binary trees out of boredom.
-Among these trees, if there exists a tree that allows Aaron to keep playing indefinitely, then we say that he wins with non-zero probability.</p>
+\[\hat{\theta} = V^{-1} X^\top Y,\]
 
-<p>The demon grows a tree in the following fashion:
-A tree starts with a root, and at each time step, every leaf node grows two child nodes.
-The edges connecting each parent to its children are labeled \(\mathrm{A}\) with probability \(p\), and \(\mathrm{B}\) otherwise.
-As \(p\) gets closer to \(1\), it is more likely for Aaron to win.
-So it makes sense that the problem asks for some sort of a lower bound for such \(p\).</p>
+<p>which is also known to be <a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Consistency">asymptotically normal</a>.
+More precisely, the distribution of \(\hat{\theta}\) converges to a Gaussian distribution when \(n\) is large, i.e.,</p>
 
-<center>
-    <figure>
-        <img src="../assets/images/jane_street/js00.png" alt="cases" style="display: inline-block;" />
-        <figcaption> <em>Figure 1. When it's Aaron turn, there are four scenarios.</em> </figcaption>
-    </figure>
-</center>
+\[\hat{\theta} \approx \mathcal{N}(\theta_\star, n^{-1}\mathcal{I}(\theta_\star)^{-1}).\]
 
-<p>We can zoom in and examine the local picture.
-Assuming that it’s Aaron turn and the token is at a node \(u\), the only state that makes him lose immediately is when the two edges are labeled \((\mathrm{B}, \mathrm{B})\) (state \(4\) in Figure \(1\)).
-Otherwise, he moves the token down to the child node \(v_1\) or \(v_2\), depending on the prospect of the two options (or it is possible at all to move the token to \(v_i\) if the edge is labeled \(\mathrm{B}\)).</p>
+<p>Above, \(\mathcal{I}(\theta_\star)\) is the Fisher information matrix at \(\theta_\star\).
+It is also known that \(\hat{\theta}\) is <a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Efficiency">asymptotically efficient</a>, i.e., it achieves the <a href="https://en.wikipedia.org/wiki/Cram%C3%A9r%E2%80%93Rao_bound">Cramér-Rao lower bound</a></p>
 
-<center>
-    <figure>
-        <img src="../assets/images/jane_street/js01.png" alt="cases" style="display: inline-block;" />
-        <figcaption> <em>Figure 2. When it's Beren turn, only the first state allows the game to continue.</em> </figcaption>
-    </figure>
-</center>
+\[\mathbb{V}(\hat{\theta}) = \mathcal{I}(\theta_\star)^{-1}\]
 
-<p>When the token is in Beren’s control, Aaron’s only chance of winning is if both edges are labeled \((\mathrm{A}, \mathrm{A})\).
-In any other case, Beren wins by moving the token along the edge labeled \(\mathrm{B}\).</p>
+<p>This is a bless because it allows us to work out the formula for the inversed Fisher information matrix:</p>
 
-<p>Formally, let \(w_u\) be the event that Aaron wins if he starts his turn at node \(u\).
-Now, node \(u\) has children \(v_1\) and \(v_2\).
-Let \(w_{v_1}\) be the event that Aaron wins if it’s Beren’s turn and the token is at node \(v_1\), and similarly, let \(w_{v_2}\) represent the event that Aaron wins if it’s Beren’s turn and the token is at node \(v_2\).
-Then, we have the following recursive relation:</p>
+\[\begin{align*}
+    \mathbb{V}(\hat{\theta}) &amp;= \mathbb{V}(V^{-1} X^\top Y) \\
+    &amp;= \mathbb{V}(V^{-1} X^\top (X \theta_\star + \eta)) \\
+    &amp;= V^{-1} X^\top \mathbb{V}(\eta) X V^{-1} \\
+    &amp;= \sigma^2 V^{-1} X^\top X V^{-1} \\
+    &amp;= \sigma^2 V^{-1}.
+\end{align*}\]
 
-\[\begin{align}
-    \mathbb{P}(w_u) &amp;= p^2 \cdot \mathbb{P}(w_{v_1} \lor w_{v_2}) + p(1-p)\cdot\mathbb{P}(w_{v_1}) + (1-p)p\cdot\mathbb{P}(w_{v_2}) &amp;\text{(1)} \\
-    \mathbb{P}(w_v) &amp;= p^2 \cdot \mathbb{P}(w_{u_1} \land w_{u_2}) = p^2 \cdot \mathbb{P}(w_u)^2 &amp;\text{(2)} 
-\end{align}\]
+<p>From this we then have that:</p>
 
-<p>Eq. (2) used the fact that \(w_{u_1}\) and \(w_{u_2}\) are independent events.</p>
+\[\begin{align*}
+    \hat{\theta} &amp;\approx \mathcal{N}(\theta_\star, \sigma^2 n^{-1} V^{-1}) \\
+    \frac{\sqrt{n}}{\sigma} V^{1/2}(\hat{\theta} - \theta_\star) &amp;\approx \mathcal{N}(0, I_d)
+\end{align*}\]
 
-<p>To break things down for clarity, Eq. (1) and (2) are composed of terms capturing the states in Fig. 1 and 2 respectively.
-For instance, the term \(p^2 \cdot \mathbb{P}(w_{v_1} \lor w_{v_2})\) in Eq. (1) accounts for the state where both edges connecting \(u\) to children \(v_1, v_2\) are labeled \((\mathrm{A}, \mathrm{A})\).
-In this case, Aaron wins (e.g. \(w_u\) holds) if either \(w_{v_1}\) or \(w_{v_2}\) holds.</p>
+<p>Let \(Z := \frac{\sqrt{n}}{\sigma} V^{1/2}(\hat{\theta} - \theta_\star)\), then we have \(\|Z\|_2^2 = \frac{n}{\sigma^2} \|\hat{\theta}-\theta_\star\|_{V}^2\) follows a \(\mathcal{X}_d^2\)-distribution with \(d\) degrees of freedom.
+From <a href="https://stats.stackexchange.com/a/4821/301376">the tail bounds of the \(\chi^2\)-distribution</a>, we have</p>
 
-<p>Now, from the sum rule of probability, we know that:</p>
+\[\begin{align*}
+    \Pr\left(\|Z\|_2^2 \geq d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right) &amp;\leq \delta \\
+    \Pr\left(\|\hat{\theta}-\theta_\star\|_{V}^2 \geq \frac{\sigma^2}{n} \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right) &amp;\leq \delta.
+\end{align*}\]
 
-\[\newcommand{\ind}{\perp\!\!\!\!\perp} 
-\begin{align}
-    \mathbb{P}(w_{v_1} \lor w_{v_2}) &amp;= \mathbb{P}(w_{v_1}) + \mathbb{P}(w_{v_2}) - \mathbb{P}(w_{v_1} \land w_{v_2}) \\
-    &amp;= 2\mathbb{P}(w_v) - \mathbb{P}(w_v)^2 &amp;(\text{since $w_{v_1} \ind w_{v_2}$})
-\end{align}\]
+<p>So if we define the confidence set \(C_n\) as</p>
 
-<p>For brevity, let \(x:= \mathbb{P}(w_u)\).
-Combining the fact above and plugging (2) into (1), we arrive at the following identity:</p>
+\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq \frac{\sigma^2}{n} \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right\},\]
 
-\[\begin{align}
-    x &amp;= 2x^2p^3 - x^4p^6
-\end{align}\]
-
-<p>Let the left-hand side be defined as \(f(x) := x\) and the right-hand side as \(g(x) := 2x^2p^3 - x^4p^6\). 
-Graphically, the problem is now to find a value \(p_0 \in (0, 1)\) such that for all \(p &gt; p_0\), the function \(f(x)\) intersects with \(g(x)\) at some \(x:=\mathbb{P}(w_u) &gt; 0\).
-<a href="https://www.wolframalpha.com/input?i=x+%3D+2x%5E2p%5E3+-+x%5E4p%5E3+%3E+0">Solving for \(p_0\)</a>, we get \(\boxed{\frac{\sqrt{3}}{2^{5/6}}}\approx 0.972\).</p>
-
+<p>then it is a \((1-\delta)\)-confidence set for \(\theta_\star\).</p>
 
 
 <!-- <ul class="taxonomy__index">
