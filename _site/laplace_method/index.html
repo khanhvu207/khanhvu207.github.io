@@ -334,13 +334,12 @@ It is also known that \(\hat{\theta}\) is <a href="https://en.wikipedia.org/wiki
 From <a href="https://stats.stackexchange.com/a/4821/301376">the tail bounds of the \(\chi^2\)-distribution</a>, we have</p>
 
 \[\begin{align*}
-    \Pr\left(\|Z\|_2^2 \geq d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right) &amp;\leq \delta \\
-    \Pr\left(\|\hat{\theta}-\theta_\star\|_{V}^2 \geq \frac{\sigma^2}{n} \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right) &amp;\leq \delta.
+    \Pr\left(\|Z\|_2^2 \geq d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right) &amp;\leq \delta
 \end{align*}\]
 
 <p>So if we define the confidence set \(C_n\) as</p>
 
-\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq \frac{\sigma^2}{n} \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right\},\]
+\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta_\star\|_{V}^2 \leq \frac{\sigma^2}{n} \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right\},\]
 
 <p>then it is a \((1-\delta)\)-confidence set for \(\theta_\star\).</p>
 

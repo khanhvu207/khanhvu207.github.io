@@ -70,15 +70,14 @@ From [the tail bounds of the $$\chi^2$$-distribution](https://stats.stackexchang
 
 $$
 \begin{align*}
-    \Pr\left(\|Z\|_2^2 \geq d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right) &\leq \delta \\
-    \Pr\left(\|\hat{\theta}-\theta_\star\|_{V}^2 \geq \frac{\sigma^2}{n} \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right) &\leq \delta.
+    \Pr\left(\|Z\|_2^2 \geq d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right) &\leq \delta
 \end{align*}
 $$
 
 So if we define the confidence set $$C_n$$ as
 
 $$
-    C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq \frac{\sigma^2}{n} \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right\},
+    C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta_\star\|_{V}^2 \leq \frac{\sigma^2}{n} \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right\},
 $$
 
 then it is a $$(1-\delta)$$-confidence set for $$\theta_\star$$.
