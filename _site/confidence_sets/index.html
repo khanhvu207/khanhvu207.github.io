@@ -303,15 +303,15 @@ Under the above assumptions, the maximum-likelihood estimator \(\hat{\theta}\) i
 
 \[\hat{\theta} = V^{-1} X^\top Y,\]
 
-<p>which is also known to be <a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Consistency">asymptotically normal</a>.
+<p>which is also known to be <a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Consistency">asymptotically normal</a> (well, in fact \(\hat{\theta}\) is normal already due to the Gaussian noise!).
 More precisely, the distribution of \(\hat{\theta}\) converges to a Gaussian distribution when \(n\) is large, i.e.,</p>
 
-\[\hat{\theta} \approx \mathcal{N}(\theta_\star, n^{-1}\mathcal{I}(\theta_\star)^{-1}).\]
+\[\hat{\theta} \sim \mathcal{N}(\theta_\star, n^{-1}\mathcal{I}(\theta_\star)^{-1}).\]
 
 <p>Above, \(\mathcal{I}(\theta_\star)\) is the Fisher information matrix at \(\theta_\star\).
 It is also known that \(\hat{\theta}\) is <a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Efficiency">asymptotically efficient</a>, i.e., it achieves the <a href="https://en.wikipedia.org/wiki/Cram%C3%A9r%E2%80%93Rao_bound">Cramér-Rao lower bound</a></p>
 
-\[\mathbb{V}(\hat{\theta}) = \mathcal{I}(\theta_\star)^{-1}\]
+\[\mathbb{V}(\hat{\theta}) = n^{-1} \mathcal{I}(\theta_\star)^{-1}\]
 
 <p>This is a bless because it allows us to work out the formula for the inversed Fisher information matrix:</p>
 
@@ -326,11 +326,11 @@ It is also known that \(\hat{\theta}\) is <a href="https://en.wikipedia.org/wiki
 <p>From this we then have that:</p>
 
 \[\begin{align*}
-    \hat{\theta} &amp;\approx \mathcal{N}(\theta_\star, \sigma^2 n^{-1} V^{-1}) \\
-    \frac{\sqrt{n}}{\sigma} V^{1/2}(\hat{\theta} - \theta_\star) &amp;\approx \mathcal{N}(0, I_d)
+    \hat{\theta} &amp;\approx \mathcal{N}(\theta_\star, \sigma^2 V^{-1}) \\
+    \sigma^{-1} V^{1/2}(\hat{\theta} - \theta_\star) &amp;\approx \mathcal{N}(0, I_d)
 \end{align*}\]
 
-<p>Let \(Z := \frac{\sqrt{n}}{\sigma} V^{1/2}(\hat{\theta} - \theta_\star)\), then we have \(\|Z\|_2^2 = \frac{n}{\sigma^2} \|\hat{\theta}-\theta_\star\|_{V}^2\) follows a \(\mathcal{X}_d^2\)-distribution with \(d\) degrees of freedom.
+<p>Let \(Z := \sigma^{-1} V^{1/2}(\hat{\theta} - \theta_\star)\), then we have \(\|Z\|_2^2 = \sigma^{-2} \|\hat{\theta}-\theta_\star\|_{V}^2\) follows a \(\mathcal{X}_d^2\)-distribution with \(d\) degrees of freedom.
 From <a href="https://stats.stackexchange.com/a/4821/301376">the tail bounds of the \(\chi^2\)-distribution</a>, we have</p>
 
 \[\begin{align*}
@@ -339,7 +339,7 @@ From <a href="https://stats.stackexchange.com/a/4821/301376">the tail bounds of 
 
 <p>So if we define the confidence set \(C_n\) as</p>
 
-\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq \frac{\sigma^2}{n} \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right\},\]
+\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq \sigma^2 \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right\},\]
 
 <p>then it is a \((1-\delta)\)-confidence set for \(\theta_\star\).</p>
 
