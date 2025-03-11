@@ -60,8 +60,8 @@ From this we then have that:
 
 $$
 \begin{align*}
-    \hat{\theta} &\approx \mathcal{N}(\theta_\star, \sigma^2 V^{-1}) \\
-    \sigma^{-1} V^{1/2}(\hat{\theta} - \theta_\star) &\approx \mathcal{N}(0, I_d)
+    \hat{\theta} &\sim \mathcal{N}(\theta_\star, \sigma^2 V^{-1}) \\
+    \sigma^{-1} V^{1/2}(\hat{\theta} - \theta_\star) &\sim \mathcal{N}(0, I_d)
 \end{align*}
 $$
 

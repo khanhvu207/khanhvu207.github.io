@@ -52,4 +52,10 @@ var store = [{
         "tags": [],
         "url": "/confidence_sets/",
         "teaser": null
+      },{
+        "title": "What is Fisher information?",
+        "excerpt":"It bugs me that I often have hard time to recall what Fisher information is. So let’s write it down here. At the high-level view, Fisher information shows us how the observations constrain the possible values of the parameter of interest; or to put it another way, how informative the...","categories": [],
+        "tags": [],
+        "url": "/fisher_information/",
+        "teaser": null
       }]
