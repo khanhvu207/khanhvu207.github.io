@@ -26,13 +26,12 @@ $$
 $$
 
 Although score function seems like a function of the parameter, it is actually a $$\color{darkorange}{\text{random variable}}$$ that depends on the data $$X$$.
-Also, from the above, the score function is the sum of the score functions of the individual observations.
-Intuitively, the score function tells us the direction in which we should move the parameter to increase the likelihood of the data.
+Intuitively, the score function tells us the direction in which we should move in the parameter space $$\Theta$$ to increase the likelihood of the observed data.
 We typically solve for the maximum-likelihood estimate by setting the score function to zero, i.e., $$\theta_\text{MLE}$$ is the solution to $$s(\theta; X) = \mathbf{0}$$.
 
 ## Fisher information
 
-To begin with, we can show that the expected score is zero, i.e.,
+Before we discuss what Fisher information is, we shall start with the following result which states that the expectation of the score function is zero, i.e.,
 
 $$
 \begin{align*}
@@ -60,7 +59,7 @@ $$
 
 Unlike score function, Fisher information matrix is a $$\color{darkgreen}{\text{deterministic quantity}}$$ that depends only on the parameter.
 
-[Alternatively](https://en.wikipedia.org/wiki/Fisher_information#Matrix_form), one can write the Fisher information matrix as the negative expectation of the Hessian of the log-likelihood function, i.e.,
+[Alternatively](https://en.wikipedia.org/wiki/Fisher_information#Matrix_form), one can reformulates the Fisher information matrix as the negative expectation of the Hessian of the log-likelihood function, i.e.,
 
 $$
     \mathcal{I}(\theta) = -\mathbb{E}_{X\sim p_{\theta}}\left[\nabla_{\theta}^2 \log p(X | \theta)\right]
@@ -71,13 +70,9 @@ Under this formulation, it measure the curvature of the log-likelihood function 
 It is worth pointing out that $$\theta$$ plays _two different roles_ in this context: it is the parameter of the distribution $$p_{\theta}$$ that gives rise to the data $$X$$ and the argument of the score function $$s(\theta; X)$$. 
 I think this is the source of confusion for me.
 Previously, I thought that the argument of the score function can be any parameter $$\tilde{\theta}$$ other than the parameter $$\theta$$ that generated the data, but this is not the case.
-Why should these two be the same?
-In a way, it tells us how accurate the maximum-likelihood estimate $$\theta_\text{MLE}$$ is;
-if the log-likehood function is sharp (curvature is high), we are fairly confident about the estimate, and vice versa, if the log-likelihood function is flat (curvature is small), we are not so sure about the estimate.
+<!-- Why should these two be the same? -->
+<!-- In a way, it tells us how accurate the maximum-likelihood estimate $$\theta_\text{MLE}$$ is;
+if the log-likehood function is sharp (curvature is high), we are fairly confident about the estimate, and vice versa, if the log-likelihood function is flat (curvature is small), we are not so sure about the estimate. -->
+Generally, Fisher information is a quantitative statement about the amount of information that the data provides about the parameter of interest.
+If the observed data is concentrated sharply around a small region, meaning that the underlying log-likelihood function $$p(\cdot \mid \theta)$$ which the data is drawn from is sharp (instead of being flat), then only a small number of parameters around $$\theta$$ will be consistent with the data.
 
-<!-- In relation to [relative entropy](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence), it [turns out to be](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence#Fisher_information_metric)
-the Hessian of the mapping $$\tilde{\theta} \mapsto \text{KL}(p_{\theta} || p_{\tilde{\theta}})$$ evaluated at $$\tilde{\theta} = \theta$$, i.e.,
-
-$$
-    \mathcal{I}(\theta) = \nabla_{\tilde{\theta}}^2 \text{KL}(p_{\theta} || p_{\tilde{\theta}}) \bigg|_{\tilde{\theta} = \theta}
-$$ -->
