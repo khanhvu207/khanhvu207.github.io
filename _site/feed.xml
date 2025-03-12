@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-11T23:19:49+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">What is Fisher information?</title><link href="http://localhost:4000/fisher_information/" rel="alternate" type="text/html" title="What is Fisher information?" /><published>2025-03-10T00:00:00+01:00</published><updated>2025-03-10T00:00:00+01:00</updated><id>http://localhost:4000/fisher_information</id><content type="html" xml:base="http://localhost:4000/fisher_information/"><![CDATA[<p>It bugs me that I often have hard time to recall what <a href="https://en.wikipedia.org/wiki/Fisher_information">Fisher information</a> is.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-13T00:17:59+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">What is Fisher information?</title><link href="http://localhost:4000/fisher_information/" rel="alternate" type="text/html" title="What is Fisher information?" /><published>2025-03-10T00:00:00+01:00</published><updated>2025-03-10T00:00:00+01:00</updated><id>http://localhost:4000/fisher_information</id><content type="html" xml:base="http://localhost:4000/fisher_information/"><![CDATA[<p>It bugs me that I often have hard time to recall what <a href="https://en.wikipedia.org/wiki/Fisher_information">Fisher information</a> is.
 So let’s write it down here.</p>
 
 <p>At the high-level view, Fisher information shows us how the observations constrain the possible values of the parameter of interest; or to put it another way, how informative the data is about the parameter.
@@ -73,7 +73,7 @@ We observe \(n\) samples \(\{(Y_t, x_t)\}_{t=1}^n\) that follows the linear regr
 
 \[Y_t = \langle x_t, \theta_\star \rangle + \eta_t,\]
 
-<p>where the design vector \(x_t \in \mathbb{R}^d\) is fixed and known, the noise \(\eta_t\) is drawn i.i.d from a Gaussian \(\mathcal{N}(0, \sigma^2)\) and the parameter of interest is \(\theta_\star \in \mathbb{R}^d\).
+<p>where the design vector \(x_t \in \mathbb{R}^d\) is fixed and known, the noise \(\eta_t\) is drawn i.i.d from a Gaussian \(\mathcal{N}(0, 1)\) and the parameter of interest is \(\theta_\star \in \mathbb{R}^d\).
 For simplicity, we assume that the Gram matrix \(V:= X^\top X = \sum_{t=1}^n x_t x_t^\top\) is non-singular (here, \(X = [x_1^\top, \ldots, x_n^\top]^\top\)).</p>
 
 <p>Our goal is to construct a confidence set \(C_n\) such that \(\Pr(\theta_\star \in C_n) \geq 1 - \delta\) for some confidence level \(\delta \in (0, 1)\).
@@ -98,18 +98,18 @@ It is also known that \(\hat{\theta}\) is <a href="https://en.wikipedia.org/wiki
     \mathbb{V}(\hat{\theta}) &amp;= \mathbb{V}(V^{-1} X^\top Y) \\
     &amp;= \mathbb{V}(V^{-1} X^\top (X \theta_\star + \eta)) \\
     &amp;= V^{-1} X^\top \mathbb{V}(\eta) X V^{-1} \\
-    &amp;= \sigma^2 V^{-1} X^\top X V^{-1} \\
-    &amp;= \sigma^2 V^{-1}.
+    &amp;=  V^{-1} X^\top X V^{-1} \\
+    &amp;=  V^{-1}.
 \end{align*}\]
 
 <p>From this we then have that:</p>
 
 \[\begin{align*}
-    \hat{\theta} &amp;\sim \mathcal{N}(\theta_\star, \sigma^2 V^{-1}) \\
-    \sigma^{-1} V^{1/2}(\hat{\theta} - \theta_\star) &amp;\sim \mathcal{N}(0, I_d)
+    \hat{\theta} &amp;\sim \mathcal{N}(\theta_\star,  V^{-1}) \\
+     V^{1/2}(\hat{\theta} - \theta_\star) &amp;\sim \mathcal{N}(0, I_d)
 \end{align*}\]
 
-<p>Let \(Z := \sigma^{-1} V^{1/2}(\hat{\theta} - \theta_\star)\), then we have \(\|Z\|_2^2 = \sigma^{-2} \|\hat{\theta}-\theta_\star\|_{V}^2\) follows a \(\mathcal{X}_d^2\)-distribution with \(d\) degrees of freedom.
+<p>Let \(Z :=  V^{1/2}(\hat{\theta} - \theta_\star)\), then we have \(\|Z\|_2^2 =  \|\hat{\theta}-\theta_\star\|_{V}^2\) follows a \(\mathcal{X}_d^2\)-distribution with \(d\) degrees of freedom.
 From <a href="https://stats.stackexchange.com/a/4821/301376">the tail bounds of the \(\chi^2\)-distribution</a>, we have</p>
 
 \[\begin{align*}
@@ -118,9 +118,13 @@ From <a href="https://stats.stackexchange.com/a/4821/301376">the tail bounds of 
 
 <p>So if we define the confidence set \(C_n\) as</p>
 
-\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq \sigma^2 \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right\},\]
+\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq  d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right\},\]
 
-<p>then it is a \((1-\delta)\)-confidence set for \(\theta_\star\).</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence interval. Confidence sets are a way to quantify the uncertainty in our estimates. At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities. We shall explore this in a setting where the estimator is asymptotically normal under some regularity conditions.]]></summary></entry><entry><title type="html">Why I think mathematics is beautiful</title><link href="http://localhost:4000/why_i_do_math/" rel="alternate" type="text/html" title="Why I think mathematics is beautiful" /><published>2024-12-13T00:00:00+01:00</published><updated>2024-12-13T00:00:00+01:00</updated><id>http://localhost:4000/why_i_do_math</id><content type="html" xml:base="http://localhost:4000/why_i_do_math/"><![CDATA[<p>A friend of mine asked me why I think mathematics is beautiful.
+<p>then it is a \((1-\delta)\)-confidence set for \(\theta_\star\).</p>
+
+<p>Using union bound, we can construct a sequence of confidence sets \(C_1, C_2, \ldots\) such that \(\Pr(\exists n \ge 1: \theta_\star \notin C_n) \leq \delta\) by choosing a larger confidence set for each \(n\):</p>
+
+\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq  d + 2\sqrt{d\log(n(n+1)/\delta)} + 2\log(n(n+1)/\delta)\right\}.\]]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence interval. Confidence sets are a way to quantify the uncertainty in our estimates. At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities. We shall explore this in a setting where the estimator is asymptotically normal under some regularity conditions.]]></summary></entry><entry><title type="html">Why I think mathematics is beautiful</title><link href="http://localhost:4000/why_i_do_math/" rel="alternate" type="text/html" title="Why I think mathematics is beautiful" /><published>2024-12-13T00:00:00+01:00</published><updated>2024-12-13T00:00:00+01:00</updated><id>http://localhost:4000/why_i_do_math</id><content type="html" xml:base="http://localhost:4000/why_i_do_math/"><![CDATA[<p>A friend of mine asked me why I think mathematics is beautiful.
 I believe the exact answer does not matter, but it is important to have an answer.</p>
 
 <p>Years ago, I visited the Rijksmuseum in Amsterdam—it is one of the biggest museums in the Northern European region.

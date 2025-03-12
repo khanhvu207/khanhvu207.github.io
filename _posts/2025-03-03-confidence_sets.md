@@ -19,7 +19,7 @@ $$
     Y_t = \langle x_t, \theta_\star \rangle + \eta_t,
 $$
 
-where the design vector $$x_t \in \mathbb{R}^d$$ is fixed and known, the noise $$\eta_t$$ is drawn i.i.d from a Gaussian $$\mathcal{N}(0, \sigma^2)$$ and the parameter of interest is $$\theta_\star \in \mathbb{R}^d$$.
+where the design vector $$x_t \in \mathbb{R}^d$$ is fixed and known, the noise $$\eta_t$$ is drawn i.i.d from a Gaussian $$\mathcal{N}(0, 1)$$ and the parameter of interest is $$\theta_\star \in \mathbb{R}^d$$.
 For simplicity, we assume that the Gram matrix $$V:= X^\top X = \sum_{t=1}^n x_t x_t^\top$$ is non-singular (here, $$X = [x_1^\top, \ldots, x_n^\top]^\top$$).
 
 Our goal is to construct a confidence set $$C_n$$ such that $$\Pr(\theta_\star \in C_n) \geq 1 - \delta$$ for some confidence level $$\delta \in (0, 1)$$.
@@ -51,8 +51,8 @@ $$
     \mathbb{V}(\hat{\theta}) &= \mathbb{V}(V^{-1} X^\top Y) \\
     &= \mathbb{V}(V^{-1} X^\top (X \theta_\star + \eta)) \\
     &= V^{-1} X^\top \mathbb{V}(\eta) X V^{-1} \\
-    &= \sigma^2 V^{-1} X^\top X V^{-1} \\
-    &= \sigma^2 V^{-1}.
+    &=  V^{-1} X^\top X V^{-1} \\
+    &=  V^{-1}.
 \end{align*}
 $$
 
@@ -60,12 +60,12 @@ From this we then have that:
 
 $$
 \begin{align*}
-    \hat{\theta} &\sim \mathcal{N}(\theta_\star, \sigma^2 V^{-1}) \\
-    \sigma^{-1} V^{1/2}(\hat{\theta} - \theta_\star) &\sim \mathcal{N}(0, I_d)
+    \hat{\theta} &\sim \mathcal{N}(\theta_\star,  V^{-1}) \\
+     V^{1/2}(\hat{\theta} - \theta_\star) &\sim \mathcal{N}(0, I_d)
 \end{align*}
 $$
 
-Let $$Z := \sigma^{-1} V^{1/2}(\hat{\theta} - \theta_\star)$$, then we have $$\|Z\|_2^2 = \sigma^{-2} \|\hat{\theta}-\theta_\star\|_{V}^2$$ follows a $$\mathcal{X}_d^2$$-distribution with $$d$$ degrees of freedom.
+Let $$Z :=  V^{1/2}(\hat{\theta} - \theta_\star)$$, then we have $$\|Z\|_2^2 =  \|\hat{\theta}-\theta_\star\|_{V}^2$$ follows a $$\mathcal{X}_d^2$$-distribution with $$d$$ degrees of freedom.
 From [the tail bounds of the $$\chi^2$$-distribution](https://stats.stackexchange.com/a/4821/301376), we have
 
 $$
@@ -77,7 +77,13 @@ $$
 So if we define the confidence set $$C_n$$ as
 
 $$
-    C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq \sigma^2 \left(d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right)\right\},
+    C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq  d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right\},
 $$
 
 then it is a $$(1-\delta)$$-confidence set for $$\theta_\star$$.
+
+Using union bound, we can construct a sequence of confidence sets $$C_1, C_2, \ldots$$ such that $$\Pr(\exists n \ge 1: \theta_\star \notin C_n) \leq \delta$$ by choosing a larger confidence set for each $$n$$:
+
+$$
+    C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq  d + 2\sqrt{d\log(n(n+1)/\delta)} + 2\log(n(n+1)/\delta)\right\}.
+$$
