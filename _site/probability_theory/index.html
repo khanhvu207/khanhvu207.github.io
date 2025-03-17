@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Modern hashing made simple - EntropyMaxxing</title>
-<meta name="description" content="This is a short personal note on “Modern Hashing Made Simple” by Bender et al. (2024). I’m going to present this paper for the Advanced Graph Algorithms and Optimization Seminar (Fall 2024) at ETH Zürich. My personal goal is to understand the paper well enough to present it in a clear and engaging way.">
+<!-- begin _includes/seo.html --><title>Some personal notes on probability theory - EntropyMaxxing</title>
+<meta name="description" content="A self-contained summary of some key results in probability theory.">
 
 
   <meta name="author" content="Khánh Vũ">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="EntropyMaxxing">
-<meta property="og:title" content="Modern hashing made simple">
-<meta property="og:url" content="http://localhost:4000/modern_hashing/">
+<meta property="og:title" content="Some personal notes on probability theory">
+<meta property="og:url" content="http://localhost:4000/probability_theory/">
 
 
-  <meta property="og:description" content="This is a short personal note on “Modern Hashing Made Simple” by Bender et al. (2024). I’m going to present this paper for the Advanced Graph Algorithms and Optimization Seminar (Fall 2024) at ETH Zürich. My personal goal is to understand the paper well enough to present it in a clear and engaging way.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2024-12-08T00:00:00+01:00">
+  <meta property="og:description" content="A self-contained summary of some key results in probability theory.">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2025-03-16T00:00:00+01:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/modern_hashing/">
+
+<link rel="canonical" href="http://localhost:4000/probability_theory/">
 
 
 
@@ -280,154 +280,56 @@
 
   <div class="archive">
     
-      <h1 id="page-title" class="page__title">Modern hashing made simple</h1>
+      <h1 id="page-title" class="page__title">Some personal notes on probability theory</h1>
     
-    <!-- Introduction -->
-<p>This is a short personal note on <a href="https://epubs.siam.org/doi/10.1137/1.9781611977936.33">“Modern Hashing Made Simple” by Bender et al. (2024)</a>.
-I’m going to present this paper for the <a href="https://kyng.inf.ethz.ch/courses/AGAO24seminar/">Advanced Graph Algorithms and Optimization Seminar (Fall 2024)</a> at ETH Zürich.
-My personal goal is to understand the paper well enough to present it in a clear and engaging way.</p>
+    <p>A self-contained summary of some key results in probability theory.</p>
 
-<p><strong>The set-up.</strong>
-We want to store \(n\) items in a hash table that supports three operations: querying, insertion, and deletion.
-We assume that the <a href="https://en.wikipedia.org/wiki/Word_(computer_architecture)">word size</a> \(w=\Theta(\log n)\).
-Our goal is to design such a hash table that is <em>time-efficient</em> and <em>space-efficient</em>.
-By time-efficient, I mean that the execution time of each operation should be sublinear in \(n\), ideally \(\mathcal{O}(1)\) (on average or with high probability).
-And by space-efficient, I mean that the total number of bits used by the hash table should be of order \((1+o(1))n w\), because otherwise we can achieve constant time execution by storing all items in an long array with zero hash collisions.</p>
+<h2 id="1-law-of-large-numbers">1. Law of large numbers</h2>
 
-<p>Here’s a small anecdote to start with:
-Most hashing algorithms with space \((1+o(1))n w\), such as <a href="https://en.cppreference.com/w/cpp/container/unordered_map">std::unordered_map in C++</a> or <a href="https://en.wikipedia.org/wiki/Linear_probing">linear probing</a>, support querying, insertion, and deletion operations in <strong>\(\mathcal{O}(1)\) time on average</strong>.
-However, they can degrade to <strong>\(\mathcal{O}(n)\) time in the worst case</strong>.
-Many modern work has led to hashing algorithms that guarantee <strong>\(\mathcal{O}(1)\) time with high probability</strong> for all operations.
-This is a much stronger guarantee than the average-case constant time of traditional hashing algorithms, since the probability of a bad event is exponentially small in the input size (usually being bounded by \(1/\text{poly}(n)\)).</p>
+<p><strong>(Convergence in probability)</strong>
+We say that $X_n$ converges to $X$ in probability if for every $\epsilon &gt; 0$, $\lim_{n \to \infty} \Pr(|X_n - X| &gt; \epsilon) = 0$, denoted by $X_n \overset{p}{\longrightarrow} X$.</p>
 
-<p>However, these modern hashing algorithms are often more complex and thus harder to explain than traditional hashing algorithms.
-The paper by Bender et al. presents a simple and practical hashing algorithm that achieves the said strong guarantee.</p>
+<p><strong>(Convergence in $L^r$)</strong>
+We say that $X_n$ converges to $X$ in $L^r$ if $\lim_{n \to \infty} \mathbb{E}(|X_n - X|^r) = 0$, denoted by $X_n \overset{L^r}{\longrightarrow} X$.</p>
 
-<h2 id="the-roadmap">The roadmap</h2>
+<p><strong>(Uncorrelated variables)</strong>
+Two random variables $X$ and $Y$ are uncorrelated if $\mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y)$.</p>
 
-<p>Throughout this work, we assume to have access to a fully random hash function \(f\), meaning that the output of \(f\) is <em>uniformly distributed</em> over the range of possible hash values.
-The paper is structured as follows:</p>
+<p><strong>(Lemma 1.1)</strong>
+Let $X_1, X_2, \ldots$ be a sequence of uncorrelated random variables with $\mathbb{E}(X_i) &lt; \infty$, then we have that $\mathbb{V}(X_1 + \ldots + X_n) = \mathbb{V}(X_1) + \ldots + \mathbb{V}(X_n)$.</p>
 
-<ol>
-  <li>
-    <p><strong>Slow partition hash table.</strong>
-We start with a simple hash table that is partitioned into blocks of size \(\mathcal{O}(\log^3(n))\).
-The time complexity for insertion is constant w.h.p., but the time complexity for querying and deletion is linear in block size.
-The space complexity is \(nw + \mathcal{O}(n)\) bits.</p>
-  </li>
-  <li>
-    <p><strong>Indexed partition hash table.</strong>
-Building on the slow partition hash table, we introduce an index that allows us to query and delete in worst-case constant time (an improvement!) but insertion time is constant on average (a degradation).
-We will make use of a data structure called <a href="https://en.wikipedia.org/wiki/B-tree">B-tree</a> to maintain the index.
-The space complexity is \(nw + \mathcal{O}(n\log \log n)\) bits, which has an extra overhead of \(\log \log n\) bits compared to the slow partition hash table.</p>
-  </li>
-  <li>
-    <p><strong>Partition hash table.</strong>
-We will further introduce an extra layer of processing to achieve constant time w.h.p. for insertion and deletion operations.
-The core idea is to <a href="https://en.wikipedia.org/wiki/Amortized_analysis">amortize</a> the cost of insertion, which is occasionally expensive, over multiple insertions and deletions.
-We will use a data structure called <a href="https://en.wikipedia.org/wiki/Trie">k-tries</a> to maintain a growing buffer that store the upcoming insertions and deletions, and a shrinking buffer that executes these operations in parallel.
-The space complexity is \(nw + \mathcal{O}(n\log \log n)\) bits.</p>
-  </li>
-</ol>
+<p><em>Proof.</em> Omitted for brevity.</p>
 
-<h2 id="slow-partition-hash-table">Slow partition hash table</h2>
+<hr />
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 1.1: $L^2$ weak law})}$
+Let $X_1, X_2, \ldots$ be a sequence of uncorrelated random variables with $\mathbb{E}(X_i) = \mu$ and $\mathbb{V}(X_i) \le C &lt; \infty$.
+If $S_n := X_1 + \ldots + X_n$, then $S_n/n \overset{L^2}{\longrightarrow} \mu$.
+</p>
 
-<p>As a starting point, we will use an array of size \(n\) to represent our hash table and partition it into \(n/\log^3(n)\) blocks of size \(\log^3(n)\).</p>
+<p><em>Proof.</em>
+We have that $\mathbb{E}[|S_n/n - \mu|^2] = \mathbb{V}(S_n/n) \le \frac{C/n}{n^2} \to 0$ as $n \to \infty$.
+Here, we used Lemma 1.1 to compute the variance of $S_n/n$.</p>
 
-<p>To insert a new item \(x\), we first hash it to a random block \(f(x)\) and insert it to the first empty slot \(k\) from the left of the block.
-We can maintain this left-aligned invariant by maintaining a \(\mathcal{O}(\log \log n)\)-bit counter for each block that keeps track of the number of items in the block.
-So each time we insert an item, we insert it to the slot \(k+1\) and increment the counter by one.
-However, if the block is full, we rebuild the entire hash table by choosing a new random hash function and rehashing all items.
-For deletion, we linearly scan the block to find the item and remove it, and move the right-most item to the empty slot and decrement the counter by one.
-For querying, we linearly scan the block to find the item.</p>
+<hr />
+<p><strong>(Chebyshev’s inequality)</strong>
+For any random variable $X$ and $r &gt; 0$, $\Pr(|X| \ge \epsilon) \le \epsilon^{-r}\mathbb{E}(|X|^r)$.</p>
 
-<p>The time complexity for deletion and querying is linear in the block size, which is \(\log^3(n)\).
-The time complexity for insertion is constant unless we need to rebuild the hash table.
-If we introduce a small slack factor \(\color{darkorange}{c\log^2(n)}\) to the block size, the probability of having a block with more than \(\log^3(n) + \color{darkorange}{c\log^2(n)}\) items is very small, e.g. at most \(1/\text{poly}(n)\).
-This fact is a consequence of the <a href="https://en.wikipedia.org/wiki/Chernoff_bound">Chernoff’s bound</a>.
-So on average, the runtime of insertion is constant with high probability.
-Overall, the space complexity is \(nw + \mathcal{O}(n)\) bits.</p>
+<p>One small remark is that Chebyshev’s inequality is generally not a sharp inequality (for example try bounding standard normal variables), however, it cannot be improved in <a href="https://en.wikipedia.org/wiki/Chebyshev%27s_inequality#Sharpness_of_bounds">certain cases</a>.</p>
 
-<h2 id="indexed-partition-hash-table">Indexed partition hash table</h2>
+<p><strong>(Lemma 1.2: Convergence in $L^r$ implies convergence in probability)</strong>
+For $r &gt; 0$, if $Z_n \overset{L^r}{\longrightarrow} 0$, then $Z_n \overset{p}{\longrightarrow} 0$.</p>
 
-<p>In the previous step, we simply neglected deletions/queries in order to achieve constant time insertion w.h.p.
-To make deletions/queries efficient, we will introduce an index for each block that allows us to find the location of an item in constant time.</p>
+<p><em>Proof.</em> Since $\mathbb{E}(|Z_n|^r) \to 0$, the proof follows directly from Chebyshev’s inequality applying to the random variable $Z_n$.</p>
 
-<p>One naive way to index a block is to use a hash function \(g:B\rightarrow [\log^3(n)]\) that maps each item in block \(B\) to a unique index in the block.
-The probability of having a collision for any pair \(x, y\in B\) is:</p>
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 1.2: Weak law of large numbers})}$
+$S_n/n \overset{p}{\longrightarrow} \mu$.
+</p>
 
-\[\begin{align}
-    \Pr(g(x) = g(y)) = \frac{1}{\log^3(n)}
-\end{align}\]
+<p><em>Proof.</em> Follows from Lemma 1.2 with $r = 2$ and the $L^2$ weak law.</p>
 
-<p>By union bound, the probability of any collisions occuring is at most \(\text{card}(B)^2 \frac{1}{\log^3(n)} = \log^3(n)\), which is a vacuous bound.</p>
-
-<p>Instead, we assign all items \(x\) within a block to distinct \(\Theta(\log\log n)\)-bit fingerprints \(g(x)\).
-Here, we specifically choose \(g: B \rightarrow [\log^9(n)]\), which will allow us to show that the probability of having a fingerprint collision is at most \(1/\log^3(n)\) (the proof is similar to the previous one).
-If the fingerprints are not distinct, we redo the assignment of fingerprints using a new random hash function.</p>
-
-<p>Next, we will maintain a data structure for each block called <em>query-mapper</em> that maps each fingerprint \(g(x)\) to the corresponding position \(i\in \mathcal{O}(\log^3 n)\) where the item \(x\) is stored in that block.
-In itself, the query-mapper is nothing but a hash table that maps fingerprints to positions (isn’t this the problem we are trying to solve?).
-However, notice that the fingerprints and positions are \(\Theta(\log\log n)\) bits long, which means that the key-value pairs are small enough to be stored in a special data structure called B-tree.
-The exact details of how B-tree works are not important, but the key idea is that it allows us to query/insert/delete in worst-case constant time with a small memory overhead of \(m\log\log n\) bits, where \(m=\text{polylog}(n)\) is the number of key-value pairs in the B-tree.</p>
-
-<p>The query-mapper will interact with our hash table in the following way:</p>
-<ul>
-  <li>
-    <p>To insert an item \(x\), we first check if the fingerprint \(g(x)\) is already in the query-mapper.
-If it is, there is a fingerprint collision and we need to rebuild the index from scratch (for this block only).
-Otherwise, we insert the item to the first empty position \(k\) and add the key-value pair \((g(x), k)\) to the query-mapper.</p>
-  </li>
-  <li>
-    <p>To query an item \(x\), we simply look up the fingerprint \(g(x)\) in the query-mapper to find the position \(k\) where the item is stored.</p>
-  </li>
-  <li>
-    <p>To delete an item \(x\), we look up the fingerprint \(g(x)\) in the query-mapper to find the position \(k\) where the item is stored, remove the item from the hash table and potentially move the right-most item \(x'\) to the empty slot to keep the hash table left-aligned, and delete the key-value pair \((g(x), k)\) and update the position for \(x'\) in the query-mapper.</p>
-  </li>
-</ul>
-
-<p>Overall, the time complexity for querying and deletion is constant in the worst case.
-The time complexity for insertion is constant on average however.
-We need to rebuild the index only when there is a fingerprint collision (which happens with probability of at most \(1/\log^3(n)\)).
-The time complexity for rebuilding the index is \(\mathcal{O}(\log^3(n))\), which is the same as the block size.
-There is also a chance that we need to rebuild the index several times in a row, but the expected time spent on rebuilding is still constant:</p>
-
-\[\sum_{i=1}^{\infty} \mathcal{O}(\log^3 n) \cdot \mathcal{O}(1/\log^3 n)^i = \mathcal{O}(1)\]
-
-<p>The space complexity is \(nw + \mathcal{O}(n\log\log n)\) bits, which has an extra overhead of \(\log\log n\) bits compared to the slow partition hash table.</p>
-
-<h2 id="partition-hash-table">Partition hash table</h2>
-
-<p>The last step is to make insertion and deletion operations constant time w.h.p while maintaining the constant time worst-case guarantee for querying.
-We will use a trick called <em>deamortization</em> to achieve this.
-The core idea is to deamortize the cost of insertion, so if they formerly required \(\mathcal{O}(1)\) time on average, they now require \(\mathcal{O}(1)\) time w.h.p.
-One interesting remark is that this trick can be extended to apply to any hash tables.</p>
-
-<p>We maintain two type of buffers: a growing buffer and a shrinking buffer.
-We will use a data structure called k-tries to implement these buffers, with \(k=\sqrt{n}\), and they store up to \(n^{1/4}\) items of \(w\) bits each.
-Again, the exact details of how k-tries work are not important, but the key idea is that they allow us to insert/delete/query in worst-case constant time with a small memory overhead of \(\mathcal{O}(n^{0.75}\log n)\) bits.</p>
-
-<p>The growing buffer receives the upcoming insertions/deletions while the shrinking buffer has their items removed as they are executed.
-For each insertion/deletion being added to the growing buffer, we spend a constant \(c&gt;1\) amount of time executing the operations in the shrinking buffer in the actual hash table.
-We will guarantee that whenever the growing buffer reaches size \(n^{1/4}\), the shrinking buffer is empty, and they switch roles.</p>
-
-<p>We will prove the following claim: <em>Any batch \(Q\) of \(n^{1/4}\) insertions/deletions can be executed in total \(\mathcal{O}(n^{1/4})\) time w.h.p</em>.</p>
-
-<p>Why is this so crucial?
-The shrinking trie is slowly being cleared out as new operations occur.
-If every batch of \(n^{1/4}\) operations can be done in \(O(n^{1/4})\) total time w.h.p, that means each operation’s amortized cost is constant (since \(O(n^{1/4}) / n^{1/4} = O(1)\)).
-As a result, by proving this claim, we ensure the shrinking trie will be emptied at a rate that keeps the entire hash table’s performance near constant time per update. 
-In other words, if we can show that even a fairly large batch of operations doesn’t cause a time blow-up, then doing a little work per operation (just constant time on average) suffices to keep things running smoothly.</p>
-
-<p><em>Proof sketch of the claim:</em>
-Let \(A_1, A_2, \ldots, A_{n/\log^3(n)}\) be the number of insertion/deletion operations from \(Q\) that get mapped to the \(i\)-th block.
-We’ve shown that, with high probability, \(A_i \le \mathcal{O}(\log^3(n))\) for all \(i\).
-Let \(X_1, X_2, \ldots, X_{n/\log^3(n)}\) be the amount of time needed to execute the operations from \(A_i\) on the \(i\)-th block.
-In the worst case, we can show that \(X_i \le \mathcal{O}(\log^7(n))\) with high probability (this is simply because there are at most \(\log^3(n)\) operations to execute in \(A_i\), the cost of rebuilding is \(\mathcal{O}(\log^3(n))\), and w.h.p there will be \(\mathcal{O}(\log n)\) rebuild attempts).
-Furthermore, we have \(\mathbb{E}[X_i] \le \mathcal{O}(|A_i|)\) by linearity of expectation and the fact that each operation in \(A_i\) takes constant time on average (shown in the previous section).
-By Chernoff’s bound, we can show that \(X:=\sum_{i=1}^{n/\log^3(n)} X_i \le \mathcal{O}(n^{1/4})\) with high probability.</p>
-
-<p>The space complexity is \(nw + \mathcal{O}(n\log\log n)\) bits, which is the same as the indexed partition hash table.</p>
+<p>Remarkably, the weak law of large numbers does not require the random variables to be independent and identically distributed (i.i.d), only that they are uncorrelated.</p>
 
 
 <!-- <ul class="taxonomy__index">

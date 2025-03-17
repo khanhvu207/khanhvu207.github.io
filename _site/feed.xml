@@ -1,4 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-13T00:17:59+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">What is Fisher information?</title><link href="http://localhost:4000/fisher_information/" rel="alternate" type="text/html" title="What is Fisher information?" /><published>2025-03-10T00:00:00+01:00</published><updated>2025-03-10T00:00:00+01:00</updated><id>http://localhost:4000/fisher_information</id><content type="html" xml:base="http://localhost:4000/fisher_information/"><![CDATA[<p>It bugs me that I often have hard time to recall what <a href="https://en.wikipedia.org/wiki/Fisher_information">Fisher information</a> is.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-17T22:46:53+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Some personal notes on probability theory</title><link href="http://localhost:4000/probability_theory/" rel="alternate" type="text/html" title="Some personal notes on probability theory" /><published>2025-03-16T00:00:00+01:00</published><updated>2025-03-16T00:00:00+01:00</updated><id>http://localhost:4000/probability_theory</id><content type="html" xml:base="http://localhost:4000/probability_theory/"><![CDATA[<p>A self-contained summary of some key results in probability theory.</p>
+
+<h2 id="1-law-of-large-numbers">1. Law of large numbers</h2>
+
+<p><strong>(Convergence in probability)</strong>
+We say that $X_n$ converges to $X$ in probability if for every $\epsilon &gt; 0$, $\lim_{n \to \infty} \Pr(|X_n - X| &gt; \epsilon) = 0$, denoted by $X_n \overset{p}{\longrightarrow} X$.</p>
+
+<p><strong>(Convergence in $L^r$)</strong>
+We say that $X_n$ converges to $X$ in $L^r$ if $\lim_{n \to \infty} \mathbb{E}(|X_n - X|^r) = 0$, denoted by $X_n \overset{L^r}{\longrightarrow} X$.</p>
+
+<p><strong>(Uncorrelated variables)</strong>
+Two random variables $X$ and $Y$ are uncorrelated if $\mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y)$.</p>
+
+<p><strong>(Lemma 1.1)</strong>
+Let $X_1, X_2, \ldots$ be a sequence of uncorrelated random variables with $\mathbb{E}(X_i) &lt; \infty$, then we have that $\mathbb{V}(X_1 + \ldots + X_n) = \mathbb{V}(X_1) + \ldots + \mathbb{V}(X_n)$.</p>
+
+<p><em>Proof.</em> Omitted for brevity.</p>
+
+<hr />
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 1.1: $L^2$ weak law})}$
+Let $X_1, X_2, \ldots$ be a sequence of uncorrelated random variables with $\mathbb{E}(X_i) = \mu$ and $\mathbb{V}(X_i) \le C &lt; \infty$.
+If $S_n := X_1 + \ldots + X_n$, then $S_n/n \overset{L^2}{\longrightarrow} \mu$.
+</p>
+
+<p><em>Proof.</em>
+We have that $\mathbb{E}[|S_n/n - \mu|^2] = \mathbb{V}(S_n/n) \le \frac{C/n}{n^2} \to 0$ as $n \to \infty$.
+Here, we used Lemma 1.1 to compute the variance of $S_n/n$.</p>
+
+<hr />
+<p><strong>(Chebyshev’s inequality)</strong>
+For any random variable $X$ and $r &gt; 0$, $\Pr(|X| \ge \epsilon) \le \epsilon^{-r}\mathbb{E}(|X|^r)$.</p>
+
+<p>One small remark is that Chebyshev’s inequality is generally not a sharp inequality (for example try bounding standard normal variables), however, it cannot be improved in <a href="https://en.wikipedia.org/wiki/Chebyshev%27s_inequality#Sharpness_of_bounds">certain cases</a>.</p>
+
+<p><strong>(Lemma 1.2: Convergence in $L^r$ implies convergence in probability)</strong>
+For $r &gt; 0$, if $Z_n \overset{L^r}{\longrightarrow} 0$, then $Z_n \overset{p}{\longrightarrow} 0$.</p>
+
+<p><em>Proof.</em> Since $\mathbb{E}(|Z_n|^r) \to 0$, the proof follows directly from Chebyshev’s inequality applying to the random variable $Z_n$.</p>
+
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 1.2: Weak law of large numbers})}$
+$S_n/n \overset{p}{\longrightarrow} \mu$.
+</p>
+
+<p><em>Proof.</em> Follows from Lemma 1.2 with $r = 2$ and the $L^2$ weak law.</p>
+
+<p>Remarkably, the weak law of large numbers does not require the random variables to be independent and identically distributed (i.i.d), only that they are uncorrelated.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[A self-contained summary of some key results in probability theory.]]></summary></entry><entry><title type="html">What is Fisher information?</title><link href="http://localhost:4000/fisher_information/" rel="alternate" type="text/html" title="What is Fisher information?" /><published>2025-03-10T00:00:00+01:00</published><updated>2025-03-10T00:00:00+01:00</updated><id>http://localhost:4000/fisher_information</id><content type="html" xml:base="http://localhost:4000/fisher_information/"><![CDATA[<p>It bugs me that I often have hard time to recall what <a href="https://en.wikipedia.org/wiki/Fisher_information">Fisher information</a> is.
 So let’s write it down here.</p>
 
 <p>At the high-level view, Fisher information shows us how the observations constrain the possible values of the parameter of interest; or to put it another way, how informative the data is about the parameter.
@@ -854,232 +901,4 @@ Some tips about the actual calculation of the $$R(D)$$ given a input distributio
 All the conditional probability $$P_{\hat{X}|X}$$ that satisfies $$\mathbb{E}[d(X,\hat{X})]\leq D$$ form a convex set.
 
 <u>Proposition 2:</u>
-For a fixed $$P_X$$, we have that $$\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})$$ is a convex optimization problem.  -->]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem. The rate-distortion theorem plays a crucial role in modern signal processing, especially in understanding the limit of data compression. I will try to keep the material short and concise.]]></summary></entry><entry><title type="html">Noisy-channel coding theorem</title><link href="http://localhost:4000/channel_coding_proof/" rel="alternate" type="text/html" title="Noisy-channel coding theorem" /><published>2023-11-21T00:00:00+01:00</published><updated>2023-11-21T00:00:00+01:00</updated><id>http://localhost:4000/channel_coding_proof</id><content type="html" xml:base="http://localhost:4000/channel_coding_proof/"><![CDATA[<p>Here is my second attempt to understand the proof for the channel coding theorem.
-My initial exposure to this concept was through Professor Amos Lapidoth’s lecture in Information Theory I.
-His presentation, though concise, was packed with ingenious methods that were challenging to fully comprehend at time.
-To better understand it, I shall employ the Feynman technique - explaining the concept to someone else.</p>
-
-<h2 id="1-communication-through-a-noisy-medium">1. Communication through a noisy medium</h2>
-
-<p>Imagine Bob’s wife, Alice, is traveling the universe for her company annual trip.
-She wants to send her lovely husband some gorgious photos she’ve taken during the last couples of days.
-From Alice’s space ship, these photos are first encoded as binary strings (e.g. \(00101101..\)), then converted into radio waves and finally emitted to Bob’s computer on Earth.</p>
-
-<p>However, every interplanetary species know how deadly and quirky the space is, and signals travel through this medium is of no exception.
-Due to cosmic radiation, the sent bit has a probability \(p\in [0,1]\) of being flipped; \(0\) is received as \(1\) at Bob’s computer given some chance \(p&gt;0\) for instance.</p>
-
-<figure>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Binary_symmetric_channel_%28en%29.svg/1920px-Binary_symmetric_channel_%28en%29.svg.png" alt="noisy communication scheme" style="width:500px; display: inline-block;" />
-</figure>
-
-<p>To circumvent such situation, the ship can send the same bit multiple times just to be sure that the receiver can recover the message faithfully.
-For example, Alice can instead send \(010\) as \(000111000\) (each bit is duplicated three times). The encoder at Alice’s spaceship would then follow the mapping:</p>
-
-\[\begin{align}
-0 &amp;\rightarrow 000\\
-1 &amp;\rightarrow 111
-\end{align}\]
-
-<p>On Earth, Bob can leverage a voting scheme to decode the message, say, for every block of 3 bits, decodes it as the majority bit in that block (e.g. \(011 \rightarrow 1\)).</p>
-
-<p>To be more concrete, let’s assume \(p=0.2\).
-Before, the probability of incorrectly receiving a bit \(P_e\), say bit \(0\) is received and decoded as \(1\), equals to \(0.2\).
-Now, with the redundant bits introduced, the error happens when \(000\) is received as one of \(\{011, 101, 110, 111\}\) (Bob will decode it as a \(1\)), and this event occurs with probability \(P_e \approx 0.104\)!
-It seems like the probability of error \(P_e\) will vanish as we keep sending the same bit for a large number of times.
-Wonderful right?
-However, the reduction in \(P_e\) would come with a cost!</p>
-
-<center>
-    <figure>
-        <img src="../assets/images/error_prob.png" alt="prob of error decay rate" style="display: inline-block;" />
-        <!-- <figcaption>...</figcaption> -->
-    </figure>
-</center>
-
-<p>Every time the space ship sends a bit through the radio channel, this service charges Alice some amount of money.
-In case the encoder duplicates a bit \(K\) times, the rate of communication would then be \(R=\frac{1}{K}\) bits per channel use.
-To send a single bit reliably, the ship emits \(K\) times the radio signal to transmit it to Earth.
-From the previous, we speculate that only when \(R \rightarrow 0\) then \(P_e\rightarrow 0\).
-Bad news for the family’s bank account!</p>
-
-<p>But the couple have to worry no more, Claude Shannon dropped a phenomenal paper in 1948 which states that \(\forall \varepsilon&gt;0\), there exists an encoder-decoder pair that allows us to make \(P_e &lt; \varepsilon\) without the need to drive \(R\rightarrow 0\).
-In plain words, you can make the probablity of error arbitrarily small and still having a reasonable communication rate.</p>
-
-<h2 id="2-noisy-channel-coding-theorem">2. Noisy-channel coding theorem</h2>
-
-<p>Formally, the basic scheme consists of a set of messages \(\mathcal{M}\), an encoder \(f: \mathcal{M} \rightarrow \mathcal{X}^n\) with \(n\) be the block length, and a decoder \(\phi: \mathcal{Y}^n \rightarrow \mathcal{M} \cup \{?\}\).
-The symbol \(?\) denotes the failure case when the decoder doesn’t know the original message.
-The communication rate is \(R=\frac{\log |\mathcal{M}|}{n}\) bits per channel use, assume the messages are drawn uniformly.
-We can index \(\mathcal{M}\) by \(\{1,\dots, \lfloor 2^{nR} \rfloor\}\).
-Finally, the noisy channel \(W(\mathcal{Y}|\mathcal{X})\) is memoryless and assumed to be fixed in this setting.</p>
-
-<p><strong>Definition 1:</strong>
-The probability of error associated with message \(m\) is denoted by \(\lambda_m\).
-Verbosely,</p>
-
-\[\begin{align}
-\lambda_m &amp;= \sum_{\mathbf{y} \in\mathcal{Y}^n | \phi(\mathbf{y}) \neq m} P(Y = \mathbf{y} | X = \mathbf{x}(m))\\
-&amp;= \sum_{\mathbf{y} \in\mathcal{Y}^n | \phi(\mathbf{y}) \neq m} \prod_{i=1}^n W(y_i | x_i(m)) &amp;\text{(Channel is memoryless)}
-\end{align}\]
-
-<p>Next, we define \(\lambda_\max = \underset{m\in \mathcal{M}}{\max} \lambda_m\), the maximum chance of getting an error considering all messages.
-The average error chance is \(P_e^{(n)} = \frac{1}{|\mathcal{M}|} \sum_{m\in \mathcal{M}} \lambda_m\).</p>
-
-<p><strong>Definition 2.</strong>
-Rate \(R\) is <strong>achievable</strong> if there exists a sequence of encoder-decoder pairs \(\{f, \phi\}_n\) such that \(\lim_{n\rightarrow \infty} \lambda_\max = 0\).</p>
-
-<p><strong>Definition 3:</strong>
-The capacity of a channel, denoted \(C\), is the <strong>supremum</strong> of all achievable rates.
-Furthermore, we define \(C^{(I)} = \underset{Q\in P_\mathcal{X}}{\max} I(Q, W)\), where \(Q\) is a probability distribution for input symbols in \(\mathcal{X}\) and \(I(\cdot;\cdot)\) is the <a href="https://en.wikipedia.org/wiki/Mutual_information">mutual information</a> between two distributions.</p>
-
-<!-- **Shannon's noisy-channel coding theorem:** -->
-<!-- $$C = C^{(I)}$$ -->
-
-<p style="background-color: lightblue; padding: 10px;">
-    <strong>Shannon’s noisy-channel coding theorem:</strong>
-    \[
-        C = C^{(I)}
-    \]
-</p>
-
-<p>This theorem consists of two parts which we shall prove consequently:</p>
-
-<ol>
-  <li><strong>Converse part:</strong> If \(R &gt; C^{(I)}\), then \(R\) is not achievable.</li>
-  <li><strong>Direct part:</strong> If \(R &lt; C^{(I)}\), then \(R\) is achievable.</li>
-</ol>
-
-<h3 id="21-converse-part">2.1 Converse part</h3>
-
-<p>A contrapositive statement for the converse says that if you give me a wonderful encoder-decoder pair whose rate \(R\) is achievable (e.g. \(\lambda_\max \rightarrow 0\) as \(n\rightarrow \infty\)), then \(R \leq C^{(I)}\).
-Next, I would like to introduce the Fano’s inequality which is necessary for the proof later:</p>
-
-<p><strong>Fano’s inequality:</strong></p>
-
-\[\begin{align}
-H(M|Y) &amp;\leq H(P_e) + P_e\log(|\mathcal{M}|-1)\\
-&amp;\leq 1 + P_e\log|\mathcal{M}|
-\end{align}\]
-
-<p>Where \(P_e=P(\hat{M} \neq M)\) with \(\hat{M}=\phi(Y)\in\mathcal{M}\).
-We have \(H(P_e)\leq 1\) because \(P_e\) is a Bernoulli distribution and the maximum entropy of a binary random variable is \(1\) bit.
-The proof for this inequality is rather a trivial algebraic manipulation, for curious readers you can refer to <em>Elements of Information Theory by Thomas &amp; Cover</em>.</p>
-
-<p><strong>Proof of the converse part:</strong></p>
-
-\[\begin{align}
-nR = \log |\mathcal{M}| = H(M) &amp;= I(M; Y^n) + H(M|Y^n)\\
-&amp;\leq I(M; Y^n) + 1 + P_e^{(n)}nR &amp;\text{(Fano's inequality)}
-\end{align}\]
-
-<p>Dividing \(n\) both sides,</p>
-
-\[R \leq \frac{1}{n} I(M; Y^n) + \frac{1}{n} + P_e^{(n)}R\]
-
-<p>Given that \(R\) is achievable, we have \(P_e^{(n)}\rightarrow 0\). Also, \(\frac{1}{n}\rightarrow 0\) as \(n\rightarrow \infty\). The remain work is to bound \(\frac{1}{n} I(M; Y^n)\):</p>
-
-\[\begin{align}
-I(M; Y^n) &amp;\leq I(X^n; Y^n) &amp;\text{(Data Processing Ineq.)}\\
-&amp;= H(Y^n) - H(Y^n|X^n) \\
-&amp;= \sum_{i=1}^n H(Y_i|Y^{i-1}) - H(Y_i|Y^{i-1}, X^n) &amp;\text{(Chain rule)}\\
-&amp;\leq \sum_{i=1}^n H(Y_i) - H(Y_i|X_i) &amp;\text{(Channel is memoryless)}\\
-&amp;= \sum_{i=1}^n I(X_i; Y_i)\\
-&amp;\leq n \underset{Q\in P_\mathcal{X}}{\max} I(Q; W) = n C^{(I)}
-\end{align}\]
-
-<p>Hence, \(\frac{1}{n} I(M; Y^n) \leq C^{(I)} \Rightarrow R \leq C^{(I)}\), completing the proof.</p>
-
-<h3 id="22-direct-part">2.2 Direct part</h3>
-
-<p>We would need several key ingredients for the actual proof of the direct part.</p>
-
-<p><strong>Joint Weak Typicality.</strong>
-Given a joint probability \(P_{XY}\) and a tolerance $\epsilon$, and two sequences \(\mathbf{x},\mathbf{y}\) that satisfy the following conditions:</p>
-
-<ol>
-  <li>\(\mathbf{x}\) is weakly typical, e.g. \(2^{-n(H(P_X)+\epsilon)} &lt; \prod_{i=0}^n P_X(x_i) &lt; 2^{-n(H(P_X)-\epsilon)}\).</li>
-  <li>\(\mathbf{y}\) is weakly typical, e.g. \(2^{-n(H(P_Y)+\epsilon)} &lt; \prod_{i=0}^n P_Y(y_i) &lt; 2^{-n(H(P_Y)-\epsilon)}\).</li>
-</ol>
-
-<p>Then, the pair \((\mathbf{x, y})\) is weakly typical if \(2^{-n(H(P_{XY})+\epsilon)} &lt; \prod_{i=0}^n P_{XY}(x_i, y_i) &lt; 2^{-n(H(P_{XY})-\epsilon)}\).
-We denotes such event as \((\mathbf{x,y}) \in \mathcal{A}_\epsilon^{(n)}(P_{XY})\).
-A jointly typical pair of sequences has some properties that will be needed for the main proof:</p>
-
-<ol>
-  <li>If the elements of \((\mathbf{x,y})=\{(x_i,y_i)\}_{i=1}^n\) are drawn IID from \(P_{XY}\), then for any \(\delta&gt;0\) there exists \(N(\delta)\) so that \(\forall n&gt;N(\delta)\) we have \(\text{Pr}((\mathbf{x,y}) \notin \mathcal{A}_\epsilon^{(n)}(P_{XY})) \leq \delta\).</li>
-  <li>If \(\mathbf{x}=\{x_i\}_{i=1}^n\) and \(\mathbf{y}=\{y_i\}_{i=1}^n\) are drawn IID from \(P_X\) and \(P_Y\) respectively, then the chance that the pair of sequences \((\mathbf{x,y})\) is jointly typical is very unlikely:</li>
-</ol>
-
-\[\textbf{Pr}((\mathbf{x,y}) \in \mathcal{A}_\epsilon^{(n)}(P_{XY})) \leq 2^{-n(I(X;Y)- 3\epsilon)}\]
-
-<p><strong>Proof of the direct part:</strong></p>
-
-<p>Let us fix the input symbols distribution \(Q \in P_X\).
-We would like to prove that for any rate \(R &lt; I(Q, W)\), \(R\) is achievable.
-If we can prove this previous statement, the same thing holds when \(Q\) is the capacity-achieving input distribution and hence the proof for \(R &lt; C^{(I)}\) follows naturally.</p>
-
-<p>To decode the messages, we shall use something called jointly typical decoding.
-For a given output sequence \(Y^n\) from the channel, we check for the existance of a message \(m\) whose code \(X^n(m)\) is jointly typical with \(Y^n\), e.g. whether \((X^n,Y^n) \in \mathcal{A}^{(n)} (P_{XY})\).
-If there exists a single \(m\) satisfies this condition, return \(m\).
-Otherwise, if there is none or multiple such \(m\)’s, we declare error.</p>
-
-<p>Now, consider a random rate-\(R\) blocklength-\(n\) codebook \(\mathcal{C}\).
-To construct this codebook, the row elements (there are \(n\) of them) in each of the \(2^{nR}\) rows in \(\mathcal{C}\) are drawn IID from \(Q\).
-The probability of error for message \(m\) associating with this codebook is denoted by \(\lambda_m(\mathcal{C})\).
-The expected error is then written as \(\bar{\lambda}_m = \mathbb{E}_{P_{\mathcal{C}}}[\lambda_m(\mathcal{C})]\).
-Similarly, the average error for codebook \(\mathcal{C}\) is \(P_e^{(n)}(\mathcal{C})\) and the expected average error is \(P_e^{(n)}\).</p>
-
-<p><strong>Claim 1:</strong>
-The expected error is independent of the message \(m\), e.g. \(\bar{\lambda}_1 = \dots = \bar{\lambda}_m\).</p>
-
-<p><strong>Proof of claim 1 (non-rigorous):</strong>
-This is due to symmetry!</p>
-
-<p>Follow from claim 1, we can easily see that the expected average error \(P_e^{(n)}=\bar{\lambda}_1\).
-From now on, we will focus on bounding \(\bar{\lambda}_1\) which turns out to be easy to work with!</p>
-
-<p>Given that \(m=1\) and the fact that we are using jointly typical decoding, let us define \(\varepsilon_i = [(X^n(i), Y^n) \in \mathcal{A}_\epsilon^{(n)}]\), the event where the code for message \(i\) is jointly typical with \(Y^n\).
-The error \(\bar{\lambda}_1\) can then be expressed as:</p>
-
-\[\bar{\lambda}_1 = \text{Pr}(\varepsilon_1^c \cup \varepsilon_2 \cup \dots \cup \varepsilon_m)\]
-
-<p>This is exactly equivalent what we have defined as an error for the jointly typical decoding.
-We then have the following bounds,</p>
-
-\[\begin{align}
-\bar{\lambda}_1 &amp;\leq \text{Pr}(\varepsilon_1^c) + \sum_{i=2}^{2^{nR}} \text{Pr}(\varepsilon_i) &amp;\text{(Union bound)}\\
-&amp;\leq \delta + \sum_{i=2}^{2^{nR}} 2^{-n(I(X;Y)-3\epsilon)} &amp;\text{(Properties of joint typicality)}\\
-&amp;\leq \delta + 2^{-n(I(X;Y)-R-3\epsilon)}
-\end{align}\]
-
-<p>Now, if \(R &lt; I(X;Y) - 3\epsilon\), we can make \(\bar{\lambda}_1 \leq 2\delta\) for some large \(n\). Also note that \(\text{Pr}(\varepsilon_1^c) \leq \delta\) only hold for a large \(n\) too.</p>
-
-<p>To get the actual proof, we replace \(Q\) with the capacity-achieving distribution \(\underset{Q \in P_X}{\text{argmax}}~I(Q,W)\).
-The last conclusion above becomes \(R &lt; C^{(I)} - 3\epsilon\) implying \(P_e^{(n)} = \bar{\lambda}_1 \leq 2\delta\).
-Next, we have a fundamental lemma about the average of numbers:</p>
-
-<p><strong>Lemma 1:</strong> Consider a sequence of real numbers \(a_1,\dots, a_n\). 
-If the average \(\bar{a} = \frac{1}{n} \sum_{i=1}^n a_i \leq \gamma\), then there exists an \(a_i \leq \gamma\).</p>
-
-<p>This lemma can be proven easily by contradiction.
-The implication of this is that previously we have shown that the average error \(P_e^{(n)} \leq 2\delta\) over all random codebook, then there must exist a codebook \(\mathcal{C}^*\) whose average error \(P_e^{(n)}(\mathcal{C}^*) \leq 2\delta\).
-It remains to bound the maximal error \(\lambda_\max(\mathcal{C}^*) = \underset{m\in \mathcal{M}}{\max}\lambda_m(\mathcal{C}^*)\), which is actually we need to show for the achievability of the rate \(R\).</p>
-
-<p><strong>Lemma 2:</strong>
-Consider a sequence of \(2n\) real numbers such that \(a_1\leq \dots \leq a_{2n}\) and its average \(\bar{a} \leq \nu\).
-It holds that \(a_n \leq 2\nu\).</p>
-
-<p><strong>Proof:</strong></p>
-
-\[\begin{align}
-2n\nu &amp;\geq \sum_{i=1}^{2n} a_i = \sum_{i=1}^{n} a_i + \sum_{i=n+1}^{2n} a_i\\
-&amp;\geq \sum_{i=n+1}^{2n} a_i \\
-&amp;\geq \sum_{i=n+1}^{2n} a_n = n a_n
-\end{align}\]
-
-<p>Using the lemma, we have a bound on the maximal error \(\lambda_\max(\mathcal{C}^*)\leq 4\delta\) by throwing away half of the codewords in \(\mathcal{C}^*\). 
-However, by throwing away codewords we also lose the rate of communication, it is now \(R-\frac{1}{n}\) instead of \(R\).
-Indeed, the \(\frac{1}{n}\) would vanish for a large \(n\).
-Overall, this strategy of bounding the maximum is called the <em>expurgation trick</em>.</p>
-
-<p>For a rate \(\tilde{R} &lt; C^{(I)}\) and any \(\tilde{\epsilon}&gt;0\), we can show that for \(n\) large enough there exists a rate-\(R\) (\(\tilde{R} &lt; R\)) blocklength-\(n\) codebook where \(\lambda_\max \leq \tilde{\epsilon}\) by setting \(R=\frac{(\tilde{R}+C)}{2}\), \(\delta=\frac{\tilde{\epsilon}}{4}\), \(\epsilon &lt; \frac{C^{(I)}-R}{3}\) and apply the proof above.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[Here is my second attempt to understand the proof for the channel coding theorem. My initial exposure to this concept was through Professor Amos Lapidoth’s lecture in Information Theory I. His presentation, though concise, was packed with ingenious methods that were challenging to fully comprehend at time. To better understand it, I shall employ the Feynman technique - explaining the concept to someone else.]]></summary></entry></feed>
+For a fixed $$P_X$$, we have that $$\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})$$ is a convex optimization problem.  -->]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem. The rate-distortion theorem plays a crucial role in modern signal processing, especially in understanding the limit of data compression. I will try to keep the material short and concise.]]></summary></entry></feed>

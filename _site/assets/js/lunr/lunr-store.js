@@ -58,4 +58,10 @@ var store = [{
         "tags": [],
         "url": "/fisher_information/",
         "teaser": null
+      },{
+        "title": "Some personal notes on probability theory",
+        "excerpt":"A self-contained summary of some key results in probability theory. 1. Law of large numbers (Convergence in probability) We say that $X_n$ converges to $X$ in probability if for every $\\epsilon &gt; 0$, $\\lim_{n \\to \\infty} \\Pr(|X_n - X| &gt; \\epsilon) = 0$, denoted by $X_n \\overset{p}{\\longrightarrow} X$. (Convergence in...","categories": [],
+        "tags": [],
+        "url": "/probability_theory/",
+        "teaser": null
       }]
