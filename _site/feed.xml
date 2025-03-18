@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-17T22:46:53+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Some personal notes on probability theory</title><link href="http://localhost:4000/probability_theory/" rel="alternate" type="text/html" title="Some personal notes on probability theory" /><published>2025-03-16T00:00:00+01:00</published><updated>2025-03-16T00:00:00+01:00</updated><id>http://localhost:4000/probability_theory</id><content type="html" xml:base="http://localhost:4000/probability_theory/"><![CDATA[<p>A self-contained summary of some key results in probability theory.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-19T00:50:49+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Some personal notes on probability theory</title><link href="http://localhost:4000/probability_theory/" rel="alternate" type="text/html" title="Some personal notes on probability theory" /><published>2025-03-16T00:00:00+01:00</published><updated>2025-03-16T00:00:00+01:00</updated><id>http://localhost:4000/probability_theory</id><content type="html" xml:base="http://localhost:4000/probability_theory/"><![CDATA[<p>A self-contained summary of some key results in probability theory.</p>
+
+<h2 id="0-measure-theory-coming-soon">0. Measure theory (coming soon)</h2>
 
 <h2 id="1-law-of-large-numbers">1. Law of large numbers</h2>
 
@@ -40,12 +42,33 @@ For $r &gt; 0$, if $Z_n \overset{L^r}{\longrightarrow} 0$, then $Z_n \overset{p}
 
 <p style="background-color: lightblue; padding: 10px;">
 $\color{darkblue}{(\text{Theorem 1.2: Weak law of large numbers})}$
-$S_n/n \overset{p}{\longrightarrow} \mu$.
+Let $X_1, X_2, \ldots$ be a sequence of uncorrelated random variables with $\mathbb{E}(X_i) = \mu$ and $\mathbb{V}(X_i) \le C &lt; \infty$.
+If $S_n := X_1 + \ldots + X_n$, then $S_n/n \overset{p}{\longrightarrow} \mu$.
 </p>
 
 <p><em>Proof.</em> Follows from Lemma 1.2 with $r = 2$ and the $L^2$ weak law.</p>
 
-<p>Remarkably, the weak law of large numbers does not require the random variables to be independent and identically distributed (i.i.d), only that they are uncorrelated.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[A self-contained summary of some key results in probability theory.]]></summary></entry><entry><title type="html">What is Fisher information?</title><link href="http://localhost:4000/fisher_information/" rel="alternate" type="text/html" title="What is Fisher information?" /><published>2025-03-10T00:00:00+01:00</published><updated>2025-03-10T00:00:00+01:00</updated><id>http://localhost:4000/fisher_information</id><content type="html" xml:base="http://localhost:4000/fisher_information/"><![CDATA[<p>It bugs me that I often have hard time to recall what <a href="https://en.wikipedia.org/wiki/Fisher_information">Fisher information</a> is.
+<p>If we relax the assumption of bounded variance, we can still obtain a weak law of large numbers with i.i.d assumption and a weaker variance assumption.</p>
+
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 1.3: Weak law of large numbers with relaxed variance assumption})}$
+Let $X_1, X_2, \ldots$ be a sequence of i.i.d random variables with $x\cdot\Pr(|X_i| &gt; x) \to 0$ as $x \to \infty$.
+Let $\mu_n := \mathbb{E}[X_1\cdot\mathbb{I}\{|X_1| \le n\}]$.
+Then, $S_n/n - \mu_n \overset{p}{\longrightarrow} 0$.
+</p>
+
+<p><em>Proof.</em> Omitted for brevity.</p>
+
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 1.4: Weak law of large numbers for i.i.d random variables})}$
+Let $X_1, X_2, \ldots$ be a sequence of i.i.d random variables with $\mathbb{E}[|X_1|] &lt; \infty$.
+Let $\mu := \mathbb{E}[X_1]$.
+Then, $S_n/n \overset{p}{\longrightarrow} \mu$.
+</p>
+
+<p><em>Proof sketch.</em> Use theorem 1.3 and the dominated convergence theorem.</p>
+
+<h2 id="2-borel-cantelli-lemmas-coming-soon">2. Borel-Cantelli lemmas (coming soon)</h2>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[A self-contained summary of some key results in probability theory.]]></summary></entry><entry><title type="html">What is Fisher information?</title><link href="http://localhost:4000/fisher_information/" rel="alternate" type="text/html" title="What is Fisher information?" /><published>2025-03-10T00:00:00+01:00</published><updated>2025-03-10T00:00:00+01:00</updated><id>http://localhost:4000/fisher_information</id><content type="html" xml:base="http://localhost:4000/fisher_information/"><![CDATA[<p>It bugs me that I often have hard time to recall what <a href="https://en.wikipedia.org/wiki/Fisher_information">Fisher information</a> is.
 So let’s write it down here.</p>
 
 <p>At the high-level view, Fisher information shows us how the observations constrain the possible values of the parameter of interest; or to put it another way, how informative the data is about the parameter.

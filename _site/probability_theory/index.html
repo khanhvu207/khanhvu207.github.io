@@ -284,6 +284,8 @@
     
     <p>A self-contained summary of some key results in probability theory.</p>
 
+<h2 id="0-measure-theory-coming-soon">0. Measure theory (coming soon)</h2>
+
 <h2 id="1-law-of-large-numbers">1. Law of large numbers</h2>
 
 <p><strong>(Convergence in probability)</strong>
@@ -324,12 +326,33 @@ For $r &gt; 0$, if $Z_n \overset{L^r}{\longrightarrow} 0$, then $Z_n \overset{p}
 
 <p style="background-color: lightblue; padding: 10px;">
 $\color{darkblue}{(\text{Theorem 1.2: Weak law of large numbers})}$
-$S_n/n \overset{p}{\longrightarrow} \mu$.
+Let $X_1, X_2, \ldots$ be a sequence of uncorrelated random variables with $\mathbb{E}(X_i) = \mu$ and $\mathbb{V}(X_i) \le C &lt; \infty$.
+If $S_n := X_1 + \ldots + X_n$, then $S_n/n \overset{p}{\longrightarrow} \mu$.
 </p>
 
 <p><em>Proof.</em> Follows from Lemma 1.2 with $r = 2$ and the $L^2$ weak law.</p>
 
-<p>Remarkably, the weak law of large numbers does not require the random variables to be independent and identically distributed (i.i.d), only that they are uncorrelated.</p>
+<p>If we relax the assumption of bounded variance, we can still obtain a weak law of large numbers with i.i.d assumption and a weaker variance assumption.</p>
+
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 1.3: Weak law of large numbers with relaxed variance assumption})}$
+Let $X_1, X_2, \ldots$ be a sequence of i.i.d random variables with $x\cdot\Pr(|X_i| &gt; x) \to 0$ as $x \to \infty$.
+Let $\mu_n := \mathbb{E}[X_1\cdot\mathbb{I}\{|X_1| \le n\}]$.
+Then, $S_n/n - \mu_n \overset{p}{\longrightarrow} 0$.
+</p>
+
+<p><em>Proof.</em> Omitted for brevity.</p>
+
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 1.4: Weak law of large numbers for i.i.d random variables})}$
+Let $X_1, X_2, \ldots$ be a sequence of i.i.d random variables with $\mathbb{E}[|X_1|] &lt; \infty$.
+Let $\mu := \mathbb{E}[X_1]$.
+Then, $S_n/n \overset{p}{\longrightarrow} \mu$.
+</p>
+
+<p><em>Proof sketch.</em> Use theorem 1.3 and the dominated convergence theorem.</p>
+
+<h2 id="2-borel-cantelli-lemmas-coming-soon">2. Borel-Cantelli lemmas (coming soon)</h2>
 
 
 <!-- <ul class="taxonomy__index">
@@ -389,7 +412,7 @@ $S_n/n \overset{p}{\longrightarrow} \mu$.
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 minute read
+          2 minute read
         
       </span>
     
