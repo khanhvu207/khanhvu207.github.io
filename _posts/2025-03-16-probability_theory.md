@@ -6,6 +6,7 @@ published: true
 ---
 
 A self-contained summary of some key results in probability theory.
+I'll mostly summarize the results from [Durrett's Probability: Theory and Examples](https://www.cambridge.org/ch/universitypress/subjects/statistics-probability/probability-theory-and-stochastic-processes/probability-theory-and-examples-5th-edition?format=HB) and some other sources.
 
 ## 0. Measure theory (coming soon)
 
