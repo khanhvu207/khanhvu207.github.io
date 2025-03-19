@@ -47,10 +47,10 @@ var store = [{
         "url": "/why_i_do_math/",
         "teaser": null
       },{
-        "title": "Confidence sets under asymptotic normality assumption",
+        "title": "Confidence sets for Gaussian linear models",
         "excerpt":"In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence interval. Confidence sets are a way to quantify the uncertainty in our estimates. At its core, the construction of confidence sets is typically achieved through...","categories": [],
         "tags": [],
-        "url": "/confidence_sets/",
+        "url": "/confidence_sets_exact/",
         "teaser": null
       },{
         "title": "What is Fisher information?",

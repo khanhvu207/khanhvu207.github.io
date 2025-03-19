@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-19T00:53:08+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Some personal notes on probability theory</title><link href="http://localhost:4000/probability_theory/" rel="alternate" type="text/html" title="Some personal notes on probability theory" /><published>2025-03-16T00:00:00+01:00</published><updated>2025-03-16T00:00:00+01:00</updated><id>http://localhost:4000/probability_theory</id><content type="html" xml:base="http://localhost:4000/probability_theory/"><![CDATA[<p>A self-contained summary of some key results in probability theory.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-19T12:32:38+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Some personal notes on probability theory</title><link href="http://localhost:4000/probability_theory/" rel="alternate" type="text/html" title="Some personal notes on probability theory" /><published>2025-03-16T00:00:00+01:00</published><updated>2025-03-16T00:00:00+01:00</updated><id>http://localhost:4000/probability_theory</id><content type="html" xml:base="http://localhost:4000/probability_theory/"><![CDATA[<p>A self-contained summary of some key results in probability theory.
 I’ll mostly summarize the results from <a href="https://www.cambridge.org/ch/universitypress/subjects/statistics-probability/probability-theory-and-stochastic-processes/probability-theory-and-examples-5th-edition?format=HB">Durrett’s Probability: Theory and Examples</a> and some other sources.</p>
 
 <h2 id="0-measure-theory-coming-soon">0. Measure theory (coming soon)</h2>
@@ -132,12 +132,12 @@ Previously, I thought that the argument of the score function can be any paramet
 <!-- In a way, it tells us how accurate the maximum-likelihood estimate $$\theta_\text{MLE}$$ is;
 if the log-likehood function is sharp (curvature is high), we are fairly confident about the estimate, and vice versa, if the log-likelihood function is flat (curvature is small), we are not so sure about the estimate. -->
 Generally, Fisher information is a quantitative statement about the amount of information that the data provides about the parameter of interest.
-If the observed data is concentrated sharply around a small region, meaning that the underlying log-likelihood function \(p(\cdot \mid \theta)\) which the data is drawn from is sharp (instead of being flat), then only a small number of parameters around \(\theta\) will be consistent with the data.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[It bugs me that I often have hard time to recall what Fisher information is. So let’s write it down here.]]></summary></entry><entry><title type="html">Confidence sets under asymptotic normality assumption</title><link href="http://localhost:4000/confidence_sets/" rel="alternate" type="text/html" title="Confidence sets under asymptotic normality assumption" /><published>2025-03-03T00:00:00+01:00</published><updated>2025-03-03T00:00:00+01:00</updated><id>http://localhost:4000/confidence_sets</id><content type="html" xml:base="http://localhost:4000/confidence_sets/"><![CDATA[<p>In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the <a href="https://en.wikipedia.org/wiki/Confidence_interval">95% confidence interval</a>.
+If the observed data is concentrated sharply around a small region, meaning that the underlying log-likelihood function \(p(\cdot \mid \theta)\) which the data is drawn from is sharp (instead of being flat), then only a small number of parameters around \(\theta\) will be consistent with the data.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[It bugs me that I often have hard time to recall what Fisher information is. So let’s write it down here.]]></summary></entry><entry><title type="html">Confidence sets for Gaussian linear models</title><link href="http://localhost:4000/confidence_sets_exact/" rel="alternate" type="text/html" title="Confidence sets for Gaussian linear models" /><published>2025-03-03T00:00:00+01:00</published><updated>2025-03-03T00:00:00+01:00</updated><id>http://localhost:4000/confidence_sets_exact</id><content type="html" xml:base="http://localhost:4000/confidence_sets_exact/"><![CDATA[<p>In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the <a href="https://en.wikipedia.org/wiki/Confidence_interval">95% confidence interval</a>.
 Confidence sets are a way to quantify the uncertainty in our estimates.
 At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities.
-We shall explore this in a setting where the estimator is <a href="https://en.wikipedia.org/wiki/Asymptotic_distribution#Central_limit_theorem">asymptotically normal</a> under some regularity conditions.</p>
+<!-- We shall explore this in a setting where the estimator is [asymptotically normal](https://en.wikipedia.org/wiki/Asymptotic_distribution#Central_limit_theorem) under some regularity conditions. --></p>
 
-<h2 id="linear-regression-with-fixed-design">Linear regression with fixed design</h2>
+<h2 id="gaussian-linear-model-with-fixed-design">Gaussian linear model with fixed design</h2>
 
 <p><strong>The setting.</strong>
 We observe \(n\) samples \(\{(Y_t, x_t)\}_{t=1}^n\) that follows the linear regression model</p>
@@ -147,33 +147,43 @@ We observe \(n\) samples \(\{(Y_t, x_t)\}_{t=1}^n\) that follows the linear regr
 <p>where the design vector \(x_t \in \mathbb{R}^d\) is fixed and known, the noise \(\eta_t\) is drawn i.i.d from a Gaussian \(\mathcal{N}(0, 1)\) and the parameter of interest is \(\theta_\star \in \mathbb{R}^d\).
 For simplicity, we assume that the Gram matrix \(V:= X^\top X = \sum_{t=1}^n x_t x_t^\top\) is non-singular (here, \(X = [x_1^\top, \ldots, x_n^\top]^\top\)).</p>
 
-<p>Our goal is to construct a confidence set \(C_n\) such that \(\Pr(\theta_\star \in C_n) \geq 1 - \delta\) for some confidence level \(\delta \in (0, 1)\).
-We will start with the maximum-likelihood estimator and then derive the asymptotic distribution of the estimator.
+<p>Our goal is to construct a sequence of confidence sets \(C_1, C_2, \ldots\) such that \(\Pr(\exists n \ge 1: \theta_\star \notin C_n) \le \delta\) for some confidence level \(\delta \in (0, 1)\).
+We will start with the maximum-likelihood estimator and then construct the confidence set for a certain $n$. 
 Under the above assumptions, the maximum-likelihood estimator \(\hat{\theta}\) is given by</p>
 
 \[\hat{\theta} = V^{-1} X^\top Y,\]
 
-<p>which is also known to be <a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Consistency">asymptotically normal</a> (well, in fact \(\hat{\theta}\) is normal already due to the Gaussian noise!).
-More precisely, the distribution of \(\hat{\theta}\) converges to a Gaussian distribution when \(n\) is large, i.e.,</p>
+<p>which follows a Gaussian distribution with mean \(\theta_\star\) and covariance \(V^{-1}\).
+In particular, we can write</p>
 
-\[\hat{\theta} \sim \mathcal{N}(\theta_\star, n^{-1}\mathcal{I}(\theta_\star)^{-1}).\]
+<!-- which is also known to be [asymptotically normal](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Consistency) (well, in fact $$\hat{\theta}$$ is normal already due to the Gaussian noise!). -->
 
-<p>Above, \(\mathcal{I}(\theta_\star)\) is the Fisher information matrix at \(\theta_\star\).
-It is also known that \(\hat{\theta}\) is <a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Efficiency">asymptotically efficient</a>, i.e., it achieves the <a href="https://en.wikipedia.org/wiki/Cram%C3%A9r%E2%80%93Rao_bound">Cramér-Rao lower bound</a></p>
+<!-- More precisely, the distribution of $$\hat{\theta}$$ converges to a Gaussian distribution when $$n$$ is large, i.e.,
 
-\[\mathbb{V}(\hat{\theta}) = n^{-1} \mathcal{I}(\theta_\star)^{-1}\]
+$$
+    \hat{\theta} \sim \mathcal{N}(\theta_\star, n^{-1}\mathcal{I}(\theta_\star)^{-1}).
+$$
 
-<p>This is a bless because it allows us to work out the formula for the inversed Fisher information matrix:</p>
+Above, $$\mathcal{I}(\theta_\star)$$ is the Fisher information matrix at $$\theta_\star$$.
+It is also known that $$\hat{\theta}$$ is [asymptotically efficient](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Efficiency), i.e., it achieves the [Cramér-Rao lower bound](https://en.wikipedia.org/wiki/Cram%C3%A9r%E2%80%93Rao_bound)
 
-\[\begin{align*}
-    \mathbb{V}(\hat{\theta}) &amp;= \mathbb{V}(V^{-1} X^\top Y) \\
-    &amp;= \mathbb{V}(V^{-1} X^\top (X \theta_\star + \eta)) \\
-    &amp;= V^{-1} X^\top \mathbb{V}(\eta) X V^{-1} \\
-    &amp;=  V^{-1} X^\top X V^{-1} \\
-    &amp;=  V^{-1}.
-\end{align*}\]
+$$
+    \mathbb{V}(\hat{\theta}) = n^{-1} \mathcal{I}(\theta_\star)^{-1}
+$$
 
-<p>From this we then have that:</p>
+This is a bless because it allows us to work out the formula for the inversed Fisher information matrix:
+
+$$
+\begin{align*}
+    \mathbb{V}(\hat{\theta}) &= \mathbb{V}(V^{-1} X^\top Y) \\
+    &= \mathbb{V}(V^{-1} X^\top (X \theta_\star + \eta)) \\
+    &= V^{-1} X^\top \mathbb{V}(\eta) X V^{-1} \\
+    &=  V^{-1} X^\top X V^{-1} \\
+    &=  V^{-1}.
+\end{align*}
+$$
+
+From this we then have that: -->
 
 \[\begin{align*}
     \hat{\theta} &amp;\sim \mathcal{N}(\theta_\star,  V^{-1}) \\
@@ -195,7 +205,7 @@ From <a href="https://stats.stackexchange.com/a/4821/301376">the tail bounds of 
 
 <p>Using union bound, we can construct a sequence of confidence sets \(C_1, C_2, \ldots\) such that \(\Pr(\exists n \ge 1: \theta_\star \notin C_n) \leq \delta\) by choosing a larger confidence set for each \(n\):</p>
 
-\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq  d + 2\sqrt{d\log(n(n+1)/\delta)} + 2\log(n(n+1)/\delta)\right\}.\]]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence interval. Confidence sets are a way to quantify the uncertainty in our estimates. At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities. We shall explore this in a setting where the estimator is asymptotically normal under some regularity conditions.]]></summary></entry><entry><title type="html">Why I think mathematics is beautiful</title><link href="http://localhost:4000/why_i_do_math/" rel="alternate" type="text/html" title="Why I think mathematics is beautiful" /><published>2024-12-13T00:00:00+01:00</published><updated>2024-12-13T00:00:00+01:00</updated><id>http://localhost:4000/why_i_do_math</id><content type="html" xml:base="http://localhost:4000/why_i_do_math/"><![CDATA[<p>A friend of mine asked me why I think mathematics is beautiful.
+\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq  d + 2\sqrt{d\log(n(n+1)/\delta)} + 2\log(n(n+1)/\delta)\right\}.\]]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence interval. Confidence sets are a way to quantify the uncertainty in our estimates. At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities.]]></summary></entry><entry><title type="html">Why I think mathematics is beautiful</title><link href="http://localhost:4000/why_i_do_math/" rel="alternate" type="text/html" title="Why I think mathematics is beautiful" /><published>2024-12-13T00:00:00+01:00</published><updated>2024-12-13T00:00:00+01:00</updated><id>http://localhost:4000/why_i_do_math</id><content type="html" xml:base="http://localhost:4000/why_i_do_math/"><![CDATA[<p>A friend of mine asked me why I think mathematics is beautiful.
 I believe the exact answer does not matter, but it is important to have an answer.</p>
 
 <p>Years ago, I visited the Rijksmuseum in Amsterdam—it is one of the biggest museums in the Northern European region.

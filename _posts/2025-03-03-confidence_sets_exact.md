@@ -1,6 +1,6 @@
 ---
 layout: posts
-title: Confidence sets under asymptotic normality assumption
+title: Confidence sets for Gaussian linear models
 usemathjax: true
 published: true
 ---
@@ -8,9 +8,9 @@ published: true
 In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the [95% confidence interval](https://en.wikipedia.org/wiki/Confidence_interval).
 Confidence sets are a way to quantify the uncertainty in our estimates.
 At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities.
-We shall explore this in a setting where the estimator is [asymptotically normal](https://en.wikipedia.org/wiki/Asymptotic_distribution#Central_limit_theorem) under some regularity conditions.
+<!-- We shall explore this in a setting where the estimator is [asymptotically normal](https://en.wikipedia.org/wiki/Asymptotic_distribution#Central_limit_theorem) under some regularity conditions. -->
 
-## Linear regression with fixed design
+## Gaussian linear model with fixed design
 
 **The setting.**
 We observe $$n$$ samples $$\{(Y_t, x_t)\}_{t=1}^n$$ that follows the linear regression model
@@ -22,16 +22,20 @@ $$
 where the design vector $$x_t \in \mathbb{R}^d$$ is fixed and known, the noise $$\eta_t$$ is drawn i.i.d from a Gaussian $$\mathcal{N}(0, 1)$$ and the parameter of interest is $$\theta_\star \in \mathbb{R}^d$$.
 For simplicity, we assume that the Gram matrix $$V:= X^\top X = \sum_{t=1}^n x_t x_t^\top$$ is non-singular (here, $$X = [x_1^\top, \ldots, x_n^\top]^\top$$).
 
-Our goal is to construct a confidence set $$C_n$$ such that $$\Pr(\theta_\star \in C_n) \geq 1 - \delta$$ for some confidence level $$\delta \in (0, 1)$$.
-We will start with the maximum-likelihood estimator and then derive the asymptotic distribution of the estimator.
+Our goal is to construct a sequence of confidence sets $$C_1, C_2, \ldots$$ such that $$\Pr(\exists n \ge 1: \theta_\star \notin C_n) \le \delta$$ for some confidence level $$\delta \in (0, 1)$$.
+We will start with the maximum-likelihood estimator and then construct the confidence set for a certain $n$. 
 Under the above assumptions, the maximum-likelihood estimator $$\hat{\theta}$$ is given by
 
 $$
     \hat{\theta} = V^{-1} X^\top Y,
 $$
 
-which is also known to be [asymptotically normal](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Consistency) (well, in fact $$\hat{\theta}$$ is normal already due to the Gaussian noise!).
-More precisely, the distribution of $$\hat{\theta}$$ converges to a Gaussian distribution when $$n$$ is large, i.e.,
+which follows a Gaussian distribution with mean $$\theta_\star$$ and covariance $$V^{-1}$$.
+In particular, we can write
+
+<!-- which is also known to be [asymptotically normal](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Consistency) (well, in fact $$\hat{\theta}$$ is normal already due to the Gaussian noise!). -->
+
+<!-- More precisely, the distribution of $$\hat{\theta}$$ converges to a Gaussian distribution when $$n$$ is large, i.e.,
 
 $$
     \hat{\theta} \sim \mathcal{N}(\theta_\star, n^{-1}\mathcal{I}(\theta_\star)^{-1}).
@@ -56,7 +60,7 @@ $$
 \end{align*}
 $$
 
-From this we then have that:
+From this we then have that: -->
 
 $$
 \begin{align*}
