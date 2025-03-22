@@ -295,7 +295,8 @@ We observe \(n\) samples \(\{(Y_t, x_t)\}_{t=1}^n\) that follows the linear regr
 \[Y_t = \langle x_t, \theta_\star \rangle + \eta_t,\]
 
 <p>where the design vector \(x_t \in \mathbb{R}^d\) is fixed and known, the noise \(\eta_t\) is drawn i.i.d from a Gaussian \(\mathcal{N}(0, 1)\) and the parameter of interest is \(\theta_\star \in \mathbb{R}^d\).
-For simplicity, we assume that the Gram matrix \(V:= X^\top X = \sum_{t=1}^n x_t x_t^\top\) is non-singular (here, \(X = [x_1^\top, \ldots, x_n^\top]^\top\)).</p>
+For simplicity, we assume that the Gram matrix \(V:= X^\top X = \sum_{t=1}^n x_t x_t^\top\) is non-singular (here, \(X = [x_1^\top, \ldots, x_n^\top]^\top\)).
+For brevity, we can write $Y = X\theta_\star + \eta$ with $Y\in \mathbb{R}^n$ and $\eta \in \mathbb{R}^n$.</p>
 
 <p>Our goal is to construct a sequence of confidence sets \(C_1, C_2, \ldots\) such that \(\Pr(\exists n \ge 1: \theta_\star \notin C_n) \le \delta\) for some confidence level \(\delta \in (0, 1)\).
 We will start with the maximum-likelihood estimator and then construct the confidence set for a certain $n$. 
@@ -303,7 +304,7 @@ Under the above assumptions, the maximum-likelihood estimator \(\hat{\theta}\) i
 
 \[\hat{\theta} = V^{-1} X^\top Y,\]
 
-<p>which follows a Gaussian distribution with mean \(\theta_\star\) and covariance \(V^{-1}\).
+<p>which turns out to be a Gaussian because $Y$ is a Gaussian vector as given. 
 In particular, we can write</p>
 
 <!-- which is also known to be [asymptotically normal](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Consistency) (well, in fact $$\hat{\theta}$$ is normal already due to the Gaussian noise!). -->
@@ -363,7 +364,7 @@ From <a href="https://stats.stackexchange.com/a/4821/301376">the tail bounds of 
   
     <li>
       <a href="#2025">
-        <strong>2025</strong> <span class="taxonomy__count">3</span>
+        <strong>2025</strong> <span class="taxonomy__count">4</span>
       </a>
     </li>
   
@@ -415,7 +416,7 @@ From <a href="https://stats.stackexchange.com/a/4821/301376">the tail bounds of 
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 minute read
+          3 minute read
         
       </span>
     
@@ -423,7 +424,7 @@ From <a href="https://stats.stackexchange.com/a/4821/301376">the tail bounds of 
 
 
     <p class="archive__item-excerpt" itemprop="description">A self-contained summary of some key results in probability theory.
-I’ll mostly summarize the results from Durrett’s Probability: Theory and Examples and som...</p>
+I’ll mostly summarize the results from Durrett’s Probability: Theory and Examples, Bandit...</p>
   </article>
 </div>
 
@@ -505,6 +506,47 @@ So let’s write it down here.
 
 
     <p class="archive__item-excerpt" itemprop="description">In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence int...</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ucb/" rel="permalink">The upper confidence bound algorithm
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+Bandits are a class of reinforcement learning (RL) problems where a learner has to choose between different actions, each of which has an unknown reward.
+Th...</p>
   </article>
 </div>
 

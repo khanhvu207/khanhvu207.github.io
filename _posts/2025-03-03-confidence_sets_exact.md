@@ -21,6 +21,7 @@ $$
 
 where the design vector $$x_t \in \mathbb{R}^d$$ is fixed and known, the noise $$\eta_t$$ is drawn i.i.d from a Gaussian $$\mathcal{N}(0, 1)$$ and the parameter of interest is $$\theta_\star \in \mathbb{R}^d$$.
 For simplicity, we assume that the Gram matrix $$V:= X^\top X = \sum_{t=1}^n x_t x_t^\top$$ is non-singular (here, $$X = [x_1^\top, \ldots, x_n^\top]^\top$$).
+For brevity, we can write $Y = X\theta_\star + \eta$ with $Y\in \mathbb{R}^n$ and $\eta \in \mathbb{R}^n$.
 
 Our goal is to construct a sequence of confidence sets $$C_1, C_2, \ldots$$ such that $$\Pr(\exists n \ge 1: \theta_\star \notin C_n) \le \delta$$ for some confidence level $$\delta \in (0, 1)$$.
 We will start with the maximum-likelihood estimator and then construct the confidence set for a certain $n$. 
@@ -30,7 +31,7 @@ $$
     \hat{\theta} = V^{-1} X^\top Y,
 $$
 
-which follows a Gaussian distribution with mean $$\theta_\star$$ and covariance $$V^{-1}$$.
+which turns out to be a Gaussian because $Y$ is a Gaussian vector as given. 
 In particular, we can write
 
 <!-- which is also known to be [asymptotically normal](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Consistency) (well, in fact $$\hat{\theta}$$ is normal already due to the Gaussian noise!). -->
