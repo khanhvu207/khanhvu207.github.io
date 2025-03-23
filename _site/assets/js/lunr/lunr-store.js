@@ -66,7 +66,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Some personal notes on probability theory",
-        "excerpt":"A self-contained summary of some key results in probability theory. I’ll mostly summarize the results from Durrett’s Probability: Theory and Examples, Bandit Algorithms (Lattimore and Szepesvári) and some other sources. 0. Measure-theoretic probability ($\\sigma$-algebra and probability measure) Let $\\Omega$ be a set of outcomes. A set $\\mathcal{F} \\subseteq 2^\\Omega$ is...","categories": [],
+        "excerpt":"A self-contained summary of some key results in probability theory. I’ll mostly summarize the results from Durrett’s Probability: Theory and Examples, Bandit Algorithms (Lattimore and Szepesvári) and some other sources. 0. Measure-theoretic probability ($\\sigma$-algebra and probability measure) Let $\\Omega$ be a set of outcomes. A set of events $\\mathcal{F} \\subseteq...","categories": [],
         "tags": [],
         "url": "/probability_theory/",
         "teaser": null
