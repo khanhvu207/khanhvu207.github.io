@@ -43,7 +43,7 @@ If $\mathcal{G}$ is a set of open intervals in $\mathbb{R}$, then the Borel $\si
 A random variable on a measurable space $(\Omega, \mathcal{F})$ is a $\mathcal{F}/\mathcal{B}(\mathbb{R})$-measurable map $X:\Omega \to \mathbb{R}$. 
 
 <p style="background-color: lightgreen; padding: 10px;">
-$\color{darkgreen}{\text{(Lemma 0.1: Factorization lemma)}}$
+$\color{darkgreen}{\text{(Lemma 0.1: Doob–Dynkin lemma (also known as factorization lemma))}}$
 Assume that we are given measurable spaces $(\Omega, \mathcal{F})$, $(\mathcal{X}, \mathcal{G})$ and $(\mathcal{Y}, \mathcal{H})$, and $X:\Omega\to\mathcal{X}$ and $Y:\Omega\to\mathcal{Y}$ are the random elements (generalization of random variables to higher dimensions), if $(\mathcal{Y}, \mathcal{H})$ is a Borel space, then $Y$ is $\sigma(X)$-measureable if and only if there exists a $\mathcal{G}/\mathcal{H}$-measurable map $f:\mathcal{X}\to\mathcal{Y}$ such that $Y = f\circ X$.
 Here, $Y$ is $\sigma(X)$-measurable means that $\sigma(Y) \subseteq \sigma(X)$, i.e. knowing $X$ gives us information about $Y$.
 </p>
@@ -66,6 +66,7 @@ Intuitively, this tells us how large the portion of $A$ is in $B$.
 **(Independence)**
 Two events $A, B\in\mathcal{F}$ are independent if $\mathbb{P}(A \cap B) = \mathbb{P}(A)\mathbb{P}(B)$.
 Alternatively, we can say that $A$ and $B$ are independent if $\mathbb{P}(A|B) = \mathbb{P}(A)$.
+Two random variables $X$ and $Y$ are independent if $\sigma(X)$ and $\sigma(Y)$ are independent $\sigma$-algebras, i.e. $\mathbb{P}(X\in A, Y\in B) = \mathbb{P}(X\in A)\mathbb{P}(Y\in B)$ for all $A, B\in\mathcal{B}(\mathbb{R})$.
 
 ---
 **(Expectation)**
@@ -92,6 +93,86 @@ Then, the expectation is an approximation from below:
 $$
     \int_\Omega X(\omega) d\mathbb{P}(\omega) = \sup\left\{\int_\Omega h(\omega) d\mathbb{P}(\omega) : \text{$h$ is simple and $0\le h \le X$ pointwise} \right\}
 $$
+
+---
+**(Stochastic process)**
+A stochastic process on a probability space $(\Omega, \mathcal{F}, \mathbb{P})$ is a collection of random variables $(X_t)_{t\in T}$ indexed by a set $T$.
+
+**($\mathbb{P}$-almost surely)**
+When two random variables $X$ and $Y$ are equal almost surely, we write $X = Y$ $\mathbb{P}$-almost surely, denoted by $X = Y$ $\mathbb{P}$-a.s., if $\mathbb{P}(X = Y) = 1$.
+To put it another way, they disagree on a set of measure zero.
+
+**(Martingale)**
+Let $X_1, X_2, \ldots$ be a sequence of random variables on $(\Omega, \mathcal{F}, \mathbb{P})$ and $$\mathbb{F} = (\mathcal{F}_t)_{t=1}^n$$ a filtration of $\mathcal{F}$ (we allow $n = \infty$).
+A $\mathbb{F}$-adapted sequence of random variables $$(X_t)_{t\in\mathbb{N}_+}$$ is a $\mathbb{F}$-adapted martingale if:
+(a) $$\mathbb{E}[X_t | \mathcal{F}_{t-1}] = X_{t-1}$$ almost surely for all $$t\in\{2, 3, \ldots\}$$ and
+(b) $$X_t$$ is integrable.
+If we replace the equality with less-than or greater-than, we call $$(X_t)_t$$ a supermartingale or submartingale respectively.
+
+A fair betting game is one real-life example, where $$S_t$$ is the total money you have after $t$ rounds of a fair game which can be proven to be a martingale.
+
+**(Stopping time)**
+Let $$\mathbb{F} = (\mathcal{F}_t)_{t\in\mathbb{N}}$$ be a filtration.
+A random variable $$\tau:\Omega\to\mathbb{N}\cup\{\infty\}$$ is a stopping time with respect to $$\mathbb{F}$$ if for all $$t\in\mathbb{N}$$, the event $$\{\tau \le t\} \in \mathcal{F}_t$$ (or we can say $$\mathbb{I}\{\tau \le t\}$$ is $$\mathcal{F}_t$$-measurable).
+The $\sigma$-algebra at the stopping time $\tau$ is:
+
+$$
+    \mathcal{F}_\tau = \{A \in \mathcal{F}_\infty : A \cap \{\tau \le t\} \in \mathcal{F}_t \text{ for all $t$} \}
+$$
+
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 0.1: Doob's optional stopping})}$
+Let $\mathbb{F} = (\mathcal{F}_t)_{t\in\mathbb{N}}$ be a filtration and $(X_t)_{t\in\mathbb{N}}$ be an $\mathbb{F}$-adapted martingale and $\tau$ an $\mathbb{F}$-stopping time such that <i>at least one</i> of the following conditions hold:
+
+<br>
+1. $\exists n\in\mathbb{N}$ such that $\mathbb{P}(\tau > n) = 0$, e.g. $\tau$ is almost surely bounded.
+
+<br>
+2. $\mathbb{E}[\tau] < \infty$ and $\exists c\in\mathbb{R}$ such that for all $t\in\mathbb{N}$, $\mathbb{E}\left[|X_{t+1} - X_t| ~\middle| \mathcal{F}_t\right] \le c$ almost surely.
+
+<br>
+3. $\exists c$ such that $|X_{t\land \tau}| \le c$ almost surely for all $t\in\mathbb{N}$.
+
+<br>
+Then, $X_\tau$ is almost surely well defined and $\mathbb{E}[X_\tau] = \mathbb{E}[X_0]$.
+</p>
+
+One practical consequence of this theorem is that if you play a fair betting game and try to outsmart the casino by stopping at a certain time, say when $$S_t \ge \$100$$, you will expect to spend eternity in the casino, e.g. if $S_t$ is the total money you have after $t$ rounds of a fair game, then either $\mathbb{E}[S_\tau] = 0$ or $\mathbb{E}[\tau] = \infty$.
+
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 0.2: Maximal inequality (also known as Ville's inequality)})}$
+Let $(X_t)_{t=0}^\infty$ be a supermartingale with $X_t\ge 0$ almost surely for all $t$.
+Then, for any $\epsilon>0$,
+
+$$
+    \mathbb{P}\left(\sup_{t\in\mathbb{N}} X_t \ge \epsilon\right) \le \frac{\mathbb{E}[X_0]}{\epsilon}.
+$$
+<!-- As a remark, this is a generalization of the Markov's inequality. -->
+</p>
+
+<!-- _Proof._
+Let define an event $$A_n = \{\sup_{t\le n} X_t \ge \epsilon\}$$.
+We have that $A_1 \subseteq A_2 \subseteq \ldots$ and that:
+
+$$
+    \lim_{n\to \infty} A_n = \{\sup_{t\in\mathbb{N}} X_t \ge \epsilon\}
+$$
+
+Furthermore, let us define $$\tau = (n+1) \land \min\{t\le n: X_t \ge \epsilon\}$$.
+Clearly, $\tau$ is a stopping time and $\mathbb{E}[X_0] \ge \mathbb{E}[X_\tau]$.
+By theorem 0.1, we have that:
+
+$$
+\begin{align*}
+    \mathbb{E}[X_0] \ge \mathbb{E}[X_\tau] \ge \mathbb{E}[X_\tau\mathbb{I}\{\tau \le n\}] \ge \mathbb{E}[\epsilon\mathbb{I}\{\tau \le n\}] = \epsilon \mathbb{P}(\tau \le n) = \epsilon \mathbb{P}(A_n)
+\end{align*}
+$$
+
+Here, the second inequality stemmed from the definition of stopping time, i.e. $$\mathbb{E}[X_\tau\mathbb{I}\{\tau > n\}] = 0$$:
+
+$$
+    \mathbb{E}[X_\tau] = \mathbb{E}[X_\tau\mathbb{I}\{\tau \le n\}] + \underbrace{\mathbb{E}[X_\tau\mathbb{I}\{\tau > n\}]}_{=0} \ge \mathbb{E}[X_\tau\mathbb{I}\{\tau \le n\}] 
+$$ -->
 
 ## 1. Law of large numbers
 
