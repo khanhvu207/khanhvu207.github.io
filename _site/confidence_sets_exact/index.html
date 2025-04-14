@@ -365,7 +365,7 @@ To see this, for any confidence set that is of the form \(C_n = \{\theta :\|\hat
 <p>where \(\mathcal{B}_d\) is the unit \(\ell_2\)-ball in \(\mathbb{R}^d\).
 Furthermore, the volume of this ellipsoid is exactly the determinant of \(\beta^{1/2} V^{-1/2}\).
 The calculation of this determinant is a bit dense but it invokes the <em>Elliptical potential lemma</em> (see Lemma 19.4 in <a href="https://tor-lattimore.com/downloads/book/book.pdf">Bandit Algorithms</a>) which turns out to scale as \(\mathcal{O}\left(\frac{\log n}{n}\right)^{d/2}\).
-This basically agrees with the classical concentration results like Hoeffding’s inequality, Bernstein’s inequality, etc, where the extra \(\log n\) factor arises due to us requiring the time-uniform guarantee.</p>
+This basically agrees with the classical concentration rate \(\mathcal{O}(1/\sqrt{n})\) from the <a href="https://en.wikipedia.org/wiki/Hoeffding%27s_inequality">Hoeffding’s inequality</a>, where the extra \(\log n\) factor arises due to the time-uniform guarantee.</p>
 
 
 <!-- <ul class="taxonomy__index">
