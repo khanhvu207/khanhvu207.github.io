@@ -102,4 +102,4 @@ $$
 where $$\mathcal{B}_d$$ is the unit $$\ell_2$$-ball in $$\mathbb{R}^d$$.
 Furthermore, the volume of this ellipsoid is exactly the determinant of $$\beta^{1/2} V^{-1/2}$$.
 The calculation of this determinant is a bit dense but it invokes the _Elliptical potential lemma_ (see Lemma 19.4 in [Bandit Algorithms](https://tor-lattimore.com/downloads/book/book.pdf)) which turns out to scale as $$\mathcal{O}\left(\frac{\log n}{n}\right)^{d/2}$$.
-This basically agrees with the classical concentration rate $$\mathcal{O}(1/\sqrt{n})$$ from the [Hoeffding's inequality](https://en.wikipedia.org/wiki/Hoeffding%27s_inequality), where the extra $$\log n$$ factor arises due to the time-uniform guarantee.
+This basically agrees with the classical concentration rate $$\mathcal{O}(1/\sqrt{n})$$ from the [Hoeffding's inequality](https://en.wikipedia.org/wiki/Hoeffding%27s_inequality) in the 1-dimensional case, where the extra $$\log n$$ factor arises due to the time-uniform guarantee.
