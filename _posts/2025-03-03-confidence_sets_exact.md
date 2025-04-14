@@ -10,8 +10,6 @@ Confidence sets are a way to quantify the uncertainty in our estimates.
 At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities.
 <!-- We shall explore this in a setting where the estimator is [asymptotically normal](https://en.wikipedia.org/wiki/Asymptotic_distribution#Central_limit_theorem) under some regularity conditions. -->
 
-## Gaussian linear model with fixed design
-
 **The setting.**
 We observe $$n$$ samples $$\{(Y_t, x_t)\}_{t=1}^n$$ that follows the linear regression model
 
@@ -92,3 +90,16 @@ Using union bound, we can construct a sequence of confidence sets $$C_1, C_2, \l
 $$
     C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq  d + 2\sqrt{d\log(n(n+1)/\delta)} + 2\log(n(n+1)/\delta)\right\}.
 $$
+
+Geometrically, the confidence set $$C_n$$ is an ellipsoid centered at $$\hat{\theta}$$ with the principal axes aligned with the eigenvectors of the Gram matrix $$V$$.
+The length of the axes is determined by the eigenvalues of the Gram matrix $$V$$ and the confidence level $$\delta$$.
+To see this, for any confidence set that is of the form $$C_n = \{\theta :\|\hat{\theta} - \theta\|_V^2 \le \beta\}$$, we can rewrite it as
+
+$$
+    C_n = \hat{\theta} + \beta^{1/2} V^{-1/2} \mathcal{B}_d,
+$$
+
+where $$\mathcal{B}_d$$ is the unit $$\ell_2$$-ball in $$\mathbb{R}^d$$.
+Furthermore, the volume of this ellipsoid is exactly the determinant of $$\beta^{1/2} V^{-1/2}$$.
+The calculation of this determinant is a bit dense but it invokes the _Elliptical potential lemma_ (see Lemma 19.4 in [Bandit Algorithms](https://tor-lattimore.com/downloads/book/book.pdf)) which turns out to scale as $$\mathcal{O}\left(\frac{\log n}{n}\right)^{d/2}$$.
+This basically agrees with the classical concentration results like Hoeffding's inequality, Bernstein's inequality, etc, where the extra $$\log n$$ factor arises due to us requiring the time-uniform guarantee.
