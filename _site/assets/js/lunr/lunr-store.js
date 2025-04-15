@@ -53,7 +53,7 @@ var store = [{
         "url": "/ucb/",
         "teaser": null
       },{
-        "title": "Confidence sets for Gaussian linear models",
+        "title": "Time-uniform confidence sets for Gaussian linear models",
         "excerpt":"In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence interval. Confidence sets are a way to quantify the uncertainty in our estimates. At its core, the construction of confidence sets is typically achieved through...","categories": [],
         "tags": [],
         "url": "/confidence_sets_exact/",

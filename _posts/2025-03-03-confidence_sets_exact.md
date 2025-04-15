@@ -1,6 +1,6 @@
 ---
 layout: posts
-title: Confidence sets for Gaussian linear models
+title: Time-uniform confidence sets for Gaussian linear models
 usemathjax: true
 published: true
 ---
