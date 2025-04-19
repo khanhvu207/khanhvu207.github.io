@@ -53,8 +53,9 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js"></script>
 {% endif %}
 
-<!-- For all browsers -->
-<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+<!-- Theme stylesheets: light and dark -->
+<link id="light-theme-css" rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" media="all">
+<link id="dark-theme-css" rel="stylesheet" href="{{ '/assets/css/dark.css' | relative_url }}" media="not all">
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
 
@@ -63,3 +64,39 @@
     <script src="{{ script | relative_url }}"></script>
   {% endfor %}
 {% endif %}
+<script>
+  (function() {
+    var lightLink = document.getElementById('light-theme-css');
+    var darkLink = document.getElementById('dark-theme-css');
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        lightLink.media = 'not all';
+        darkLink.media = 'all';
+      } else {
+        lightLink.media = 'all';
+        darkLink.media = 'not all';
+      }
+    }
+    // Initialize theme based on saved preference
+    applyTheme(localStorage.getItem('theme'));
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.getElementById('theme-toggle');
+      if (!btn) return;
+      function updateIcon() {
+        if (darkLink.media === 'all') {
+          btn.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+          btn.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+      }
+      btn.addEventListener('click', function() {
+        var darkMode = (darkLink.media === 'all');
+        var newTheme = darkMode ? 'light' : 'dark';
+        // Save preference, then reload to apply cleanly
+        localStorage.setItem('theme', newTheme);
+        location.reload();
+      });
+      updateIcon();
+    });
+  })();
+</script>
