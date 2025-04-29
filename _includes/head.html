@@ -14,24 +14,6 @@
 </script>
 
 <!-- for mathjax support -->
-<!-- {% if page.usemathjax %}
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      extensions: ["tex2jax.js", "AMSmath.js", "AMSsymbols.js"],
-      jax: ["input/TeX", "output/HTML-CSS"],
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-        displayMath: [ ['$$','$$'], ["\[","\]"], ["\\[","\\]"] ],
-        processEscapes: true
-      },
-      messageStyle: "none",
-      "HTML-CSS": { availableFonts: ["TeX"] }
-    });
-  </script>
-  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
-{% endif %} -->
-
-<!-- for mathjax support -->
 {% if page.usemathjax %}
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -40,7 +22,7 @@
       tex2jax: {
         inlineMath: [ ['$','$'], ["\\(","\\)"] ],
         displayMath: [ ['$$','$$'], ["\\[","\]"], ["\\[","\\]"] ],
-        processEscapes: true
+        processEscapes: false,
       },
       messageStyle: "none",
       "HTML-CSS": { availableFonts: ["TeX"] },

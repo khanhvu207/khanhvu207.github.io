@@ -82,24 +82,6 @@
 </script>
 
 <!-- for mathjax support -->
-<!-- 
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      extensions: ["tex2jax.js", "AMSmath.js", "AMSsymbols.js"],
-      jax: ["input/TeX", "output/HTML-CSS"],
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-        displayMath: [ ['$$','$$'], ["\[","\]"], ["\\[","\\]"] ],
-        processEscapes: true
-      },
-      messageStyle: "none",
-      "HTML-CSS": { availableFonts: ["TeX"] }
-    });
-  </script>
-  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
- -->
-
-<!-- for mathjax support -->
 
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -108,7 +90,7 @@
       tex2jax: {
         inlineMath: [ ['$','$'], ["\\(","\\)"] ],
         displayMath: [ ['$$','$$'], ["\\[","\]"], ["\\[","\\]"] ],
-        processEscapes: true
+        processEscapes: false,
       },
       messageStyle: "none",
       "HTML-CSS": { availableFonts: ["TeX"] },
@@ -324,6 +306,8 @@
     
     <p>A self-contained summary of some key results in probability theory.
 I’ll mostly summarize the results from <a href="https://www.cambridge.org/ch/universitypress/subjects/statistics-probability/probability-theory-and-stochastic-processes/probability-theory-and-examples-5th-edition?format=HB">Durrett’s Probability: Theory and Examples</a>, <a href="https://tor-lattimore.com/downloads/book/book.pdf">Bandit Algorithms (Lattimore and Szepesvári)</a> and some other sources.</p>
+
+<p><em>Note to self: For now I will dump everything here and later I will try to organize it better.</em></p>
 
 <h2 id="0-measure-theoretic-probability">0. Measure-theoretic probability</h2>
 
@@ -591,6 +575,48 @@ Then, $S_n/n \overset{p}{\longrightarrow} \mu$.
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
+        <a href="/monte_hall/" rel="permalink">Monte Hall problem with Baysian inference
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">One simple way to think about the Monte Hall problem is to use Baye’s rule.
+For the sake of completeness, here is the problem statement:
+
+</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
         <a href="/probability_theory/" rel="permalink">Some personal notes on probability theory
 </a>
       
@@ -699,47 +725,6 @@ So let’s write it down here.
 
 
     <p class="archive__item-excerpt" itemprop="description">In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence int...</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/ucb/" rel="permalink">The upper confidence bound algorithm
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          4 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-Bandits are a class of reinforcement learning (RL) problems where a learner has to choose between different actions, each of which has an unknown reward.
-Th...</p>
   </article>
 </div>
 

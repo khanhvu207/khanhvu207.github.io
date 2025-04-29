@@ -8,6 +8,8 @@ published: true
 A self-contained summary of some key results in probability theory.
 I'll mostly summarize the results from [Durrett's Probability: Theory and Examples](https://www.cambridge.org/ch/universitypress/subjects/statistics-probability/probability-theory-and-stochastic-processes/probability-theory-and-examples-5th-edition?format=HB), [Bandit Algorithms (Lattimore and Szepesvári)](https://tor-lattimore.com/downloads/book/book.pdf) and some other sources.
 
+_Note to self: For now I will dump everything here and later I will try to organize it better._
+
 ## 0. Measure-theoretic probability
 
 **($\sigma$-algebra and probability measure)**

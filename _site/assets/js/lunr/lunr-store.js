@@ -47,12 +47,6 @@ var store = [{
         "url": "/why_i_do_math/",
         "teaser": null
       },{
-        "title": "The upper confidence bound algorithm",
-        "excerpt":"Bandits are a class of reinforcement learning (RL) problems where a learner has to choose between different actions, each of which has an unknown reward. The key difference between bandits and RL problems is that in bandits, there is an absence of states or transition between states. Through interaction with...","categories": [],
-        "tags": [],
-        "url": "/ucb/",
-        "teaser": null
-      },{
         "title": "Time-uniform confidence sets for Gaussian linear models",
         "excerpt":"In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence interval. Confidence sets are a way to quantify the uncertainty in our estimates. At its core, the construction of confidence sets is typically achieved through...","categories": [],
         "tags": [],
@@ -66,8 +60,14 @@ var store = [{
         "teaser": null
       },{
         "title": "Some personal notes on probability theory",
-        "excerpt":"A self-contained summary of some key results in probability theory. I’ll mostly summarize the results from Durrett’s Probability: Theory and Examples, Bandit Algorithms (Lattimore and Szepesvári) and some other sources. 0. Measure-theoretic probability ($\\sigma$-algebra and probability measure) Let $\\Omega$ be a set of outcomes. A set of events $\\mathcal{F} \\subseteq...","categories": [],
+        "excerpt":"A self-contained summary of some key results in probability theory. I’ll mostly summarize the results from Durrett’s Probability: Theory and Examples, Bandit Algorithms (Lattimore and Szepesvári) and some other sources. Note to self: For now I will dump everything here and later I will try to organize it better. 0....","categories": [],
         "tags": [],
         "url": "/probability_theory/",
+        "teaser": null
+      },{
+        "title": "Monte Hall problem with Baysian inference",
+        "excerpt":"One simple way to think about the Monte Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement: Suppose you’re on a game show, and you’re given the choice of three doors: Behind one door is a car; behind the others, goats. You...","categories": [],
+        "tags": [],
+        "url": "/monte_hall/",
         "teaser": null
       }]
