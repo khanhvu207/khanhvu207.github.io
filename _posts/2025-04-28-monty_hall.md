@@ -1,11 +1,11 @@
 ---
 layout: posts
-title: Monte Hall problem with Baysian inference
+title: Monty Hall problem with Baysian inference
 usemathjax: true
 published: true
 ---
 
-One simple way to think about the Monte Hall problem is to use Baye's rule.
+One simple way to think about the Monty Hall problem is to use Baye's rule.
 For the sake of completeness, here is the problem statement:
 
 _Suppose you're on a game show, and you're given the choice of three doors: Behind one door is a car; behind the others, goats. You pick a door, say No. 1, and the host, who knows what's behind the doors, opens another door, say No. 3, which has a goat. He then says to you, "Do you want to pick door No. 2?" Is it to your advantage to switch your choice?_
