@@ -3,6 +3,7 @@ layout: home
 title: About
 permalink: /about/
 published: true
+hide_blogs: true
 ---
 
 <img src="../assets/images/face.jpg" alt="photo" style="float: left; max-width:100px; padding-right: 20px; padding-top: 15px; padding-bottom: 20px"/>
