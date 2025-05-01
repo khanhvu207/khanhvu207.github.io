@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title: On the minimax optimality of ordinary least squares 
 usemathjax: true
 published: false

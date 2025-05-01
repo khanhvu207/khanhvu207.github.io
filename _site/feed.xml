@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-05-01T13:24:42+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Monty Hall problem with Baysian inference</title><link href="http://localhost:4000/monty_hall/" rel="alternate" type="text/html" title="Monty Hall problem with Baysian inference" /><published>2025-04-28T00:00:00+02:00</published><updated>2025-04-28T00:00:00+02:00</updated><id>http://localhost:4000/monty_hall</id><content type="html" xml:base="http://localhost:4000/monty_hall/"><![CDATA[<p>One simple way to think about the Monty Hall problem is to use Baye’s rule.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-05-01T13:56:52+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Monty Hall problem with Baysian inference</title><link href="http://localhost:4000/monty_hall/" rel="alternate" type="text/html" title="Monty Hall problem with Baysian inference" /><published>2025-04-28T00:00:00+02:00</published><updated>2025-04-28T00:00:00+02:00</updated><id>http://localhost:4000/monty_hall</id><content type="html" xml:base="http://localhost:4000/monty_hall/"><![CDATA[<p>One simple way to think about the Monty Hall problem is to use Baye’s rule.
 For the sake of completeness, here is the problem statement:</p>
 
 <p><em>Suppose you’re on a game show, and you’re given the choice of three doors: Behind one door is a car; behind the others, goats. You pick a door, say No. 1, and the host, who knows what’s behind the doors, opens another door, say No. 3, which has a goat. He then says to you, “Do you want to pick door No. 2?” Is it to your advantage to switch your choice?</em></p>
@@ -18,4 +18,811 @@ So it is clear that</p>
 
 \[P(X_2\mid Y_1,H_3) = \frac{1\cdot 1/3}{1/2} = \frac{2}{3},\]
 
-<p>which implies that switching is the better option.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[One simple way to think about the Monty Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement:]]></summary></entry></feed>
+<p>which implies that switching is the better option.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[One simple way to think about the Monty Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement:]]></summary></entry><entry><title type="html">Time-uniform confidence sets for Gaussian linear models</title><link href="http://localhost:4000/time_uniform_gaussian_ci/" rel="alternate" type="text/html" title="Time-uniform confidence sets for Gaussian linear models" /><published>2025-03-03T00:00:00+01:00</published><updated>2025-03-03T00:00:00+01:00</updated><id>http://localhost:4000/time_uniform_gaussian_ci</id><content type="html" xml:base="http://localhost:4000/time_uniform_gaussian_ci/"><![CDATA[<p>In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the <a href="https://en.wikipedia.org/wiki/Confidence_interval">95% confidence interval</a>.
+Confidence sets are a way to quantify the uncertainty in our estimates.
+At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities.
+<!-- We shall explore this in a setting where the estimator is [asymptotically normal](https://en.wikipedia.org/wiki/Asymptotic_distribution#Central_limit_theorem) under some regularity conditions. --></p>
+
+<p><strong>The setting.</strong>
+We observe \(n\) samples \(\{(Y_t, x_t)\}_{t=1}^n\) that follows the linear regression model</p>
+
+\[Y_t = \langle x_t, \theta_\star \rangle + \eta_t,\]
+
+<p>where the design vector \(x_t \in \mathbb{R}^d\) is fixed and known, the noise \(\eta_t\) is drawn i.i.d from a Gaussian \(\mathcal{N}(0, 1)\) and the parameter of interest is \(\theta_\star \in \mathbb{R}^d\).
+For simplicity, we assume that the Gram matrix \(V:= X^\top X = \sum_{t=1}^n x_t x_t^\top\) is non-singular (here, \(X = [x_1^\top, \ldots, x_n^\top]^\top\)).
+For brevity, we can write $Y = X\theta_\star + \eta$ with $Y\in \mathbb{R}^n$ and $\eta \in \mathbb{R}^n$.</p>
+
+<p>Our goal is to construct a sequence of confidence sets \(C_1, C_2, \ldots\) such that \(\Pr(\exists n \ge 1: \theta_\star \notin C_n) \le \delta\) for some confidence level \(\delta \in (0, 1)\).
+We will start with the maximum-likelihood estimator and then construct the confidence set for a certain $n$. 
+Under the above assumptions, the maximum-likelihood estimator \(\hat{\theta}\) is given by</p>
+
+\[\hat{\theta} = V^{-1} X^\top Y,\]
+
+<p>which turns out to be a Gaussian because $Y$ is a Gaussian vector as given. 
+In particular, we can write</p>
+
+\[\begin{align*}
+    \hat{\theta} &amp;\sim \mathcal{N}(\theta_\star,  V^{-1}) \\
+     V^{1/2}(\hat{\theta} - \theta_\star) &amp;\sim \mathcal{N}(0, I_d)
+\end{align*}\]
+
+<p>Let \(Z :=  V^{1/2}(\hat{\theta} - \theta_\star)\), then we have \(\|Z\|_2^2 =  \|\hat{\theta}-\theta_\star\|_{V}^2\) follows a \(\mathcal{X}_d^2\)-distribution with \(d\) degrees of freedom.
+From <a href="https://stats.stackexchange.com/a/4821/301376">the tail bounds of the \(\chi^2\)-distribution</a>, we have</p>
+
+\[\begin{align*}
+    \Pr\left(\|Z\|_2^2 \geq d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right) &amp;\leq \delta
+\end{align*}\]
+
+<p>So if we define the confidence set \(C_n\) as</p>
+
+\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq  d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right\},\]
+
+<p>then it is a \((1-\delta)\)-confidence set for \(\theta_\star\).</p>
+
+<p>Using union bound, we can construct a sequence of confidence sets \(C_1, C_2, \ldots\) such that \(\Pr(\exists n \ge 1: \theta_\star \notin C_n) \leq \delta\) by choosing a larger confidence set for each \(n\):</p>
+
+\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq  d + 2\sqrt{d\log(n(n+1)/\delta)} + 2\log(n(n+1)/\delta)\right\}.\]
+
+<p>Geometrically, the confidence set \(C_n\) is an ellipsoid centered at \(\hat{\theta}\) with the principal axes aligned with the eigenvectors of the Gram matrix \(V\).
+The length of the axes is determined by the eigenvalues of the Gram matrix \(V\) and the confidence level \(\delta\).
+To see this, for any confidence set that is of the form \(C_n = \{\theta :\|\hat{\theta} - \theta\|_V^2 \le \beta\}\), we can rewrite it as</p>
+
+\[C_n = \hat{\theta} + \beta^{1/2} V^{-1/2} \mathcal{B}_d,\]
+
+<p>where \(\mathcal{B}_d\) is the unit \(\ell_2\)-ball in \(\mathbb{R}^d\).
+Furthermore, the volume of this ellipsoid is exactly the determinant of \(\beta^{1/2} V^{-1/2}\).
+The calculation of this determinant is a bit dense but it invokes the <em>Elliptical potential lemma</em> (see Lemma 19.4 in <a href="https://tor-lattimore.com/downloads/book/book.pdf">Bandit Algorithms</a>) which turns out to scale as \(\mathcal{O}\left(\frac{\log n}{n}\right)^{d/2}\).
+This basically agrees with the classical concentration rate \(\mathcal{O}(1/\sqrt{n})\) from the <a href="https://en.wikipedia.org/wiki/Hoeffding%27s_inequality">Hoeffding’s inequality</a> in the 1-dimensional case, where the extra \(\log n\) factor arises due to the time-uniform guarantee.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence interval. Confidence sets are a way to quantify the uncertainty in our estimates. At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities.]]></summary></entry><entry><title type="html">Modern hashing made simple</title><link href="http://localhost:4000/modern_hashing/" rel="alternate" type="text/html" title="Modern hashing made simple" /><published>2024-12-08T00:00:00+01:00</published><updated>2024-12-08T00:00:00+01:00</updated><id>http://localhost:4000/modern_hashing</id><content type="html" xml:base="http://localhost:4000/modern_hashing/"><![CDATA[<!-- Introduction -->
+<p>This is a short personal note on <a href="https://epubs.siam.org/doi/10.1137/1.9781611977936.33">“Modern Hashing Made Simple” by Bender et al. (2024)</a>.
+I’m going to present this paper for the <a href="https://kyng.inf.ethz.ch/courses/AGAO24seminar/">Advanced Graph Algorithms and Optimization Seminar (Fall 2024)</a> at ETH Zürich.
+My personal goal is to understand the paper well enough to present it in a clear and engaging way.</p>
+
+<p><strong>The set-up.</strong>
+We want to store \(n\) items in a hash table that supports three operations: querying, insertion, and deletion.
+We assume that the <a href="https://en.wikipedia.org/wiki/Word_(computer_architecture)">word size</a> \(w=\Theta(\log n)\).
+Our goal is to design such a hash table that is <em>time-efficient</em> and <em>space-efficient</em>.
+By time-efficient, I mean that the execution time of each operation should be sublinear in \(n\), ideally \(\mathcal{O}(1)\) (on average or with high probability).
+And by space-efficient, I mean that the total number of bits used by the hash table should be of order \((1+o(1))n w\), because otherwise we can achieve constant time execution by storing all items in an long array with zero hash collisions.</p>
+
+<p>Here’s a small anecdote to start with:
+Most hashing algorithms with space \((1+o(1))n w\), such as <a href="https://en.cppreference.com/w/cpp/container/unordered_map">std::unordered_map in C++</a> or <a href="https://en.wikipedia.org/wiki/Linear_probing">linear probing</a>, support querying, insertion, and deletion operations in <strong>\(\mathcal{O}(1)\) time on average</strong>.
+However, they can degrade to <strong>\(\mathcal{O}(n)\) time in the worst case</strong>.
+Many modern work has led to hashing algorithms that guarantee <strong>\(\mathcal{O}(1)\) time with high probability</strong> for all operations.
+This is a much stronger guarantee than the average-case constant time of traditional hashing algorithms, since the probability of a bad event is exponentially small in the input size (usually being bounded by \(1/\text{poly}(n)\)).</p>
+
+<p>However, these modern hashing algorithms are often more complex and thus harder to explain than traditional hashing algorithms.
+The paper by Bender et al. presents a simple and practical hashing algorithm that achieves the said strong guarantee.</p>
+
+<h2 id="the-roadmap">The roadmap</h2>
+
+<p>Throughout this work, we assume to have access to a fully random hash function \(f\), meaning that the output of \(f\) is <em>uniformly distributed</em> over the range of possible hash values.
+The paper is structured as follows:</p>
+
+<ol>
+  <li>
+    <p><strong>Slow partition hash table.</strong>
+We start with a simple hash table that is partitioned into blocks of size \(\mathcal{O}(\log^3(n))\).
+The time complexity for insertion is constant w.h.p., but the time complexity for querying and deletion is linear in block size.
+The space complexity is \(nw + \mathcal{O}(n)\) bits.</p>
+  </li>
+  <li>
+    <p><strong>Indexed partition hash table.</strong>
+Building on the slow partition hash table, we introduce an index that allows us to query and delete in worst-case constant time (an improvement!) but insertion time is constant on average (a degradation).
+We will make use of a data structure called <a href="https://en.wikipedia.org/wiki/B-tree">B-tree</a> to maintain the index.
+The space complexity is \(nw + \mathcal{O}(n\log \log n)\) bits, which has an extra overhead of \(\log \log n\) bits compared to the slow partition hash table.</p>
+  </li>
+  <li>
+    <p><strong>Partition hash table.</strong>
+We will further introduce an extra layer of processing to achieve constant time w.h.p. for insertion and deletion operations.
+The core idea is to <a href="https://en.wikipedia.org/wiki/Amortized_analysis">amortize</a> the cost of insertion, which is occasionally expensive, over multiple insertions and deletions.
+We will use a data structure called <a href="https://en.wikipedia.org/wiki/Trie">k-tries</a> to maintain a growing buffer that store the upcoming insertions and deletions, and a shrinking buffer that executes these operations in parallel.
+The space complexity is \(nw + \mathcal{O}(n\log \log n)\) bits.</p>
+  </li>
+</ol>
+
+<h2 id="slow-partition-hash-table">Slow partition hash table</h2>
+
+<p>As a starting point, we will use an array of size \(n\) to represent our hash table and partition it into \(n/\log^3(n)\) blocks of size \(\log^3(n)\).</p>
+
+<p>To insert a new item \(x\), we first hash it to a random block \(f(x)\) and insert it to the first empty slot \(k\) from the left of the block.
+We can maintain this left-aligned invariant by maintaining a \(\mathcal{O}(\log \log n)\)-bit counter for each block that keeps track of the number of items in the block.
+So each time we insert an item, we insert it to the slot \(k+1\) and increment the counter by one.
+However, if the block is full, we rebuild the entire hash table by choosing a new random hash function and rehashing all items.
+For deletion, we linearly scan the block to find the item and remove it, and move the right-most item to the empty slot and decrement the counter by one.
+For querying, we linearly scan the block to find the item.</p>
+
+<p>The time complexity for deletion and querying is linear in the block size, which is \(\log^3(n)\).
+The time complexity for insertion is constant unless we need to rebuild the hash table.
+If we introduce a small slack factor \(\color{darkorange}{c\log^2(n)}\) to the block size, the probability of having a block with more than \(\log^3(n) + \color{darkorange}{c\log^2(n)}\) items is very small, e.g. at most \(1/\text{poly}(n)\).
+This fact is a consequence of the <a href="https://en.wikipedia.org/wiki/Chernoff_bound">Chernoff’s bound</a>.
+So on average, the runtime of insertion is constant with high probability.
+Overall, the space complexity is \(nw + \mathcal{O}(n)\) bits.</p>
+
+<h2 id="indexed-partition-hash-table">Indexed partition hash table</h2>
+
+<p>In the previous step, we simply neglected deletions/queries in order to achieve constant time insertion w.h.p.
+To make deletions/queries efficient, we will introduce an index for each block that allows us to find the location of an item in constant time.</p>
+
+<p>One naive way to index a block is to use a hash function \(g:B\rightarrow [\log^3(n)]\) that maps each item in block \(B\) to a unique index in the block.
+The probability of having a collision for any pair \(x, y\in B\) is:</p>
+
+\[\begin{align}
+    \Pr(g(x) = g(y)) = \frac{1}{\log^3(n)}
+\end{align}\]
+
+<p>By union bound, the probability of any collisions occuring is at most \(\text{card}(B)^2 \frac{1}{\log^3(n)} = \log^3(n)\), which is a vacuous bound.</p>
+
+<p>Instead, we assign all items \(x\) within a block to distinct \(\Theta(\log\log n)\)-bit fingerprints \(g(x)\).
+Here, we specifically choose \(g: B \rightarrow [\log^9(n)]\), which will allow us to show that the probability of having a fingerprint collision is at most \(1/\log^3(n)\) (the proof is similar to the previous one).
+If the fingerprints are not distinct, we redo the assignment of fingerprints using a new random hash function.</p>
+
+<p>Next, we will maintain a data structure for each block called <em>query-mapper</em> that maps each fingerprint \(g(x)\) to the corresponding position \(i\in \mathcal{O}(\log^3 n)\) where the item \(x\) is stored in that block.
+In itself, the query-mapper is nothing but a hash table that maps fingerprints to positions (isn’t this the problem we are trying to solve?).
+However, notice that the fingerprints and positions are \(\Theta(\log\log n)\) bits long, which means that the key-value pairs are small enough to be stored in a special data structure called B-tree.
+The exact details of how B-tree works are not important, but the key idea is that it allows us to query/insert/delete in worst-case constant time with a small memory overhead of \(m\log\log n\) bits, where \(m=\text{polylog}(n)\) is the number of key-value pairs in the B-tree.</p>
+
+<p>The query-mapper will interact with our hash table in the following way:</p>
+<ul>
+  <li>
+    <p>To insert an item \(x\), we first check if the fingerprint \(g(x)\) is already in the query-mapper.
+If it is, there is a fingerprint collision and we need to rebuild the index from scratch (for this block only).
+Otherwise, we insert the item to the first empty position \(k\) and add the key-value pair \((g(x), k)\) to the query-mapper.</p>
+  </li>
+  <li>
+    <p>To query an item \(x\), we simply look up the fingerprint \(g(x)\) in the query-mapper to find the position \(k\) where the item is stored.</p>
+  </li>
+  <li>
+    <p>To delete an item \(x\), we look up the fingerprint \(g(x)\) in the query-mapper to find the position \(k\) where the item is stored, remove the item from the hash table and potentially move the right-most item \(x'\) to the empty slot to keep the hash table left-aligned, and delete the key-value pair \((g(x), k)\) and update the position for \(x'\) in the query-mapper.</p>
+  </li>
+</ul>
+
+<p>Overall, the time complexity for querying and deletion is constant in the worst case.
+The time complexity for insertion is constant on average however.
+We need to rebuild the index only when there is a fingerprint collision (which happens with probability of at most \(1/\log^3(n)\)).
+The time complexity for rebuilding the index is \(\mathcal{O}(\log^3(n))\), which is the same as the block size.
+There is also a chance that we need to rebuild the index several times in a row, but the expected time spent on rebuilding is still constant:</p>
+
+\[\sum_{i=1}^{\infty} \mathcal{O}(\log^3 n) \cdot \mathcal{O}(1/\log^3 n)^i = \mathcal{O}(1)\]
+
+<p>The space complexity is \(nw + \mathcal{O}(n\log\log n)\) bits, which has an extra overhead of \(\log\log n\) bits compared to the slow partition hash table.</p>
+
+<h2 id="partition-hash-table">Partition hash table</h2>
+
+<p>The last step is to make insertion and deletion operations constant time w.h.p while maintaining the constant time worst-case guarantee for querying.
+We will use a trick called <em>deamortization</em> to achieve this.
+The core idea is to deamortize the cost of insertion, so if they formerly required \(\mathcal{O}(1)\) time on average, they now require \(\mathcal{O}(1)\) time w.h.p.
+One interesting remark is that this trick can be extended to apply to any hash tables.</p>
+
+<p>We maintain two type of buffers: a growing buffer and a shrinking buffer.
+We will use a data structure called k-tries to implement these buffers, with \(k=\sqrt{n}\), and they store up to \(n^{1/4}\) items of \(w\) bits each.
+Again, the exact details of how k-tries work are not important, but the key idea is that they allow us to insert/delete/query in worst-case constant time with a small memory overhead of \(\mathcal{O}(n^{0.75}\log n)\) bits.</p>
+
+<p>The growing buffer receives the upcoming insertions/deletions while the shrinking buffer has their items removed as they are executed.
+For each insertion/deletion being added to the growing buffer, we spend a constant \(c&gt;1\) amount of time executing the operations in the shrinking buffer in the actual hash table.
+We will guarantee that whenever the growing buffer reaches size \(n^{1/4}\), the shrinking buffer is empty, and they switch roles.</p>
+
+<p>We will prove the following claim: <em>Any batch \(Q\) of \(n^{1/4}\) insertions/deletions can be executed in total \(\mathcal{O}(n^{1/4})\) time w.h.p</em>.</p>
+
+<p>Why is this so crucial?
+The shrinking trie is slowly being cleared out as new operations occur.
+If every batch of \(n^{1/4}\) operations can be done in \(O(n^{1/4})\) total time w.h.p, that means each operation’s amortized cost is constant (since \(O(n^{1/4}) / n^{1/4} = O(1)\)).
+As a result, by proving this claim, we ensure the shrinking trie will be emptied at a rate that keeps the entire hash table’s performance near constant time per update. 
+In other words, if we can show that even a fairly large batch of operations doesn’t cause a time blow-up, then doing a little work per operation (just constant time on average) suffices to keep things running smoothly.</p>
+
+<p><em>Proof sketch of the claim:</em>
+Let \(A_1, A_2, \ldots, A_{n/\log^3(n)}\) be the number of insertion/deletion operations from \(Q\) that get mapped to the \(i\)-th block.
+We’ve shown that, with high probability, \(A_i \le \mathcal{O}(\log^3(n))\) for all \(i\).
+Let \(X_1, X_2, \ldots, X_{n/\log^3(n)}\) be the amount of time needed to execute the operations from \(A_i\) on the \(i\)-th block.
+In the worst case, we can show that \(X_i \le \mathcal{O}(\log^7(n))\) with high probability (this is simply because there are at most \(\log^3(n)\) operations to execute in \(A_i\), the cost of rebuilding is \(\mathcal{O}(\log^3(n))\), and w.h.p there will be \(\mathcal{O}(\log n)\) rebuild attempts).
+Furthermore, we have \(\mathbb{E}[X_i] \le \mathcal{O}(|A_i|)\) by linearity of expectation and the fact that each operation in \(A_i\) takes constant time on average (shown in the previous section).
+By Chernoff’s bound, we can show that \(X:=\sum_{i=1}^{n/\log^3(n)} X_i \le \mathcal{O}(n^{1/4})\) with high probability.</p>
+
+<p>The space complexity is \(nw + \mathcal{O}(n\log\log n)\) bits, which is the same as the indexed partition hash table.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[This is a short personal note on “Modern Hashing Made Simple” by Bender et al. (2024). I’m going to present this paper for the Advanced Graph Algorithms and Optimization Seminar (Fall 2024) at ETH Zürich. My personal goal is to understand the paper well enough to present it in a clear and engaging way.]]></summary></entry><entry><title type="html">Jane Street Puzzle - August 2024</title><link href="http://localhost:4000/jane_street_aug24/" rel="alternate" type="text/html" title="Jane Street Puzzle - August 2024" /><published>2024-09-03T00:00:00+02:00</published><updated>2024-09-03T00:00:00+02:00</updated><id>http://localhost:4000/jane_street_aug24</id><content type="html" xml:base="http://localhost:4000/jane_street_aug24/"><![CDATA[<!-- Personal remarks -->
+<p>I decided to slack off my exam studying with Jane Street’s puzzle.
+I first read the problem in early August, forgot about it, and then submitted my answer on August 16—and got it right on the first try! (username: Khanh Vu).
+This month’s puzzle involves straightforward state analysis with a nice probability garnish.</p>
+
+<h2 id="the-problem">The problem</h2>
+
+<p>Aaron and Beren play a game on an infinite complete binary tree where each edge is independently labeled as \(\mathrm{A}\) with probability \(p\) and \(\mathrm{B}\) otherwise.
+The game starts with Aaron at the root, and the players take turns moving a shared token down the tree.
+On each turn, the active player chooses one of the two child nodes to move the token to.
+If the token traverses an edge labeled B, Beren wins; otherwise, Aaron wins.</p>
+
+<p>The goal is to find the <a href="https://en.wikipedia.org/wiki/Infimum_and_supremum">infimum</a> of all probabilities \(p\) for which Aaron has a nonzero probability of winning. 
+<!-- This infimum represents the smallest probability $$p$$ at which Aaron’s chance of winning is not zero, considering that Beren can choose a path that includes at least one edge labeled B. --></p>
+
+<p>You can read the full problem statement here at: <a href="https://www.janestreet.com/puzzles/tree-edge-triage-index/">www.janestreet.com/puzzles/tree-edge-triage-index/</a>.</p>
+
+<h2 id="my-approach">My approach</h2>
+
+<p>What does it mean for Aaron to win?
+The universe that Aaron and Beren reside in is controlled by a demon, I assume.
+This demon loves upside down binary trees, so it generates an infinite number of binary trees out of boredom.
+Among these trees, if there exists a tree that allows Aaron to keep playing indefinitely, then we say that he wins with non-zero probability.</p>
+
+<p>The demon grows a tree in the following fashion:
+A tree starts with a root, and at each time step, every leaf node grows two child nodes.
+The edges connecting each parent to its children are labeled \(\mathrm{A}\) with probability \(p\), and \(\mathrm{B}\) otherwise.
+As \(p\) gets closer to \(1\), it is more likely for Aaron to win.
+So it makes sense that the problem asks for some sort of a lower bound for such \(p\).</p>
+
+<center>
+    <figure>
+        <img src="../assets/images/jane_street/js00.png" alt="cases" style="display: inline-block;" />
+        <figcaption> <em>Figure 1. When it's Aaron turn, there are four scenarios.</em> </figcaption>
+    </figure>
+</center>
+
+<p>We can zoom in and examine the local picture.
+Assuming that it’s Aaron turn and the token is at a node \(u\), the only state that makes him lose immediately is when the two edges are labeled \((\mathrm{B}, \mathrm{B})\) (state \(4\) in Figure \(1\)).
+Otherwise, he moves the token down to the child node \(v_1\) or \(v_2\), depending on the prospect of the two options (or it is possible at all to move the token to \(v_i\) if the edge is labeled \(\mathrm{B}\)).</p>
+
+<center>
+    <figure>
+        <img src="../assets/images/jane_street/js01.png" alt="cases" style="display: inline-block;" />
+        <figcaption> <em>Figure 2. When it's Beren turn, only the first state allows the game to continue.</em> </figcaption>
+    </figure>
+</center>
+
+<p>When the token is in Beren’s control, Aaron’s only chance of winning is if both edges are labeled \((\mathrm{A}, \mathrm{A})\).
+In any other case, Beren wins by moving the token along the edge labeled \(\mathrm{B}\).</p>
+
+<p>Formally, let \(w_u\) be the event that Aaron wins if he starts his turn at node \(u\).
+Now, node \(u\) has children \(v_1\) and \(v_2\).
+Let \(w_{v_1}\) be the event that Aaron wins if it’s Beren’s turn and the token is at node \(v_1\), and similarly, let \(w_{v_2}\) represent the event that Aaron wins if it’s Beren’s turn and the token is at node \(v_2\).
+Then, we have the following recursive relation:</p>
+
+\[\begin{align}
+    \mathbb{P}(w_u) &amp;= p^2 \cdot \mathbb{P}(w_{v_1} \lor w_{v_2}) + p(1-p)\cdot\mathbb{P}(w_{v_1}) + (1-p)p\cdot\mathbb{P}(w_{v_2}) &amp;\text{(1)} \\
+    \mathbb{P}(w_v) &amp;= p^2 \cdot \mathbb{P}(w_{u_1} \land w_{u_2}) = p^2 \cdot \mathbb{P}(w_u)^2 &amp;\text{(2)} 
+\end{align}\]
+
+<p>Eq. (2) used the fact that \(w_{u_1}\) and \(w_{u_2}\) are independent events.</p>
+
+<p>To break things down for clarity, Eq. (1) and (2) are composed of terms capturing the states in Fig. 1 and 2 respectively.
+For instance, the term \(p^2 \cdot \mathbb{P}(w_{v_1} \lor w_{v_2})\) in Eq. (1) accounts for the state where both edges connecting \(u\) to children \(v_1, v_2\) are labeled \((\mathrm{A}, \mathrm{A})\).
+In this case, Aaron wins (e.g. \(w_u\) holds) if either \(w_{v_1}\) or \(w_{v_2}\) holds.</p>
+
+<p>Now, from the sum rule of probability, we know that:</p>
+
+\[\newcommand{\ind}{\perp\!\!\!\!\perp} 
+\begin{align}
+    \mathbb{P}(w_{v_1} \lor w_{v_2}) &amp;= \mathbb{P}(w_{v_1}) + \mathbb{P}(w_{v_2}) - \mathbb{P}(w_{v_1} \land w_{v_2}) \\
+    &amp;= 2\mathbb{P}(w_v) - \mathbb{P}(w_v)^2 &amp;(\text{since $w_{v_1} \ind w_{v_2}$})
+\end{align}\]
+
+<p>For brevity, let \(x:= \mathbb{P}(w_u)\).
+Combining the fact above and plugging (2) into (1), we arrive at the following identity:</p>
+
+\[\begin{align}
+    x &amp;= 2x^2p^3 - x^4p^6
+\end{align}\]
+
+<p>Let the left-hand side be defined as \(f(x) := x\) and the right-hand side as \(g(x) := 2x^2p^3 - x^4p^6\). 
+Graphically, the problem is now to find a value \(p_0 \in (0, 1)\) such that for all \(p &gt; p_0\), the function \(f(x)\) intersects with \(g(x)\) at some \(x:=\mathbb{P}(w_u) &gt; 0\).
+<a href="https://www.wolframalpha.com/input?i=x+%3D+2x%5E2p%5E3+-+x%5E4p%5E3+%3E+0">Solving for \(p_0\)</a>, we get \(\boxed{\frac{\sqrt{3}}{2^{5/6}}}\approx 0.972\).</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[I decided to slack off my exam studying with Jane Street’s puzzle. I first read the problem in early August, forgot about it, and then submitted my answer on August 16—and got it right on the first try! (username: Khanh Vu). This month’s puzzle involves straightforward state analysis with a nice probability garnish.]]></summary></entry><entry><title type="html">An upper bound for the Kullback-Leibler divergence</title><link href="http://localhost:4000/kl_upper_bound/" rel="alternate" type="text/html" title="An upper bound for the Kullback-Leibler divergence" /><published>2024-07-23T00:00:00+02:00</published><updated>2024-07-23T00:00:00+02:00</updated><id>http://localhost:4000/kl_upper_bound</id><content type="html" xml:base="http://localhost:4000/kl_upper_bound/"><![CDATA[<p>Zürich is so hot now in the night that I couldn’t fall asleep.
+While lying on the bed, I arrived at an interesting upper bound for the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL divergence (relative entropy)</a> between two Bernoulli distributions.
+In this case, the KL divergence is expressed as:</p>
+
+\[D_\text{KL}(p \parallel q) := p\log\left(\frac{p}{q}\right) + (1-p)\log\left(\frac{1-p}{1-q}\right)\]
+
+<p>Here, \(p, q\) denote the parameters of the two distributions.
+I assume \(p, q \in (0, 1)\) and \(\log(\cdot)\) is the natural logarithm function.
+For other cases like when \(p&gt;0\) and \(q=0\), the KL divergence diverges to infinity.
+I can show that, in this setting, the following holds:</p>
+
+\[D_\text{KL}(p \parallel q) \le \frac{(p - q)^2}{(1-q)q} =: \frac{2D_\text{TV}(p, q)^2}{\mathbb{V}[X]}\]
+
+<p>Above, \(D_\text{TV}(\cdot, \cdot)\) is the <a href="https://en.wikipedia.org/wiki/Total_variation_distance_of_probability_measures">variational distance</a> between two distributions and \(X\) is a random variable distributed according to Bernoulli(\(q\)).
+My result is in fact a looser bound as compared to the <a href="https://en.wikipedia.org/wiki/Pinsker%27s_inequality">reversed Pinsker’s inequality</a>.</p>
+
+<p>For the proof, I define a function \(f(q):=D_\text{KL}(p \parallel q)\) with \(p\) kept as a constant.</p>
+
+<p><strong>Corollary 1.</strong>
+The function \(f\) is convex on \((0, 1)\).</p>
+
+<p><em>Proof</em>.
+\(f\) is convex if and only if \(\forall \lambda \in [0, 1]\) and \(\forall q_1, q_2 \in \text{dom}(f)\):</p>
+
+\[f(\lambda q_1 + (1-\lambda) q_2) \le \lambda f(q_1) + (1-\lambda) f(q_2)\]
+
+<p>Indeed this is true since:</p>
+
+<p>\(\begin{align}
+    f(\lambda q_1 + (1-\lambda) q_2) &amp;= p \log\left(\frac{p}{\lambda q_1 + (1-\lambda) q_2}\right) + (1-p) \log\left(\frac{1-p}{1 - \lambda q_1 - (1-\lambda) q_2}\right) \\
+    &amp;= -p \log\left(\frac{\lambda q_1 + (1-\lambda) q_2}{p}\right) - (1-p) \log\left(\frac{\lambda (1-q_1) + (1-\lambda) (1-q_2)}{1-p}\right) \\ 
+    &amp;\le \lambda \left(p\log\frac{p}{q_1} + (1-p)\log\frac{1-p}{1-q_1} \right) + (1-\lambda) \left(p\log\frac{p}{q_2} + (1-p)\log\frac{1-p}{1-q_2} \right) \\
+    &amp;= \lambda f(q_1) + (1-\lambda) f(q_2)
+\end{align}\)
+The inequality above is due to the convexity of \(-\log(\cdot)\) and Jensen’s inequality.</p>
+
+<p><strong>Corallary 2.</strong>
+\(\forall q_1, q_2 \in \text{dom}(f)\), it holds that:</p>
+
+\[f(q_1) \ge f(q_2) + f'(q_2)(q_1 - q_2)\]
+
+<p>where \(f'\) is the first-order derivative of \(f\) at \(q_2\).</p>
+
+<p><em>Proof</em>.
+Given that \(f\) is convex on its domain, we have:</p>
+
+\[\begin{align}
+    f(\lambda q_1 + (1-\lambda) q_2) &amp;\le \lambda f(q_1) + (1-\lambda) f(q_2) \\
+    f(q_2 + \lambda(q_1 - q_2)) - f(q_2) + \lambda f(q_2) &amp;\le \lambda f(q_1) \\
+    \frac{f(q_2 + \lambda(q_1 - q_2)) - f(q_2)}{\lambda (q_1 - q_2)} (q_1 - q_2) + f(q_2) &amp;\le f(q_1) &amp;\text{(Dividing $\lambda$ both sides)} \\
+    \lim_{\lambda \rightarrow 0} \frac{f(q_2 + \lambda(q_1 - q_2)) - f(q_2)}{\lambda (q_1 - q_2)} (q_1 - q_2) + f(q_2) &amp;\le f(q_1) \\
+    f'(q_2) (q_1 - q_2) + f(q_2) &amp;\le f(q_1)
+\end{align}\]
+
+<p>We can explicitly derive the derivative of \(f\) at a given \(q\):</p>
+
+\[f'(q) = \frac{p - q}{(q - 1)q}\]
+
+<p>Putting everything together, we have the desired upper bound:</p>
+
+\[\begin{align}
+    f(p) &amp;\ge f(q) + f'(q)(p - q) &amp;\text{(Corollary 2)}\\
+    f'(q)(p - q) &amp;\ge f(q) &amp;\text{($f(p)=0$ by definition)}\\
+    \frac{(q - p)^2}{(1 - q)q} &amp;\ge f(q):= D_\text{KL}(p \parallel q)
+\end{align}\]
+
+<p>This bound is particularly useful when it comes to deriving some concentration bounds for the KL divergence with respect to \(q\).
+I will discuss this matter in another blog post.
+It’s 1:44AM now and I need to go to bed for real this time.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[Zürich is so hot now in the night that I couldn’t fall asleep. While lying on the bed, I arrived at an interesting upper bound for the KL divergence (relative entropy) between two Bernoulli distributions. In this case, the KL divergence is expressed as:]]></summary></entry><entry><title type="html">Rate-distortion theory</title><link href="http://localhost:4000/rate_distortion/" rel="alternate" type="text/html" title="Rate-distortion theory" /><published>2023-12-19T00:00:00+01:00</published><updated>2023-12-19T00:00:00+01:00</updated><id>http://localhost:4000/rate_distortion</id><content type="html" xml:base="http://localhost:4000/rate_distortion/"><![CDATA[<p>In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem.
+The rate-distortion theorem plays a crucial role in modern signal processing, especially in understanding the limit of data compression.
+I will try to keep the material short and concise.</p>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ol>
+  <li><a href="#1-definitions">Definitions</a></li>
+  <li><a href="#2-the-rate-distortion-theorem">Rate-distortion theorem</a>
+    <ol>
+      <li><a href="#21-converse-part">Converse part</a></li>
+      <li><a href="#22-direct-part">Direct part</a></li>
+    </ol>
+  </li>
+</ol>
+
+<h2 id="1-definitions">1. Definitions</h2>
+
+<p>We have a sequence \(X^n=(X_1, \dots, X_n)\) with \(X_i\) being sampled IID according to a source distribution \(P_X\). 
+We also assume \(X_i\) takes on values from a finite alphabet \(\mathcal{X}\).
+Let us define an encoder-decoder pair with encoding function \(f_n: \mathcal{X}^n \rightarrow \{1,\dots, 2^{nR}\}\) and decoding function \(\phi_n: \{1,\dots, 2^{nR}\} \rightarrow \hat{\mathcal{X}}^n\), where \(R\) is the rate (denoting bits per source symbol) and \(\hat{\mathcal{X}}\) is the reconstruction alphabet.
+In plain words, the encoder \(f_n\) maps \(X^n\) to a index of a codebook \(\mathcal{C}\) consisting of \(2^{nR}\) codewords, and the decoder \(\phi_n\) returns the corresponding codeword \(\hat{X}^n\) which is one of the rows in \(\mathcal{C}\).</p>
+
+<p>One example of the scheme above is the representation of real numbers in computers.
+We would need infinite precision, thus infinite bits, to represent a number in \(\mathbb{R}\), so we instead truncate it to \(32\)-bit floating point, resulting in a codebook consisting \(2^{32}\) possible numbers.
+Such a scheme is also called quantization.
+We essentially quantize numbers in \(\mathbb{R}\) using a finite set of rational numbers \(\mathbb{Q}\).</p>
+
+<p>To measure the quality of the chosen scheme, which is a pair \((f_n, \phi_n)\), we can measure the distortion between the input and the reconstruction as \(d(X^n,\hat{X}^n)=\frac{1}{n}\sum_{i=1}^n d(X_i, \hat{X}_i)\). Here, \(d:\mathcal{X}\times \hat{\mathcal{X}} \rightarrow \mathbb{R}^+\) is the distortion measure.
+Some popular choices of distortion measure includes:</p>
+
+<ul>
+  <li><em>Hamming distortion</em> that is given by \(d(x,\hat{x}) = [x \neq \hat{x}]\). Here, \([\cdot]\) denotes the indicator function.</li>
+  <li><em>Squared-error distortion</em> that is given by \(d(x,\hat{x})=(x-\hat{x})^2\).</li>
+</ul>
+
+<p>For simplicity, I assume that Hamming distortion is used in this post.
+Moving on, the following introduces several definitions highlighting the interplay between rate \(R\) and distortion \(D\).</p>
+
+<p><strong>Definition 1.</strong>
+The <strong>rate distortion pair \((R,D)\)</strong> is <em>achievable</em> if there exists a sequence of \((f_n,\phi_n)\) with \(\lim_{n\rightarrow \infty} \mathbb{E} d(X^n, \phi_n(f_n(X^n))) \leq D\).</p>
+
+<p><strong>Definition 2.</strong>
+The <strong>rate distortion region</strong> is the closure of all achievable \((R,D)\).</p>
+
+<center>
+    <figure>
+        <img src="../assets/images/rate_distortion.png" alt="rate-distortion function" style="width: 80%; display: inline-block;" />
+    </figure>
+</center>
+
+<p><strong>Definition 3.</strong>
+The <strong>rate distortion function \(R(D)\)</strong> is the <em>infimum</em> over all rates \(R\) such that \((R,D)\) is achievable for a given distortion \(D\).</p>
+
+<p><strong>Definition 4.</strong>
+The <strong>information rate distortion function</strong> is defined as</p>
+
+\[R^{(I)}(D) = \underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})\]
+
+<p>Where \(I(\cdot;\cdot)\) is the mutual information function and the minimum is taken over all possible \(P_{\hat{X}|X}\), assuming that the source distribution \(P_X\) is fixed. 
+Alternatively, we can also define \(R^{(I)}(D)\) as the minimization over the joint \(P_{\hat{X}X}\) as long as the marginal matches the given \(P_X\).</p>
+
+<h2 id="2-the-rate-distortion-theorem">2. The rate-distortion theorem</h2>
+
+<p>In his foundational work in information theory, Claude Shannon stated a key result in rate-distortion theory:</p>
+
+<p><strong>Theorem 1.</strong></p>
+
+\[R(D)=R^{(I)}(D)=\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})\]
+
+<p>This gives the original definition of rate distortion function \(R(D)\) an operational value as an optimization problem. Spelling things out, the theorem has two parts:</p>
+
+<ol>
+  <li><strong>Direct part:</strong> If \(R&gt;R^{(I)}(D)\) then \((R,D)\) is achievable.</li>
+  <li><strong>Converse part:</strong> If \((R,D)\) is achievable then \(R\geq R^{(I)}(D)\).</li>
+</ol>
+
+<h3 id="21-converse-part">2.1. Converse part</h3>
+
+<p>The proof for the converse is rather straighforward and depends only on some properties of \(R^{(I)}(D)\), namely \(R^{(I)}(D)\) is monotonically non-increasing, convex, and continuous. For interested readers, you can refer to the proofs of these properties in <em>Elements of Information Theory by Thomas &amp; Cover</em>.</p>
+
+<p><strong>Claim 1.</strong>
+\(nR \geq I(X^n; \hat{X}^n)\)</p>
+
+<p><strong>Proof of claim 1.</strong></p>
+
+\[\begin{align}
+I(X^n; \hat{X}^n) &amp;\leq I(X^n; f_n(X^n)) &amp;&amp;\text{(Data processing ineq.)}\\
+&amp;= H(f_n(X^n)) &amp;&amp;(H(f_n(X^n)|X^n)=0)\\
+&amp;\leq nR &amp;&amp;(\text{Codebook is of size } 2^{nR})
+\end{align}\]
+
+<p><strong>Proof of the converse part.</strong></p>
+
+\[\begin{align}
+nR &amp;\geq I(X^n; \hat{X}^n) &amp;&amp;\text{(Claim 1)}\\
+&amp;= H(X^n) - H(X^n|\hat{X}^n)\\
+&amp;= \sum_i H(X_i) - \sum_i H(X_i|X^{i-1}, \hat{X}^n) &amp;&amp;\text{(Chain rule)}\\
+&amp;\geq \sum_i H(X_i) - \sum_i H(X_i|X^{i-1}) &amp;&amp;\text{(Conditioning reduces entropy)}\\
+&amp;= \sum_i I(X_i; \hat{X}_i)\\
+&amp;\geq \sum_i R^{(I)} (\mathbb{E} d(X_i, \hat{X}_i)) &amp;&amp;(\text{By def. of } R^{(I)}(D))\\
+&amp;= n \sum_i \frac{1}{n} R^{(I)} (\mathbb{E} d(X_i, \hat{X}_i))\\
+&amp;\geq n R^{(I)} \left(\frac{1}{n} \sum_i \mathbb{E} d(X_i, \hat{X}_i) \right) &amp;&amp;(\text{Convexity of } R^{(I)}(D) \text{ and Jensen's ineq.})\\
+&amp;= n R^{(I)} (\mathbb{E} d(X^n, \hat{X}^n)) &amp;&amp;\text{(By def. of distortion)}\\ 
+&amp;\geq n R^{(I)} (D) &amp;&amp;(\text{Monotonicity of } R^{(I)}(D) \text{ and the claim that } \mathbb{E} d(X^n, \hat{X}^n) \leq D)\\
+\end{align}\]
+
+<p>The above completes the proof of the converse part.
+Intuitively, the converse says that if you give me a wonderful scheme that achieves distortion \(\leq D\), I will show that your rate \(R\) must be at least \(R^{(I)}(D)\).</p>
+
+<h3 id="22-direct-part">2.2. Direct part</h3>
+
+<p>In contrast to the converse part, the proof for the direct part is tricky.
+Nevertheless, it is actually quite similar to the direct part of noise-channel coding theorem.
+The crux of this proof would follow the random codebook construction with some small differences.</p>
+
+<p>I will start by laying out some ingredients for the main proof.</p>
+
+<p><strong>Lemma 1.</strong>
+Given \(N\) IID Bernoulli \(p\) variables \(X_1,\dots,X_n\), we have that</p>
+
+\[P(\text{at least 1 success}) = P((X_1=1) \lor \cdots \lor (X_n=1)) \rightarrow 1 \text{ if } np\rightarrow \infty\]
+
+<p><strong>Proof of lemma 1.</strong></p>
+
+\[\begin{align}
+P(\text{at least 1 success}) &amp;= 1-P(\text{failure in all trials}) \\
+&amp;\geq 1-(1-p)^n \\
+&amp;\geq 1-\exp(-np) \rightarrow 1 \text{ as } np\rightarrow \infty
+\end{align}\]
+
+<p><strong>Lemma 2.</strong>
+Given a function \(g:\mathcal{X}\rightarrow \mathbb{R}^+\) and a sequence \(\underline{x}=(x_1,\dots,x_n)\) with \(x_i\in\mathcal{X}\), the following holds:</p>
+
+\[\underline{x} \in \mathcal{T}_{\varepsilon}^{(n)} (P_X)\Rightarrow \frac{1}{n} \sum_i g(x_i) \leq (1+\varepsilon) \mathbb{E}g(X)\]
+
+<p>Here, \(\mathcal{T}_{\varepsilon}^{(n)}(P_X)\) is a strongly typical set with tolerence \(\varepsilon\).</p>
+
+<p><strong>Proof of lemma 2.</strong> The proof follows naturally from the definition of a strongly typical set.</p>
+
+<p><strong>Lemma 3.</strong>
+Given two sequences of random variables \(\{\tilde{X}_i\}, \{\tilde{Y}_i\}\) that are drawn IID from \(P_X\) and \(P_Y\) respectively, where \(P_X\) and \(P_Y\) are the marginals of some \(P_{XY}\), then</p>
+
+\[Pr((\tilde{X}, \tilde{Y})\in \mathcal{A}_{\varepsilon}^{(n)}(P_{XY})) \leq 2^{-n(I(X;Y)-3\varepsilon)}\]
+
+<p>Where \(\mathcal{A}_{\varepsilon}^{(n)}(P_{XY})\) is a weakly typical set with tolerence $\varepsilon$.</p>
+
+<p><strong>Lemma 4.</strong>
+Given \(0&lt;\varepsilon'&lt;\varepsilon\), if \(\underline{x}\in \mathcal{T}_{\varepsilon'}^{(n)}(P_X)\) and \(\{Y_i\} ~\) IID from \(P_Y\) then:</p>
+
+\[Pr((\underline{x}, \underline{Y})\in \mathcal{T}_{\varepsilon}^{(n)}(P_{XY})) \geq 2^{-n(I(X;Y)+4\delta_{XY})}\]
+
+<p>The lemma 3 has been proven in the previous blog post, and the proof of lemma 4 is omitted since it is quite complicated.</p>
+
+<p><strong>Proof of the direct part:</strong>
+Given the source distribution \(P_X\),
+we fix the conditional probability \(P_{\hat{X}|X}\) such that it satisfies \(\mathbb{E}_{P_{X\hat{X}}} d(X,\hat{X}) \leq D\). 
+We will show that if \(R &gt; I_{P_{X\hat{X}}}(X;\hat{X}) + \tilde{\epsilon}\) then \((R,D)\) is achievable.
+If we are able to prove this, the proof in the case \(R&gt;R^{(I)}(D)\) would follow naturally.</p>
+
+<p>Since we already have \(P_X\) and \(P_{\hat{X}\vert X}\), we also get the output symbol probability \(P_\hat{X}\) using the law of total probability:</p>
+
+\[P_{\hat{X}}(\hat{x}) = \sum_{x} P(\hat{x}|x) P(x)\]
+
+<p>Similar to the direct part of noisy-channel coding, we consider a random codebook \(\mathcal{C}\in \mathcal{\hat{X}}^{2^{nR}\times n}\) where the row elements follow \(P_{\hat{X}}\).
+In this proof, the decoder follows the strongly typical decoding scheme;
+given a source sequence \(\underline{x}\in \mathcal{X}^n\), we search for the existence of a row \(j\) in \(\mathcal{C}\) such that \((\underline{x}, \hat{x}(j))\in \mathcal{T}_{\epsilon}^{(n)}(P_X \circ P_{\hat{X}|X})\).
+Also, to be more precise with the constant terms invovled, we assume that \(0&lt;\epsilon'&lt;\epsilon&lt;\tilde{\epsilon}\).
+We define the event of “success” for the decoder \(\phi_n\) if there exists such \(j\) satisfying the above statement, and if so, the reconstruction for \(\underline{x}\) is then \(\hat{x}(j)\) (the row \(j\) in \(\mathcal{C}\)).
+In this case, the distortion is upper bounded by:</p>
+
+\[\begin{align}
+d(\underline{x}, \hat{x}(j)) &amp;\leq \mathbb{E}[d(x,\hat{x})](1+\epsilon) &amp;\text{(Lemma 2)}\\
+&amp;=D(1+\epsilon) &amp;\text{(By assumption)}
+\end{align}\]
+
+<p>In the case where there is no such \(j\) exist, the distortion is assumed to be at most \(d_\max \doteq \underset{x,\hat{x}}{\max} d(x,\hat{x})\).
+For this, the expected distortion, assuming that \(\underline{x}, \mathcal{C}\) are random, is upper bounded by:</p>
+
+\[\mathbb{E}[d(X,\hat{X})] \leq \text{Pr(success)}D(1+\epsilon) + \text{Pr(failure)} d_\max\]
+
+<p>For a fixed codebook \(\mathcal{C}\),</p>
+
+\[\mathbb{E}[d(X,\hat{X})\vert \mathcal{C}] \leq \text{Pr}(\text{success}\vert \mathcal{C})D(1+\epsilon) + \text{Pr}(\text{failure}\vert \mathcal{C}) d_\max\]
+
+<p>The plan now is quite similar to the noisy-channel coding’s proof: if I can upper bound the expected distortion \(\mathbb{E}[d(X,\hat{X})]\) (averaged over \(\mathcal{C}\)) by some amount \(\gamma\), then there must exist a codebook \(\mathcal{C}^*\) that actually achieves the distortion of at most \(\gamma\).
+To achieve this plan, we shall turn our attention to \(\text{Pr}(\text{success})\) which we can eventually show to happen with almost guarantee.
+There are two ways we can factor \(\text{Pr}(\text{success})\) with the law of total probability:</p>
+
+\[\begin{align}
+\text{Pr}(\text{success}) &amp;= \sum_{\mathcal{C}} \text{Pr}(\mathcal{C}) \text{Pr}(\text{success} | \mathcal{C}) &amp;\text{(1)}\\
+\text{Pr}(\text{success}) &amp;= \sum_{\underline{x}} \text{Pr}(\underline{x}) \text{Pr}(\text{success} | \underline{x}) &amp;\text{(2)}
+\end{align}\]
+
+<p>Notice that the right-hand side of \((2)\) depends on the choice of \(\mathcal{C}\).
+The important point is that we are effectively recasting the randomness of \(\mathcal{C}\) to the randomness of \(\mathcal{X}\), which eases the analysis.
+We then have the following decomposition:</p>
+
+\[\begin{align}
+\text{Pr}(\text{success}) &amp;= \sum_{\xi \in \mathcal{T}_{\epsilon'}^{(n)}(P_X)} P(\underline{X}=\xi) P(\text{success} | \underline{X}=\xi) + \sum_{\xi \notin \mathcal{T}_{\epsilon'}^{(n)}(P_X)} P(\underline{X}=\xi) P(\text{success} | \underline{X}=\xi)\\
+&amp;\geq \sum_{\xi \in \mathcal{T}_{\epsilon'}^{(n)}(P_X)} P(\underline{X}=\xi) P(\text{success} | \underline{X}=\xi)
+\end{align}\]
+
+<p>From lemma 1 and 4, we know that:</p>
+
+\[\begin{align}
+P(\underline{X}=\xi) P(\text{success} | \underline{X}=\xi) &amp;\geq 1- \exp(-2^{nR}2^{-n(I(X;\hat{X})+4\delta_{X\hat{X}})})\\
+&amp;= 1- \exp(-2^{-n(I(X;\hat{X})+4\delta_{X\hat{X}}-R)}) 
+\end{align}\]
+
+<p>Thus,</p>
+
+\[\begin{align}
+\text{Pr}(\text{success}) &amp;\geq \sum_{\xi \in \mathcal{T}_{\epsilon'}^{(n)}(P_X)} P(\underline{X}=\xi) 1-\exp(-2^{-n(I(X;\hat{X})+4\delta_{X\hat{X}}-R)})\\
+&amp;= 1- \exp(-2^{-n(I(X;\hat{X})+4\delta_{X\hat{X}}-R)}) 
+\end{align}\]
+
+<p>If \(R &gt; I(X;\hat{X})+4\delta_{X\hat{X}}\), we can drive \(\text{Pr}(\text{success})\rightarrow 1\) for some large \(n\). Consequently, this tells us that if \(R &gt; I(X;\hat{X})+4\delta_{X\hat{X}}\) then \(\mathbb{E}[d(X,\hat{X})]\leq D(1+\epsilon)\), implying the existence of codebook \(\mathcal{C}^*\) whose distortion is at most \(D(1+\epsilon)\).
+To get the prove for \(R&gt;R^{(I)}(D)\), we just need to set \(P_{\hat{X}\vert X}\) to the minimizer of the functional \(R^{(I)}(D)\), and set \(\delta_{X\hat{X}}=\frac{\tilde{\epsilon}}{4}\).</p>
+
+<!-- ## 3. Calculating the rate-distortion function
+
+Some tips about the actual calculation of the $$R(D)$$ given a input distribution and the distortion function.
+
+<u>Proposition 1:</u>
+All the conditional probability $$P_{\hat{X}|X}$$ that satisfies $$\mathbb{E}[d(X,\hat{X})]\leq D$$ form a convex set.
+
+<u>Proposition 2:</u>
+For a fixed $$P_X$$, we have that $$\underset{P_{\hat{X}|X}:\sum_{x,\hat{x}} P(x)P(\hat{x}|x)d(x, \hat{x})\leq D}{\min} I(X;\hat{X})$$ is a convex optimization problem.  -->]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of the main theorem. The rate-distortion theorem plays a crucial role in modern signal processing, especially in understanding the limit of data compression. I will try to keep the material short and concise.]]></summary></entry><entry><title type="html">Noisy-channel coding theorem</title><link href="http://localhost:4000/channel_coding_proof/" rel="alternate" type="text/html" title="Noisy-channel coding theorem" /><published>2023-11-21T00:00:00+01:00</published><updated>2023-11-21T00:00:00+01:00</updated><id>http://localhost:4000/channel_coding_proof</id><content type="html" xml:base="http://localhost:4000/channel_coding_proof/"><![CDATA[<p>Here is my second attempt to understand the proof for the channel coding theorem.
+My initial exposure to this concept was through Professor Amos Lapidoth’s lecture in Information Theory I.
+His presentation, though concise, was packed with ingenious methods that were challenging to fully comprehend at time.
+To better understand it, I shall employ the Feynman technique - explaining the concept to someone else.</p>
+
+<h2 id="1-communication-through-a-noisy-medium">1. Communication through a noisy medium</h2>
+
+<p>Imagine Bob’s wife, Alice, is traveling the universe for her company annual trip.
+She wants to send her lovely husband some gorgious photos she’ve taken during the last couples of days.
+From Alice’s space ship, these photos are first encoded as binary strings (e.g. \(00101101..\)), then converted into radio waves and finally emitted to Bob’s computer on Earth.</p>
+
+<p>However, every interplanetary species know how deadly and quirky the space is, and signals travel through this medium is of no exception.
+Due to cosmic radiation, the sent bit has a probability \(p\in [0,1]\) of being flipped; \(0\) is received as \(1\) at Bob’s computer given some chance \(p&gt;0\) for instance.</p>
+
+<figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Binary_symmetric_channel_%28en%29.svg/1920px-Binary_symmetric_channel_%28en%29.svg.png" alt="noisy communication scheme" style="width:500px; display: inline-block;" />
+</figure>
+
+<p>To circumvent such situation, the ship can send the same bit multiple times just to be sure that the receiver can recover the message faithfully.
+For example, Alice can instead send \(010\) as \(000111000\) (each bit is duplicated three times). The encoder at Alice’s spaceship would then follow the mapping:</p>
+
+\[\begin{align}
+0 &amp;\rightarrow 000\\
+1 &amp;\rightarrow 111
+\end{align}\]
+
+<p>On Earth, Bob can leverage a voting scheme to decode the message, say, for every block of 3 bits, decodes it as the majority bit in that block (e.g. \(011 \rightarrow 1\)).</p>
+
+<p>To be more concrete, let’s assume \(p=0.2\).
+Before, the probability of incorrectly receiving a bit \(P_e\), say bit \(0\) is received and decoded as \(1\), equals to \(0.2\).
+Now, with the redundant bits introduced, the error happens when \(000\) is received as one of \(\{011, 101, 110, 111\}\) (Bob will decode it as a \(1\)), and this event occurs with probability \(P_e \approx 0.104\)!
+It seems like the probability of error \(P_e\) will vanish as we keep sending the same bit for a large number of times.
+Wonderful right?
+However, the reduction in \(P_e\) would come with a cost!</p>
+
+<center>
+    <figure>
+        <img src="../assets/images/error_prob.png" alt="prob of error decay rate" style="display: inline-block;" />
+        <!-- <figcaption>...</figcaption> -->
+    </figure>
+</center>
+
+<p>Every time the space ship sends a bit through the radio channel, this service charges Alice some amount of money.
+In case the encoder duplicates a bit \(K\) times, the rate of communication would then be \(R=\frac{1}{K}\) bits per channel use.
+To send a single bit reliably, the ship emits \(K\) times the radio signal to transmit it to Earth.
+From the previous, we speculate that only when \(R \rightarrow 0\) then \(P_e\rightarrow 0\).
+Bad news for the family’s bank account!</p>
+
+<p>But the couple have to worry no more, Claude Shannon dropped a phenomenal paper in 1948 which states that \(\forall \varepsilon&gt;0\), there exists an encoder-decoder pair that allows us to make \(P_e &lt; \varepsilon\) without the need to drive \(R\rightarrow 0\).
+In plain words, you can make the probablity of error arbitrarily small and still having a reasonable communication rate.</p>
+
+<h2 id="2-noisy-channel-coding-theorem">2. Noisy-channel coding theorem</h2>
+
+<p>Formally, the basic scheme consists of a set of messages \(\mathcal{M}\), an encoder \(f: \mathcal{M} \rightarrow \mathcal{X}^n\) with \(n\) be the block length, and a decoder \(\phi: \mathcal{Y}^n \rightarrow \mathcal{M} \cup \{?\}\).
+The symbol \(?\) denotes the failure case when the decoder doesn’t know the original message.
+The communication rate is \(R=\frac{\log |\mathcal{M}|}{n}\) bits per channel use, assume the messages are drawn uniformly.
+We can index \(\mathcal{M}\) by \(\{1,\dots, \lfloor 2^{nR} \rfloor\}\).
+Finally, the noisy channel \(W(\mathcal{Y}|\mathcal{X})\) is memoryless and assumed to be fixed in this setting.</p>
+
+<p><strong>Definition 1:</strong>
+The probability of error associated with message \(m\) is denoted by \(\lambda_m\).
+Verbosely,</p>
+
+\[\begin{align}
+\lambda_m &amp;= \sum_{\mathbf{y} \in\mathcal{Y}^n | \phi(\mathbf{y}) \neq m} P(Y = \mathbf{y} | X = \mathbf{x}(m))\\
+&amp;= \sum_{\mathbf{y} \in\mathcal{Y}^n | \phi(\mathbf{y}) \neq m} \prod_{i=1}^n W(y_i | x_i(m)) &amp;\text{(Channel is memoryless)}
+\end{align}\]
+
+<p>Next, we define \(\lambda_\max = \underset{m\in \mathcal{M}}{\max} \lambda_m\), the maximum chance of getting an error considering all messages.
+The average error chance is \(P_e^{(n)} = \frac{1}{|\mathcal{M}|} \sum_{m\in \mathcal{M}} \lambda_m\).</p>
+
+<p><strong>Definition 2.</strong>
+Rate \(R\) is <strong>achievable</strong> if there exists a sequence of encoder-decoder pairs \(\{f, \phi\}_n\) such that \(\lim_{n\rightarrow \infty} \lambda_\max = 0\).</p>
+
+<p><strong>Definition 3:</strong>
+The capacity of a channel, denoted \(C\), is the <strong>supremum</strong> of all achievable rates.
+Furthermore, we define \(C^{(I)} = \underset{Q\in P_\mathcal{X}}{\max} I(Q, W)\), where \(Q\) is a probability distribution for input symbols in \(\mathcal{X}\) and \(I(\cdot;\cdot)\) is the <a href="https://en.wikipedia.org/wiki/Mutual_information">mutual information</a> between two distributions.</p>
+
+<!-- **Shannon's noisy-channel coding theorem:** -->
+<!-- $$C = C^{(I)}$$ -->
+
+<p style="background-color: lightblue; padding: 10px;">
+    <strong>Shannon’s noisy-channel coding theorem:</strong>
+    \[
+        C = C^{(I)}
+    \]
+</p>
+
+<p>This theorem consists of two parts which we shall prove consequently:</p>
+
+<ol>
+  <li><strong>Converse part:</strong> If \(R &gt; C^{(I)}\), then \(R\) is not achievable.</li>
+  <li><strong>Direct part:</strong> If \(R &lt; C^{(I)}\), then \(R\) is achievable.</li>
+</ol>
+
+<h3 id="21-converse-part">2.1 Converse part</h3>
+
+<p>A contrapositive statement for the converse says that if you give me a wonderful encoder-decoder pair whose rate \(R\) is achievable (e.g. \(\lambda_\max \rightarrow 0\) as \(n\rightarrow \infty\)), then \(R \leq C^{(I)}\).
+Next, I would like to introduce the Fano’s inequality which is necessary for the proof later:</p>
+
+<p><strong>Fano’s inequality:</strong></p>
+
+\[\begin{align}
+H(M|Y) &amp;\leq H(P_e) + P_e\log(|\mathcal{M}|-1)\\
+&amp;\leq 1 + P_e\log|\mathcal{M}|
+\end{align}\]
+
+<p>Where \(P_e=P(\hat{M} \neq M)\) with \(\hat{M}=\phi(Y)\in\mathcal{M}\).
+We have \(H(P_e)\leq 1\) because \(P_e\) is a Bernoulli distribution and the maximum entropy of a binary random variable is \(1\) bit.
+The proof for this inequality is rather a trivial algebraic manipulation, for curious readers you can refer to <em>Elements of Information Theory by Thomas &amp; Cover</em>.</p>
+
+<p><strong>Proof of the converse part:</strong></p>
+
+\[\begin{align}
+nR = \log |\mathcal{M}| = H(M) &amp;= I(M; Y^n) + H(M|Y^n)\\
+&amp;\leq I(M; Y^n) + 1 + P_e^{(n)}nR &amp;\text{(Fano's inequality)}
+\end{align}\]
+
+<p>Dividing \(n\) both sides,</p>
+
+\[R \leq \frac{1}{n} I(M; Y^n) + \frac{1}{n} + P_e^{(n)}R\]
+
+<p>Given that \(R\) is achievable, we have \(P_e^{(n)}\rightarrow 0\). Also, \(\frac{1}{n}\rightarrow 0\) as \(n\rightarrow \infty\). The remain work is to bound \(\frac{1}{n} I(M; Y^n)\):</p>
+
+\[\begin{align}
+I(M; Y^n) &amp;\leq I(X^n; Y^n) &amp;\text{(Data Processing Ineq.)}\\
+&amp;= H(Y^n) - H(Y^n|X^n) \\
+&amp;= \sum_{i=1}^n H(Y_i|Y^{i-1}) - H(Y_i|Y^{i-1}, X^n) &amp;\text{(Chain rule)}\\
+&amp;\leq \sum_{i=1}^n H(Y_i) - H(Y_i|X_i) &amp;\text{(Channel is memoryless)}\\
+&amp;= \sum_{i=1}^n I(X_i; Y_i)\\
+&amp;\leq n \underset{Q\in P_\mathcal{X}}{\max} I(Q; W) = n C^{(I)}
+\end{align}\]
+
+<p>Hence, \(\frac{1}{n} I(M; Y^n) \leq C^{(I)} \Rightarrow R \leq C^{(I)}\), completing the proof.</p>
+
+<h3 id="22-direct-part">2.2 Direct part</h3>
+
+<p>We would need several key ingredients for the actual proof of the direct part.</p>
+
+<p><strong>Joint Weak Typicality.</strong>
+Given a joint probability \(P_{XY}\) and a tolerance $\epsilon$, and two sequences \(\mathbf{x},\mathbf{y}\) that satisfy the following conditions:</p>
+
+<ol>
+  <li>\(\mathbf{x}\) is weakly typical, e.g. \(2^{-n(H(P_X)+\epsilon)} &lt; \prod_{i=0}^n P_X(x_i) &lt; 2^{-n(H(P_X)-\epsilon)}\).</li>
+  <li>\(\mathbf{y}\) is weakly typical, e.g. \(2^{-n(H(P_Y)+\epsilon)} &lt; \prod_{i=0}^n P_Y(y_i) &lt; 2^{-n(H(P_Y)-\epsilon)}\).</li>
+</ol>
+
+<p>Then, the pair \((\mathbf{x, y})\) is weakly typical if \(2^{-n(H(P_{XY})+\epsilon)} &lt; \prod_{i=0}^n P_{XY}(x_i, y_i) &lt; 2^{-n(H(P_{XY})-\epsilon)}\).
+We denotes such event as \((\mathbf{x,y}) \in \mathcal{A}_\epsilon^{(n)}(P_{XY})\).
+A jointly typical pair of sequences has some properties that will be needed for the main proof:</p>
+
+<ol>
+  <li>If the elements of \((\mathbf{x,y})=\{(x_i,y_i)\}_{i=1}^n\) are drawn IID from \(P_{XY}\), then for any \(\delta&gt;0\) there exists \(N(\delta)\) so that \(\forall n&gt;N(\delta)\) we have \(\text{Pr}((\mathbf{x,y}) \notin \mathcal{A}_\epsilon^{(n)}(P_{XY})) \leq \delta\).</li>
+  <li>If \(\mathbf{x}=\{x_i\}_{i=1}^n\) and \(\mathbf{y}=\{y_i\}_{i=1}^n\) are drawn IID from \(P_X\) and \(P_Y\) respectively, then the chance that the pair of sequences \((\mathbf{x,y})\) is jointly typical is very unlikely:</li>
+</ol>
+
+\[\textbf{Pr}((\mathbf{x,y}) \in \mathcal{A}_\epsilon^{(n)}(P_{XY})) \leq 2^{-n(I(X;Y)- 3\epsilon)}\]
+
+<p><strong>Proof of the direct part:</strong></p>
+
+<p>Let us fix the input symbols distribution \(Q \in P_X\).
+We would like to prove that for any rate \(R &lt; I(Q, W)\), \(R\) is achievable.
+If we can prove this previous statement, the same thing holds when \(Q\) is the capacity-achieving input distribution and hence the proof for \(R &lt; C^{(I)}\) follows naturally.</p>
+
+<p>To decode the messages, we shall use something called jointly typical decoding.
+For a given output sequence \(Y^n\) from the channel, we check for the existance of a message \(m\) whose code \(X^n(m)\) is jointly typical with \(Y^n\), e.g. whether \((X^n,Y^n) \in \mathcal{A}^{(n)} (P_{XY})\).
+If there exists a single \(m\) satisfies this condition, return \(m\).
+Otherwise, if there is none or multiple such \(m\)’s, we declare error.</p>
+
+<p>Now, consider a random rate-\(R\) blocklength-\(n\) codebook \(\mathcal{C}\).
+To construct this codebook, the row elements (there are \(n\) of them) in each of the \(2^{nR}\) rows in \(\mathcal{C}\) are drawn IID from \(Q\).
+The probability of error for message \(m\) associating with this codebook is denoted by \(\lambda_m(\mathcal{C})\).
+The expected error is then written as \(\bar{\lambda}_m = \mathbb{E}_{P_{\mathcal{C}}}[\lambda_m(\mathcal{C})]\).
+Similarly, the average error for codebook \(\mathcal{C}\) is \(P_e^{(n)}(\mathcal{C})\) and the expected average error is \(P_e^{(n)}\).</p>
+
+<p><strong>Claim 1:</strong>
+The expected error is independent of the message \(m\), e.g. \(\bar{\lambda}_1 = \dots = \bar{\lambda}_m\).</p>
+
+<p><strong>Proof of claim 1 (non-rigorous):</strong>
+This is due to symmetry!</p>
+
+<p>Follow from claim 1, we can easily see that the expected average error \(P_e^{(n)}=\bar{\lambda}_1\).
+From now on, we will focus on bounding \(\bar{\lambda}_1\) which turns out to be easy to work with!</p>
+
+<p>Given that \(m=1\) and the fact that we are using jointly typical decoding, let us define \(\varepsilon_i = [(X^n(i), Y^n) \in \mathcal{A}_\epsilon^{(n)}]\), the event where the code for message \(i\) is jointly typical with \(Y^n\).
+The error \(\bar{\lambda}_1\) can then be expressed as:</p>
+
+\[\bar{\lambda}_1 = \text{Pr}(\varepsilon_1^c \cup \varepsilon_2 \cup \dots \cup \varepsilon_m)\]
+
+<p>This is exactly equivalent what we have defined as an error for the jointly typical decoding.
+We then have the following bounds,</p>
+
+\[\begin{align}
+\bar{\lambda}_1 &amp;\leq \text{Pr}(\varepsilon_1^c) + \sum_{i=2}^{2^{nR}} \text{Pr}(\varepsilon_i) &amp;\text{(Union bound)}\\
+&amp;\leq \delta + \sum_{i=2}^{2^{nR}} 2^{-n(I(X;Y)-3\epsilon)} &amp;\text{(Properties of joint typicality)}\\
+&amp;\leq \delta + 2^{-n(I(X;Y)-R-3\epsilon)}
+\end{align}\]
+
+<p>Now, if \(R &lt; I(X;Y) - 3\epsilon\), we can make \(\bar{\lambda}_1 \leq 2\delta\) for some large \(n\). Also note that \(\text{Pr}(\varepsilon_1^c) \leq \delta\) only hold for a large \(n\) too.</p>
+
+<p>To get the actual proof, we replace \(Q\) with the capacity-achieving distribution \(\underset{Q \in P_X}{\text{argmax}}~I(Q,W)\).
+The last conclusion above becomes \(R &lt; C^{(I)} - 3\epsilon\) implying \(P_e^{(n)} = \bar{\lambda}_1 \leq 2\delta\).
+Next, we have a fundamental lemma about the average of numbers:</p>
+
+<p><strong>Lemma 1:</strong> Consider a sequence of real numbers \(a_1,\dots, a_n\). 
+If the average \(\bar{a} = \frac{1}{n} \sum_{i=1}^n a_i \leq \gamma\), then there exists an \(a_i \leq \gamma\).</p>
+
+<p>This lemma can be proven easily by contradiction.
+The implication of this is that previously we have shown that the average error \(P_e^{(n)} \leq 2\delta\) over all random codebook, then there must exist a codebook \(\mathcal{C}^*\) whose average error \(P_e^{(n)}(\mathcal{C}^*) \leq 2\delta\).
+It remains to bound the maximal error \(\lambda_\max(\mathcal{C}^*) = \underset{m\in \mathcal{M}}{\max}\lambda_m(\mathcal{C}^*)\), which is actually we need to show for the achievability of the rate \(R\).</p>
+
+<p><strong>Lemma 2:</strong>
+Consider a sequence of \(2n\) real numbers such that \(a_1\leq \dots \leq a_{2n}\) and its average \(\bar{a} \leq \nu\).
+It holds that \(a_n \leq 2\nu\).</p>
+
+<p><strong>Proof:</strong></p>
+
+\[\begin{align}
+2n\nu &amp;\geq \sum_{i=1}^{2n} a_i = \sum_{i=1}^{n} a_i + \sum_{i=n+1}^{2n} a_i\\
+&amp;\geq \sum_{i=n+1}^{2n} a_i \\
+&amp;\geq \sum_{i=n+1}^{2n} a_n = n a_n
+\end{align}\]
+
+<p>Using the lemma, we have a bound on the maximal error \(\lambda_\max(\mathcal{C}^*)\leq 4\delta\) by throwing away half of the codewords in \(\mathcal{C}^*\). 
+However, by throwing away codewords we also lose the rate of communication, it is now \(R-\frac{1}{n}\) instead of \(R\).
+Indeed, the \(\frac{1}{n}\) would vanish for a large \(n\).
+Overall, this strategy of bounding the maximum is called the <em>expurgation trick</em>.</p>
+
+<p>For a rate \(\tilde{R} &lt; C^{(I)}\) and any \(\tilde{\epsilon}&gt;0\), we can show that for \(n\) large enough there exists a rate-\(R\) (\(\tilde{R} &lt; R\)) blocklength-\(n\) codebook where \(\lambda_\max \leq \tilde{\epsilon}\) by setting \(R=\frac{(\tilde{R}+C)}{2}\), \(\delta=\frac{\tilde{\epsilon}}{4}\), \(\epsilon &lt; \frac{C^{(I)}-R}{3}\) and apply the proof above.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[Here is my second attempt to understand the proof for the channel coding theorem. My initial exposure to this concept was through Professor Amos Lapidoth’s lecture in Information Theory I. His presentation, though concise, was packed with ingenious methods that were challenging to fully comprehend at time. To better understand it, I shall employ the Feynman technique - explaining the concept to someone else.]]></summary></entry></feed>

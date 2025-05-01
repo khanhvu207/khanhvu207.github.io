@@ -32,35 +32,6 @@ $$
 which turns out to be a Gaussian because $Y$ is a Gaussian vector as given. 
 In particular, we can write
 
-<!-- which is also known to be [asymptotically normal](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Consistency) (well, in fact $$\hat{\theta}$$ is normal already due to the Gaussian noise!). -->
-
-<!-- More precisely, the distribution of $$\hat{\theta}$$ converges to a Gaussian distribution when $$n$$ is large, i.e.,
-
-$$
-    \hat{\theta} \sim \mathcal{N}(\theta_\star, n^{-1}\mathcal{I}(\theta_\star)^{-1}).
-$$
-
-Above, $$\mathcal{I}(\theta_\star)$$ is the Fisher information matrix at $$\theta_\star$$.
-It is also known that $$\hat{\theta}$$ is [asymptotically efficient](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Efficiency), i.e., it achieves the [Cramér-Rao lower bound](https://en.wikipedia.org/wiki/Cram%C3%A9r%E2%80%93Rao_bound)
-
-$$
-    \mathbb{V}(\hat{\theta}) = n^{-1} \mathcal{I}(\theta_\star)^{-1}
-$$
-
-This is a bless because it allows us to work out the formula for the inversed Fisher information matrix:
-
-$$
-\begin{align*}
-    \mathbb{V}(\hat{\theta}) &= \mathbb{V}(V^{-1} X^\top Y) \\
-    &= \mathbb{V}(V^{-1} X^\top (X \theta_\star + \eta)) \\
-    &= V^{-1} X^\top \mathbb{V}(\eta) X V^{-1} \\
-    &=  V^{-1} X^\top X V^{-1} \\
-    &=  V^{-1}.
-\end{align*}
-$$
-
-From this we then have that: -->
-
 $$
 \begin{align*}
     \hat{\theta} &\sim \mathcal{N}(\theta_\star,  V^{-1}) \\
