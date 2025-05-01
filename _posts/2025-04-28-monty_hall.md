@@ -3,6 +3,7 @@ layout: posts
 title: Monty Hall problem with Baysian inference
 usekatex: true
 published: true
+comments: true
 ---
 
 One simple way to think about the Monty Hall problem is to use Baye's rule.
