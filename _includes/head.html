@@ -35,6 +35,29 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js"></script>
 {% endif %}
 
+<!-- Use katex instead -->
+{% if page.usekatex %}
+<!-- KaTeX CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css">
+
+<!-- KaTeX JS -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"></script>
+
+<!-- Custom auto-render config -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      // Recognize $$...$$ for block math
+      delimiters: [
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true}
+      ]
+    });
+  });
+</script>
+{% endif %}
+
 <!-- Theme stylesheets: light and dark -->
 <link id="light-theme-css" rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" media="all">
 <link id="dark-theme-css" rel="stylesheet" href="{{ '/assets/css/dark.css' | relative_url }}" media="not all">
@@ -46,6 +69,7 @@
     <script src="{{ script | relative_url }}"></script>
   {% endfor %}
 {% endif %}
+
 <script>
   (function() {
     var lightLink = document.getElementById('light-theme-css');

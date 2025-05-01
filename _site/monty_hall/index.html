@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Monty Hall problem with Baysian inference - EntropyMaxxing</title>
-<meta name="description" content="One simple way to think about the Monte Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement:">
+<meta name="description" content="One simple way to think about the Monty Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement:">
 
 
   <meta name="author" content="Khánh Vũ">
@@ -26,7 +26,7 @@
 <meta property="og:url" content="http://localhost:4000/monty_hall/">
 
 
-  <meta property="og:description" content="One simple way to think about the Monte Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement:">
+  <meta property="og:description" content="One simple way to think about the Monty Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement:">
 
 
 
@@ -83,24 +83,28 @@
 
 <!-- for mathjax support -->
 
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      extensions: ["tex2jax.js", "AMSmath.js", "AMSsymbols.js"],
-      jax: ["input/TeX", "output/HTML-CSS"],
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-        displayMath: [ ['$$','$$'], ["\\[","\]"], ["\\[","\\]"] ],
-        processEscapes: false,
-      },
-      messageStyle: "none",
-      "HTML-CSS": { availableFonts: ["TeX"] },
-      TeX: {
-        Macros: {
-        }
-      }
+
+<!-- Use katex instead -->
+
+<!-- KaTeX CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css">
+
+<!-- KaTeX JS -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"></script>
+
+<!-- Custom auto-render config -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      // Recognize $$...$$ for block math
+      delimiters: [
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true}
+      ]
     });
-  </script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js"></script>
+  });
+</script>
 
 
 <!-- Theme stylesheets: light and dark -->
@@ -108,6 +112,7 @@
 <link id="dark-theme-css" rel="stylesheet" href="/assets/css/dark.css" media="not all">
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
 
 
 <script>
@@ -304,22 +309,22 @@
     
       <h1 id="page-title" class="page__title">Monty Hall problem with Baysian inference</h1>
     
-    <p>One simple way to think about the Monte Hall problem is to use Baye’s rule.
+    <p>One simple way to think about the Monty Hall problem is to use Baye’s rule.
 For the sake of completeness, here is the problem statement:</p>
 
 <p><em>Suppose you’re on a game show, and you’re given the choice of three doors: Behind one door is a car; behind the others, goats. You pick a door, say No. 1, and the host, who knows what’s behind the doors, opens another door, say No. 3, which has a goat. He then says to you, “Do you want to pick door No. 2?” Is it to your advantage to switch your choice?</em></p>
 
-<p>Let \(X_2\) be the event that the car is behind door 2, \(Y_1\) be the event that you pick door 1, and \(H_3\) be the event that the host opens door 3.
-The mental gymnastics is now the compare \(P(X_2 \mid Y_1)\) with \(P(X_2|Y_1,H_3)\).
+<p>Let $X_2$ be the event that the car is behind door 2, $Y_1$ be the event that you pick door 1, and $H_3$ be the event that the host opens door 3.
+The mental gymnastics is now the compare $P(X_2 \mid Y_1)$ with $P(X_2|Y_1,H_3)$.
 Well, we can use Baye’s rule to compute this:</p>
 
 \[\begin{align}
 P(X_2\mid Y_1,H_3) = \frac{P(H_3\mid X_2,Y_1)P(X_2\mid Y_1)}{P(H_3\mid Y_1)}
 \end{align}\]
 
-<p>Now \(P(X_2\mid Y_1) = P(X_2) = \frac{1}{3}\), since the car is equally likely to be behind any of the doors and is independent of your choice.
-Second, \(P(H_3 \mid X_2, Y_1) = 1\) because if the car is behind door 2 and door 1 is chosen by you, the host must open door 3.
-Finally, \(P(H_3 \mid Y_1) = \frac{1}{2}\) because the host can open either door 2 or door 3 with equal probability if the knowledge of the car’s location is not taken into account.
+<p>Now $P(X_2\mid Y_1) = P(X_2) = \frac{1}{3}$, since the car is equally likely to be behind any of the doors and is independent of your choice.
+Second, $P(H_3 \mid X_2, Y_1) = 1$ because if the car is behind door 2 and door 1 is chosen by you, the host must open door 3.
+Finally, $P(H_3 \mid Y_1) = \frac{1}{2}$ because the host can open either door 2 or door 3 with equal probability if the knowledge of the car’s location is not taken into account.
 So it is clear that</p>
 
 \[P(X_2\mid Y_1,H_3) = \frac{1\cdot 1/3}{1/2} = \frac{2}{3},\]
@@ -332,19 +337,7 @@ So it is clear that</p>
   
     <li>
       <a href="#2025">
-        <strong>2025</strong> <span class="taxonomy__count">4</span>
-      </a>
-    </li>
-  
-    <li>
-      <a href="#2024">
-        <strong>2024</strong> <span class="taxonomy__count">6</span>
-      </a>
-    </li>
-  
-    <li>
-      <a href="#2023">
-        <strong>2023</strong> <span class="taxonomy__count">2</span>
+        <strong>2025</strong> <span class="taxonomy__count">1</span>
       </a>
     </li>
   
@@ -391,471 +384,10 @@ So it is clear that</p>
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">One simple way to think about the Monte Hall problem is to use Baye’s rule.
+    <p class="archive__item-excerpt" itemprop="description">One simple way to think about the Monty Hall problem is to use Baye’s rule.
 For the sake of completeness, here is the problem statement:
 
 </p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/probability_theory/" rel="permalink">Some personal notes on probability theory
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          8 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">A self-contained summary of some key results in probability theory.
-I’ll mostly summarize the results from Durrett’s Probability: Theory and Examples, Bandit...</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/fisher_information/" rel="permalink">What is Fisher information?
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          3 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">It bugs me that I often have hard time to recall what Fisher information is.
-So let’s write it down here.
-
-</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/confidence_sets_exact/" rel="permalink">Time-uniform confidence sets for Gaussian linear models
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          2 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence int...</p>
-  </article>
-</div>
-
-      
-    </div>
-    <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
-  </section>
-
-  <section id="2024" class="taxonomy__section">
-    <h2 class="archive__subtitle">2024</h2>
-    <div class="entries-list">
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/why_i_do_math/" rel="permalink">Why I think mathematics is beautiful
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          1 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">A friend of mine asked me why I think mathematics is beautiful.
-I believe the exact answer does not matter, but it is important to have an answer.
-
-</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/modern_hashing/" rel="permalink">Modern hashing made simple
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          9 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-This is a short personal note on “Modern Hashing Made Simple” by Bender et al. (2024).
-I’m going to present this paper for the Advanced Graph Algorithms and...</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/jane_street_aug24/" rel="permalink">Jane Street Puzzle - August 2024
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          3 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-I decided to slack off my exam studying with Jane Street’s puzzle.
-I first read the problem in early August, forgot about it, and then submitted my answer o...</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/expectation_counting/" rel="permalink">Counting with expectation
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          1 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Problem 10 (Individual test, ARML 2013).
-For a positive integer \(n\), let \(C(n)\) equal the number of pairs of consecutive \(1\)’s in the binary representa...</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/kl_upper_bound/" rel="permalink">An upper bound for the Kullback-Leibler divergence
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          2 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Zürich is so hot now in the night that I couldn’t fall asleep.
-While lying on the bed, I arrived at an interesting upper bound for the KL divergence (relativ...</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/opt_cheatsheet/" rel="permalink">Mathematical optimization cheatsheet
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          4 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.
-
-</p>
-  </article>
-</div>
-
-      
-    </div>
-    <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
-  </section>
-
-  <section id="2023" class="taxonomy__section">
-    <h2 class="archive__subtitle">2023</h2>
-    <div class="entries-list">
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/rate_distortion/" rel="permalink">Rate-distortion theory
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          7 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of t...</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/channel_coding_proof/" rel="permalink">Noisy-channel coding theorem
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          9 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Here is my second attempt to understand the proof for the channel coding theorem.
-My initial exposure to this concept was through Professor Amos Lapidoth’s l...</p>
   </article>
 </div>
 

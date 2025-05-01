@@ -10,23 +10,18 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Modern hashing made simple - EntropyMaxxing</title>
-<meta name="description" content="This is a short personal note on “Modern Hashing Made Simple” by Bender et al. (2024). I’m going to present this paper for the Advanced Graph Algorithms and Optimization Seminar (Fall 2024) at ETH Zürich. My personal goal is to understand the paper well enough to present it in a clear and engaging way.">
+<meta name="description" content="">
 
 
   <meta name="author" content="Khánh Vũ">
   
-  <meta property="article:author" content="Khánh Vũ">
-  
 
 
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="EntropyMaxxing">
 <meta property="og:title" content="Modern hashing made simple">
-<meta property="og:url" content="http://localhost:4000/modern_hashing/">
-
-
-  <meta property="og:description" content="This is a short personal note on “Modern Hashing Made Simple” by Bender et al. (2024). I’m going to present this paper for the Advanced Graph Algorithms and Optimization Seminar (Fall 2024) at ETH Zürich. My personal goal is to understand the paper well enough to present it in a clear and engaging way.">
+<meta property="og:url" content="http://localhost:4000/old/2024-12-08-modern_hashing/">
 
 
 
@@ -34,7 +29,6 @@
 
 
 
-  <meta property="article:published_time" content="2024-12-08T00:00:00+01:00">
 
 
 
@@ -45,7 +39,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/modern_hashing/">
+<link rel="canonical" href="http://localhost:4000/old/2024-12-08-modern_hashing/">
 
 
 
@@ -103,11 +97,15 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js"></script>
 
 
+<!-- Use katex instead -->
+
+
 <!-- Theme stylesheets: light and dark -->
 <link id="light-theme-css" rel="stylesheet" href="/assets/css/main.css" media="all">
 <link id="dark-theme-css" rel="stylesheet" href="/assets/css/dark.css" media="not all">
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
 
 
 <script>
@@ -203,101 +201,6 @@
 
 <div id="main" role="main">
   
-  <div class="sidebar sticky">
-  
-
-
-<div itemscope itemtype="https://schema.org/Person" class="h-card">
-
-  
-    <div class="author__avatar">
-      <a href="http://localhost:4000/">
-        <img src="/assets/images/avatar.png" alt="Khánh Vũ" itemprop="image" class="u-photo">
-      </a>
-    </div>
-  
-
-  <div class="author__content">
-    <h3 class="author__name p-name" itemprop="name">
-      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Khánh Vũ</a>
-    </h3>
-    
-      <div class="author__bio p-note" itemprop="description">
-        <p>i’m just a chill guy :)</p>
-
-      </div>
-    
-  </div>
-
-  <div class="author__urls-wrapper">
-    <button class="btn btn--inverse">Follow</button>
-    <ul class="author__urls social-icons">
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <!--
-  <li>
-    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
-      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
-    </a>
-  </li>
--->
-    </ul>
-  </div>
-</div>
-
-  
-  </div>
-
 
 
   <div class="archive">
@@ -457,19 +360,7 @@ By Chernoff’s bound, we can show that \(X:=\sum_{i=1}^{n/\log^3(n)} X_i \le \m
   
     <li>
       <a href="#2025">
-        <strong>2025</strong> <span class="taxonomy__count">4</span>
-      </a>
-    </li>
-  
-    <li>
-      <a href="#2024">
-        <strong>2024</strong> <span class="taxonomy__count">6</span>
-      </a>
-    </li>
-  
-    <li>
-      <a href="#2023">
-        <strong>2023</strong> <span class="taxonomy__count">2</span>
+        <strong>2025</strong> <span class="taxonomy__count">1</span>
       </a>
     </li>
   
@@ -516,471 +407,10 @@ By Chernoff’s bound, we can show that \(X:=\sum_{i=1}^{n/\log^3(n)} X_i \le \m
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">One simple way to think about the Monte Hall problem is to use Baye’s rule.
+    <p class="archive__item-excerpt" itemprop="description">One simple way to think about the Monty Hall problem is to use Baye’s rule.
 For the sake of completeness, here is the problem statement:
 
 </p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/probability_theory/" rel="permalink">Some personal notes on probability theory
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          8 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">A self-contained summary of some key results in probability theory.
-I’ll mostly summarize the results from Durrett’s Probability: Theory and Examples, Bandit...</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/fisher_information/" rel="permalink">What is Fisher information?
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          3 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">It bugs me that I often have hard time to recall what Fisher information is.
-So let’s write it down here.
-
-</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/confidence_sets_exact/" rel="permalink">Time-uniform confidence sets for Gaussian linear models
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          2 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence int...</p>
-  </article>
-</div>
-
-      
-    </div>
-    <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
-  </section>
-
-  <section id="2024" class="taxonomy__section">
-    <h2 class="archive__subtitle">2024</h2>
-    <div class="entries-list">
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/why_i_do_math/" rel="permalink">Why I think mathematics is beautiful
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          1 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">A friend of mine asked me why I think mathematics is beautiful.
-I believe the exact answer does not matter, but it is important to have an answer.
-
-</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/modern_hashing/" rel="permalink">Modern hashing made simple
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          9 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-This is a short personal note on “Modern Hashing Made Simple” by Bender et al. (2024).
-I’m going to present this paper for the Advanced Graph Algorithms and...</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/jane_street_aug24/" rel="permalink">Jane Street Puzzle - August 2024
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          3 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-I decided to slack off my exam studying with Jane Street’s puzzle.
-I first read the problem in early August, forgot about it, and then submitted my answer o...</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/expectation_counting/" rel="permalink">Counting with expectation
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          1 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Problem 10 (Individual test, ARML 2013).
-For a positive integer \(n\), let \(C(n)\) equal the number of pairs of consecutive \(1\)’s in the binary representa...</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/kl_upper_bound/" rel="permalink">An upper bound for the Kullback-Leibler divergence
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          2 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Zürich is so hot now in the night that I couldn’t fall asleep.
-While lying on the bed, I arrived at an interesting upper bound for the KL divergence (relativ...</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/opt_cheatsheet/" rel="permalink">Mathematical optimization cheatsheet
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          4 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">In this cheatsheet, I will discuss many concepts that are essential in the analysis of optimization algorithms.
-
-</p>
-  </article>
-</div>
-
-      
-    </div>
-    <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
-  </section>
-
-  <section id="2023" class="taxonomy__section">
-    <h2 class="archive__subtitle">2023</h2>
-    <div class="entries-list">
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/rate_distortion/" rel="permalink">Rate-distortion theory
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          7 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of t...</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/channel_coding_proof/" rel="permalink">Noisy-channel coding theorem
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          9 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Here is my second attempt to understand the proof for the channel coding theorem.
-My initial exposure to this concept was through Professor Amos Lapidoth’s l...</p>
   </article>
 </div>
 

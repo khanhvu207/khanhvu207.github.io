@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>About - EntropyMaxxing</title>
+<!-- begin _includes/seo.html --><title>Counting with expectation - EntropyMaxxing</title>
 <meta name="description" content="">
 
 
@@ -20,8 +20,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="EntropyMaxxing">
-<meta property="og:title" content="About">
-<meta property="og:url" content="http://localhost:4000/about/">
+<meta property="og:title" content="Counting with expectation">
+<meta property="og:url" content="http://localhost:4000/old/2024-08-08-expectation_counting/">
 
 
 
@@ -39,7 +39,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/about/">
+<link rel="canonical" href="http://localhost:4000/old/2024-08-08-expectation_counting/">
 
 
 
@@ -76,6 +76,25 @@
 </script>
 
 <!-- for mathjax support -->
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js", "AMSmath.js", "AMSsymbols.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\]"], ["\\[","\\]"] ],
+        processEscapes: false,
+      },
+      messageStyle: "none",
+      "HTML-CSS": { availableFonts: ["TeX"] },
+      TeX: {
+        Macros: {
+        }
+      }
+    });
+  </script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js"></script>
 
 
 <!-- Use katex instead -->
@@ -134,7 +153,7 @@
 
   </head>
 
-  <body class="layout--home">
+  <body class="layout--posts">
     <nav class="skip-links">
   <ul>
     <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
@@ -186,25 +205,61 @@
 
   <div class="archive">
     
-      <h1 id="page-title" class="page__title">About</h1>
+      <h1 id="page-title" class="page__title">Counting with expectation</h1>
     
-    <p><img src="../assets/images/face.jpg" alt="photo" style="float: left; max-width:150px; padding-right: 20px; padding-top: 15px; padding-bottom: 20px" /></p>
+    <p><strong>Problem 10 (Individual test, ARML 2013)</strong>.
+For a positive integer \(n\), let \(C(n)\) equal the number of pairs of consecutive \(1\)’s in the binary representation of \(n\).
+For example, \(C(183)=C(10110111_2)=3\).
+Compute \(C(1) + C(2) + \ldots + C(256)\).</p>
 
-<p>I am a Master’s student in Computer Science at <a href="https://ethz.ch/en.html">ETH Zürich</a>, enrolled in <a href="https://inf.ethz.ch/studies/master/master-cs-2020.html">Machine Intelligence</a> major. Before that, I obtained a Bachelor’s degree in Computer Science at <a href="https://vu.nl/en">Vrije Universiteit Amsterdam</a>. During my undergraduate, I was fortunate to work on two machine learning research under the supervision of <a href="https://vossen.info/">Prof. Dr. Piek Vossen</a> and <a href="http://vincent.francois-l.be/">Prof. Vincent François-Lavet</a>. My current mentor at ETH Zürich is <a href="http://www.da.inf.ethz.ch/people/ThomasHofmann">Prof. Thomas Hofmann</a>.</p>
+<p><em>Solution</em>.
+You can go ahead with doing casework and will eventually discover some recurrent formulas like in the <a href="https://www.arml.com/ARML/arml_2019/public_contest_files/2009_2014_book/ARML_2009_2014.pdf">intended solution</a>.</p>
 
-<p>I find research papers like <a href="https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf">this</a>, <a href="https://arxiv.org/pdf/1312.6199.pdf">this</a>, and <a href="https://arxiv.org/pdf/2111.00876.pdf">this one</a> are elegant in many ways. The impact of these works is needless to say, yet their deliveries are very succinct and easy to read. Academic papers often go in the opposite direction where complexity implies novelty. Therefore, I always aim for the simplest presentation of ideas. This is, by no means, an easy endeavor.</p>
+<p>However, this problem has a shorter solution that leverages <a href="https://en.wikipedia.org/wiki/Expected_value#Properties:~:text=0.-,Linearity%20of%20expectation,-%3A%5B34">linearity of expectation</a>.
+In short, linearity of expectation means:</p>
 
-<p><em>“When I started graduate school, my adviser told me that the best work would prune the tree of knowledge, rather than grow it.” - from <a href="https://www.quantamagazine.org/how-claude-shannons-information-theory-invented-the-future-20201222/#comments">How Claude Shannon Invented the Future</a></em></p>
+\[\mathbb{E}[\mathrm{X}_1 + \mathrm{X}_2 + \ldots + \mathrm{X}_n] = \mathbb{E}[\mathrm{X}_1] + \mathbb{E}[\mathrm{X}_2] + \ldots + \mathbb{E}[\mathrm{X}_n]\]
+
+<p>This holds regardless of whether these random variables are dependent or not.
+Now, we can rewrite the target quantity in term of an expectation:</p>
+
+\[\sum_{i=1}^{256} C(i) = 256 \cdot \mathbb{E}[C(\mathrm{X})],\]
+
+<p>for \(\mathrm{X}\) being a discrete RV drawn uniformly from \(\{1, 2, \ldots, 256\}\).
+Let \(\text{bin}(\mathrm{X})\) denotes the binary representation of \(\mathrm{X}\) and \(\text{bin}(\mathrm{X})_i\) denotes the \(i\)-th bit from the left.
+Let \(Z_i = [\text{bin}(\mathrm{X})_i = 1 \land \text{bin}(\mathrm{X})_{i+1} = 1]\) be an indicator function that takes value 1 if both \(i\)-th and \((i+1)\)-th bits are \(1\)’s, and otherwise takes value 0.
+Given this, we can write</p>
+
+\[\begin{align}
+\mathbb{E}[C(\mathrm{X})] &amp;= \mathbb{E}\left[\sum_{i=1}^7 Z_i\right] \\
+&amp;= \sum_{i=1}^7 \mathbb{E}[Z_i] &amp;\text{(Linearity of expectation)}\\ 
+&amp;= \sum_{i=1}^7 \mathbb{P}\left(\text{bin}(\mathrm{X})_i = 1 \land \text{bin}(\mathrm{X})_{i+1} = 1\right)\\
+&amp;= 7\cdot \frac{1}{2^2} = \frac{7}{4}
+\end{align}\]
+
+<p>The answer would then be \(256 \cdot \frac{7}{4} =\boxed{448}\).
+Cute trick isn’t it?</p>
 
 
-<h3 class="archive__subtitle">Recent posts</h3>
-
-
-
-
-<div class="entries-list">
+<!-- <ul class="taxonomy__index">
   
-    
+  
+    <li>
+      <a href="#2025">
+        <strong>2025</strong> <span class="taxonomy__count">1</span>
+      </a>
+    </li>
+  
+</ul> -->
+
+<!-- 
+
+
+  <section id="2025" class="taxonomy__section">
+    <h2 class="archive__subtitle">2025</h2>
+    <div class="entries-list">
+      
+        
 
 
 
@@ -245,11 +300,11 @@ For the sake of completeness, here is the problem statement:
   </article>
 </div>
 
-  
-</div>
-
-
-
+      
+    </div>
+    <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
+  </section>
+ -->
 
   </div>
 </div>

@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>About - EntropyMaxxing</title>
+<!-- begin _includes/seo.html --><title>An upper bound for the Kullback-Leibler divergence - EntropyMaxxing</title>
 <meta name="description" content="">
 
 
@@ -20,8 +20,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="EntropyMaxxing">
-<meta property="og:title" content="About">
-<meta property="og:url" content="http://localhost:4000/about/">
+<meta property="og:title" content="An upper bound for the Kullback-Leibler divergence">
+<meta property="og:url" content="http://localhost:4000/old/2024-07-23-kl_upper_bound/">
 
 
 
@@ -39,7 +39,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/about/">
+<link rel="canonical" href="http://localhost:4000/old/2024-07-23-kl_upper_bound/">
 
 
 
@@ -76,6 +76,25 @@
 </script>
 
 <!-- for mathjax support -->
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js", "AMSmath.js", "AMSsymbols.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\]"], ["\\[","\\]"] ],
+        processEscapes: false,
+      },
+      messageStyle: "none",
+      "HTML-CSS": { availableFonts: ["TeX"] },
+      TeX: {
+        Macros: {
+        }
+      }
+    });
+  </script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js"></script>
 
 
 <!-- Use katex instead -->
@@ -134,7 +153,7 @@
 
   </head>
 
-  <body class="layout--home">
+  <body class="layout--posts">
     <nav class="skip-links">
   <ul>
     <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
@@ -186,25 +205,98 @@
 
   <div class="archive">
     
-      <h1 id="page-title" class="page__title">About</h1>
+      <h1 id="page-title" class="page__title">An upper bound for the Kullback-Leibler divergence</h1>
     
-    <p><img src="../assets/images/face.jpg" alt="photo" style="float: left; max-width:150px; padding-right: 20px; padding-top: 15px; padding-bottom: 20px" /></p>
+    <p>Zürich is so hot now in the night that I couldn’t fall asleep.
+While lying on the bed, I arrived at an interesting upper bound for the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL divergence (relative entropy)</a> between two Bernoulli distributions.
+In this case, the KL divergence is expressed as:</p>
 
-<p>I am a Master’s student in Computer Science at <a href="https://ethz.ch/en.html">ETH Zürich</a>, enrolled in <a href="https://inf.ethz.ch/studies/master/master-cs-2020.html">Machine Intelligence</a> major. Before that, I obtained a Bachelor’s degree in Computer Science at <a href="https://vu.nl/en">Vrije Universiteit Amsterdam</a>. During my undergraduate, I was fortunate to work on two machine learning research under the supervision of <a href="https://vossen.info/">Prof. Dr. Piek Vossen</a> and <a href="http://vincent.francois-l.be/">Prof. Vincent François-Lavet</a>. My current mentor at ETH Zürich is <a href="http://www.da.inf.ethz.ch/people/ThomasHofmann">Prof. Thomas Hofmann</a>.</p>
+\[D_\text{KL}(p \parallel q) := p\log\left(\frac{p}{q}\right) + (1-p)\log\left(\frac{1-p}{1-q}\right)\]
 
-<p>I find research papers like <a href="https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf">this</a>, <a href="https://arxiv.org/pdf/1312.6199.pdf">this</a>, and <a href="https://arxiv.org/pdf/2111.00876.pdf">this one</a> are elegant in many ways. The impact of these works is needless to say, yet their deliveries are very succinct and easy to read. Academic papers often go in the opposite direction where complexity implies novelty. Therefore, I always aim for the simplest presentation of ideas. This is, by no means, an easy endeavor.</p>
+<p>Here, \(p, q\) denote the parameters of the two distributions.
+I assume \(p, q \in (0, 1)\) and \(\log(\cdot)\) is the natural logarithm function.
+For other cases like when \(p&gt;0\) and \(q=0\), the KL divergence diverges to infinity.
+I can show that, in this setting, the following holds:</p>
 
-<p><em>“When I started graduate school, my adviser told me that the best work would prune the tree of knowledge, rather than grow it.” - from <a href="https://www.quantamagazine.org/how-claude-shannons-information-theory-invented-the-future-20201222/#comments">How Claude Shannon Invented the Future</a></em></p>
+\[D_\text{KL}(p \parallel q) \le \frac{(p - q)^2}{(1-q)q} =: \frac{2D_\text{TV}(p, q)^2}{\mathbb{V}[X]}\]
+
+<p>Above, \(D_\text{TV}(\cdot, \cdot)\) is the <a href="https://en.wikipedia.org/wiki/Total_variation_distance_of_probability_measures">variational distance</a> between two distributions and \(X\) is a random variable distributed according to Bernoulli(\(q\)).
+My result is in fact a looser bound as compared to the <a href="https://en.wikipedia.org/wiki/Pinsker%27s_inequality">reversed Pinsker’s inequality</a>.</p>
+
+<p>For the proof, I define a function \(f(q):=D_\text{KL}(p \parallel q)\) with \(p\) kept as a constant.</p>
+
+<p><strong>Corollary 1.</strong>
+The function \(f\) is convex on \((0, 1)\).</p>
+
+<p><em>Proof</em>.
+\(f\) is convex if and only if \(\forall \lambda \in [0, 1]\) and \(\forall q_1, q_2 \in \text{dom}(f)\):</p>
+
+\[f(\lambda q_1 + (1-\lambda) q_2) \le \lambda f(q_1) + (1-\lambda) f(q_2)\]
+
+<p>Indeed this is true since:</p>
+
+<p>\(\begin{align}
+    f(\lambda q_1 + (1-\lambda) q_2) &amp;= p \log\left(\frac{p}{\lambda q_1 + (1-\lambda) q_2}\right) + (1-p) \log\left(\frac{1-p}{1 - \lambda q_1 - (1-\lambda) q_2}\right) \\
+    &amp;= -p \log\left(\frac{\lambda q_1 + (1-\lambda) q_2}{p}\right) - (1-p) \log\left(\frac{\lambda (1-q_1) + (1-\lambda) (1-q_2)}{1-p}\right) \\ 
+    &amp;\le \lambda \left(p\log\frac{p}{q_1} + (1-p)\log\frac{1-p}{1-q_1} \right) + (1-\lambda) \left(p\log\frac{p}{q_2} + (1-p)\log\frac{1-p}{1-q_2} \right) \\
+    &amp;= \lambda f(q_1) + (1-\lambda) f(q_2)
+\end{align}\)
+The inequality above is due to the convexity of \(-\log(\cdot)\) and Jensen’s inequality.</p>
+
+<p><strong>Corallary 2.</strong>
+\(\forall q_1, q_2 \in \text{dom}(f)\), it holds that:</p>
+
+\[f(q_1) \ge f(q_2) + f'(q_2)(q_1 - q_2)\]
+
+<p>where \(f'\) is the first-order derivative of \(f\) at \(q_2\).</p>
+
+<p><em>Proof</em>.
+Given that \(f\) is convex on its domain, we have:</p>
+
+\[\begin{align}
+    f(\lambda q_1 + (1-\lambda) q_2) &amp;\le \lambda f(q_1) + (1-\lambda) f(q_2) \\
+    f(q_2 + \lambda(q_1 - q_2)) - f(q_2) + \lambda f(q_2) &amp;\le \lambda f(q_1) \\
+    \frac{f(q_2 + \lambda(q_1 - q_2)) - f(q_2)}{\lambda (q_1 - q_2)} (q_1 - q_2) + f(q_2) &amp;\le f(q_1) &amp;\text{(Dividing $\lambda$ both sides)} \\
+    \lim_{\lambda \rightarrow 0} \frac{f(q_2 + \lambda(q_1 - q_2)) - f(q_2)}{\lambda (q_1 - q_2)} (q_1 - q_2) + f(q_2) &amp;\le f(q_1) \\
+    f'(q_2) (q_1 - q_2) + f(q_2) &amp;\le f(q_1)
+\end{align}\]
+
+<p>We can explicitly derive the derivative of \(f\) at a given \(q\):</p>
+
+\[f'(q) = \frac{p - q}{(q - 1)q}\]
+
+<p>Putting everything together, we have the desired upper bound:</p>
+
+\[\begin{align}
+    f(p) &amp;\ge f(q) + f'(q)(p - q) &amp;\text{(Corollary 2)}\\
+    f'(q)(p - q) &amp;\ge f(q) &amp;\text{($f(p)=0$ by definition)}\\
+    \frac{(q - p)^2}{(1 - q)q} &amp;\ge f(q):= D_\text{KL}(p \parallel q)
+\end{align}\]
+
+<p>This bound is particularly useful when it comes to deriving some concentration bounds for the KL divergence with respect to \(q\).
+I will discuss this matter in another blog post.
+It’s 1:44AM now and I need to go to bed for real this time.</p>
 
 
-<h3 class="archive__subtitle">Recent posts</h3>
-
-
-
-
-<div class="entries-list">
+<!-- <ul class="taxonomy__index">
   
-    
+  
+    <li>
+      <a href="#2025">
+        <strong>2025</strong> <span class="taxonomy__count">1</span>
+      </a>
+    </li>
+  
+</ul> -->
+
+<!-- 
+
+
+  <section id="2025" class="taxonomy__section">
+    <h2 class="archive__subtitle">2025</h2>
+    <div class="entries-list">
+      
+        
 
 
 
@@ -245,11 +337,11 @@ For the sake of completeness, here is the problem statement:
   </article>
 </div>
 
-  
-</div>
-
-
-
+      
+    </div>
+    <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
+  </section>
+ -->
 
   </div>
 </div>

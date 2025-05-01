@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>EntropyMaxxing - Page 3</title>
+<!-- begin _includes/seo.html --><title>Monty Hall problem with Baysian inference - EntropyMaxxing</title>
 <meta name="description" content="">
 
 
@@ -20,8 +20,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="EntropyMaxxing">
-<meta property="og:title" content="EntropyMaxxing">
-<meta property="og:url" content="http://localhost:4000/page3/">
+<meta property="og:title" content="Monty Hall problem with Baysian inference">
+<meta property="og:url" content="http://localhost:4000/old/2025-04-28-monty_hall/">
 
 
 
@@ -39,10 +39,8 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/page3/">
+<link rel="canonical" href="http://localhost:4000/old/2025-04-28-monty_hall/">
 
-
-  <link rel="prev" href="http://localhost:4000/page2/">
 
 
 
@@ -79,12 +77,35 @@
 
 <!-- for mathjax support -->
 
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js", "AMSmath.js", "AMSsymbols.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\]"], ["\\[","\\]"] ],
+        processEscapes: false,
+      },
+      messageStyle: "none",
+      "HTML-CSS": { availableFonts: ["TeX"] },
+      TeX: {
+        Macros: {
+        }
+      }
+    });
+  </script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js"></script>
+
+
+<!-- Use katex instead -->
+
 
 <!-- Theme stylesheets: light and dark -->
 <link id="light-theme-css" rel="stylesheet" href="/assets/css/main.css" media="all">
 <link id="dark-theme-css" rel="stylesheet" href="/assets/css/dark.css" media="not all">
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
 
 
 <script>
@@ -132,7 +153,7 @@
 
   </head>
 
-  <body class="layout--home">
+  <body class="layout--posts">
     <nav class="skip-links">
   <ul>
     <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
@@ -180,117 +201,54 @@
 
 <div id="main" role="main">
   
-  <div class="sidebar sticky">
-  
-
-
-<div itemscope itemtype="https://schema.org/Person" class="h-card">
-
-  
-    <div class="author__avatar">
-      <a href="http://localhost:4000/">
-        <img src="/assets/images/avatar.png" alt="Khánh Vũ" itemprop="image" class="u-photo">
-      </a>
-    </div>
-  
-
-  <div class="author__content">
-    <h3 class="author__name p-name" itemprop="name">
-      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Khánh Vũ</a>
-    </h3>
-    
-      <div class="author__bio p-note" itemprop="description">
-        <p>i’m just a chill guy :)</p>
-
-      </div>
-    
-  </div>
-
-  <div class="author__urls-wrapper">
-    <button class="btn btn--inverse">Follow</button>
-    <ul class="author__urls social-icons">
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <!--
-  <li>
-    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
-      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
-    </a>
-  </li>
--->
-    </ul>
-  </div>
-</div>
-
-  
-  </div>
-
 
 
   <div class="archive">
     
-      <h1 id="page-title" class="page__title"></h1>
+      <h1 id="page-title" class="page__title">Monty Hall problem with Baysian inference</h1>
     
-    
+    <p>One simple way to think about the Monty Hall problem is to use Baye’s rule.
+For the sake of completeness, here is the problem statement:</p>
 
-<h3 class="archive__subtitle">Recent posts</h3>
+<p><em>Suppose you’re on a game show, and you’re given the choice of three doors: Behind one door is a car; behind the others, goats. You pick a door, say No. 1, and the host, who knows what’s behind the doors, opens another door, say No. 3, which has a goat. He then says to you, “Do you want to pick door No. 2?” Is it to your advantage to switch your choice?</em></p>
+
+<p>Let \(X_2\) be the event that the car is behind door 2, \(Y_1\) be the event that you pick door 1, and \(H_3\) be the event that the host opens door 3.
+The mental gymnastics is now the compare \(P(X_2 \mid Y_1)\) with \(P(X_2|Y_1,H_3)\).
+Well, we can use Baye’s rule to compute this:</p>
+
+\[\begin{align}
+P(X_2\mid Y_1,H_3) = \frac{P(H_3\mid X_2,Y_1)P(X_2\mid Y_1)}{P(H_3\mid Y_1)}
+\end{align}\]
+
+<p>Now \(P(X_2\mid Y_1) = P(X_2) = \frac{1}{3}\), since the car is equally likely to be behind any of the doors and is independent of your choice.
+Second, \(P(H_3 \mid X_2, Y_1) = 1\) because if the car is behind door 2 and door 1 is chosen by you, the host must open door 3.
+Finally, \(P(H_3 \mid Y_1) = \frac{1}{2}\) because the host can open either door 2 or door 3 with equal probability if the knowledge of the car’s location is not taken into account.
+So it is clear that</p>
+
+\[P(X_2\mid Y_1,H_3) = \frac{1\cdot 1/3}{1/2} = \frac{2}{3},\]
+
+<p>which implies that switching is the better option.</p>
 
 
-
-
-<div class="entries-list">
+<!-- <ul class="taxonomy__index">
   
-    
+  
+    <li>
+      <a href="#2025">
+        <strong>2025</strong> <span class="taxonomy__count">1</span>
+      </a>
+    </li>
+  
+</ul> -->
+
+<!-- 
+
+
+  <section id="2025" class="taxonomy__section">
+    <h2 class="archive__subtitle">2025</h2>
+    <div class="entries-list">
+      
+        
 
 
 
@@ -299,7 +257,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/rate_distortion/" rel="permalink">Rate-distortion theory
+        <a href="/monty_hall/" rel="permalink">Monty Hall problem with Baysian inference
 </a>
       
     </h2>
@@ -317,107 +275,25 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          7 minute read
+          1 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of t...</p>
+    <p class="archive__item-excerpt" itemprop="description">One simple way to think about the Monty Hall problem is to use Baye’s rule.
+For the sake of completeness, here is the problem statement:
+
+</p>
   </article>
 </div>
 
-  
-    
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/channel_coding_proof/" rel="permalink">Noisy-channel coding theorem
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          9 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Here is my second attempt to understand the proof for the channel coding theorem.
-My initial exposure to this concept was through Professor Amos Lapidoth’s l...</p>
-  </article>
-</div>
-
-  
-</div>
-
-
-<nav class="pagination">
-  
-  <ul>
-    
-    
-      
-        <li><a href="/page2/">Previous</a></li>
-      
-    
-
-    
-    
-      <li><a href="/">1</a></li>
-    
-
-    
-    
-
-    
-    
-    
-
-    
-      
-        
-        
-        
-        <li><a href="/page2/">2</a></li>
-      
-    
-
-    
-    
-
-    
-      <li><a href="#" class="disabled current">3</a></li>
-    
-
-    
-    
-      <li><a href="#" class="disabled"><span aria-hidden="true">Next</span></a></li>
-    
-  </ul>
-</nav>
-
-
+    </div>
+    <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
+  </section>
+ -->
 
   </div>
 </div>
