@@ -6,7 +6,18 @@ published: true
 hide_blogs: true
 ---
 
-<img src="../assets/images/face.jpg" alt="photo" style="float: left; max-width:100px; padding-right: 20px; padding-top: 15px; padding-bottom: 20px"/>
+<img
+  src="../assets/images/face.jpg"
+  alt="photo"
+  style="
+    float: left;
+    width: clamp(100px, 20vw, 140px);
+    height: auto;
+    padding-right: 2vw;
+    padding-top: 1.5vw;
+    padding-bottom: 2vw;
+  "
+/>
 
 I am a Master's student in Computer Science at [ETH Zürich](https://ethz.ch/en.html), specializing in theoretical computer science and machine learning.
 Before that, I obtained a Bachelor's Honors degree in Computer Science at [Vrije Universiteit Amsterdam](https://vu.nl/en).
@@ -20,4 +31,3 @@ Public services:
 - Reviewer for [ACL 2025](https://2025.aclweb.org/).
 - Teaching assistant for [263-3210-00L Deep Learning](https://da.inf.ethz.ch/teaching/2024/DeepLearning/); [263-4508-00L Algorithmic Foundations of Data Science](https://lecturenotes.cope.ethz.ch/alg4ds/spring25/A001/home.html) at ETH Zürich.
 - Open source contributor [@github.com/khanhvu207](https://github.com/khanhvu207).
-

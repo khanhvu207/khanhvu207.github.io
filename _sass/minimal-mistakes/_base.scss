@@ -3,11 +3,20 @@
    ========================================================================== */
 
 html {
-  /* sticky footer fix */
   position: relative;
   min-height: 100%;
-  font-size: 1.1em;
-  line-height: 1.2rem;
+  font-size: 1rem;
+  line-height: 1rem;
+
+  // @media (min-width: 600px) {
+  //   font-size: 1.2rem;
+  //   line-height: 1.5;
+  // }
+
+  // @media (min-width: 1024px) {
+  //   font-size: 1.2rem;
+  //   line-height: 1.6;
+  // }
 }
 
 body {
@@ -20,11 +29,8 @@ body {
   margin-right: auto;
   max-width: 1600px;
   width: 100%;
-  // text-align: justify;
-  // hyphens: auto;
   word-wrap: break-word;
   &.overflow--hidden {
-    /* when primary navigation is visible, the content in the background won't scroll */
     overflow: hidden;
   }
 }
