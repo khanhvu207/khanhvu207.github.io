@@ -8,10 +8,10 @@ comments: true
 
 Suppose we have two probability distributions $p$ and $q$ over the same space $\mathcal{X}$, and we want to estimate the density ratio $\frac{q(x)}{p(x)}$ for some $x \in \mathcal{X}$.
 The caveat is that we do not know the densities $p$ and $q$, but we have a way to sample from them.
-I came across a beautiful idea for this while reading [Variational Inference using Implicit Distributions](https://arxiv.org/pdf/1702.08235) by [Ferenc Huszár](https://www.inference.vc/about/): We can estimate density ratios via a discriminator that learns to distinguish between samples from $p$ and $q$.
+I came across a beautiful idea for this while reading [Variational Inference using Implicit Distributions](https://arxiv.org/pdf/1702.08235) by [Ferenc Huszár](https://www.inference.vc/about/): We can estimate density ratios via a discriminator that learns to distinguish between samples from $p$ and $q$. 
 
 Let's label the samples from $q$ as $1$ and the samples from $p$ as $0$.
-We can then train a discriminator $D$ (parameterized by a neural net) to predict the label of a sample $x$, in particular, we want to model $D(x) = \Pr(y=1|x)$.
+We then train a discriminator $D$ (parameterized by a neural net) to predict the label of a sample $x$; in particular, we want to model $D(x) = \Pr(y=1|x)$.
 The training objective is to minimize the binary cross-entropy loss:
 
 $$
@@ -25,12 +25,13 @@ D^*(x) = \frac{q(x)}{p(x) + q(x)}.
 $$
 
 This in fact coincides with the posterior $\Pr(y=1\mid x)$ obtained from Bayes' theorem.
-Now, we just compute the odds ratio to get the density ratio:
+Now, the odds ratio of the optimal discriminator is the density ratio we wish to compute:
 
 $$
-    \frac{D^*(x)}{1 - D^*(x)} = \frac{q(x)}{p(x)}. \quad\square
+    \frac{D^*(x)}{1 - D^*(x)} = \frac{q(x)}{p(x)}.
 $$
 
+So we can estimate the density ratio $\frac{q(x)}{p(x)} \approx \frac{D(x)}{1 - D(x)}$ where $D$ is the discriminator we've trained.
 Voila! 🎉
 
 Regarding the motivation for why we want to estimate density ratios, it is often used in variational inference with implicit distributions.

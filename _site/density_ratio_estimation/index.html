@@ -314,7 +314,7 @@ The caveat is that we do not know the densities $p$ and $q$, but we have a way t
 I came across a beautiful idea for this while reading <a href="https://arxiv.org/pdf/1702.08235">Variational Inference using Implicit Distributions</a> by <a href="https://www.inference.vc/about/">Ferenc Huszár</a>: We can estimate density ratios via a discriminator that learns to distinguish between samples from $p$ and $q$.</p>
 
 <p>Let’s label the samples from $q$ as $1$ and the samples from $p$ as $0$.
-We can then train a discriminator $D$ (parameterized by a neural net) to predict the label of a sample $x$, in particular, we want to model $D(x) = \Pr(y=1|x)$.
+We then train a discriminator $D$ (parameterized by a neural net) to predict the label of a sample $x$; in particular, we want to model $D(x) = \Pr(y=1|x)$.
 The training objective is to minimize the binary cross-entropy loss:</p>
 
 \[\mathcal{L}(D) = -\mathbb{E}_{x \sim p}[\log(1 - D(x))] - \mathbb{E}_{x \sim q}[\log(D(x))].\]
@@ -324,11 +324,12 @@ The training objective is to minimize the binary cross-entropy loss:</p>
 \[D^*(x) = \frac{q(x)}{p(x) + q(x)}.\]
 
 <p>This in fact coincides with the posterior $\Pr(y=1\mid x)$ obtained from Bayes’ theorem.
-Now, we just compute the odds ratio to get the density ratio:</p>
+Now, the odds ratio of the optimal discriminator is the density ratio we wish to compute:</p>
 
-\[\frac{D^*(x)}{1 - D^*(x)} = \frac{q(x)}{p(x)}. \quad\square\]
+\[\frac{D^*(x)}{1 - D^*(x)} = \frac{q(x)}{p(x)}.\]
 
-<p>Voila! 🎉</p>
+<p>So we can estimate the density ratio $\frac{q(x)}{p(x)} \approx \frac{D(x)}{1 - D(x)}$ where $D$ is the discriminator we’ve trained.
+Voila! 🎉</p>
 
 <p>Regarding the motivation for why we want to estimate density ratios, it is often used in variational inference with implicit distributions.
 The evidence lower bound (ELBO) contains a Kullback-Leibler divergence term between the variational distribution $q_\phi$ and the prior $p$:</p>
@@ -395,7 +396,7 @@ The evidence lower bound (ELBO) contains a Kullback-Leibler divergence term betw
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 minute read
+          3 minute read
         
       </span>
     
