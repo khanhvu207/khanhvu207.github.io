@@ -1,0 +1,839 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Estimating density ratios without knowing the densities - EntropyMaxxing</title>
+<meta name="description" content="Suppose we have two probability distributions $p$ and $q$ over the same space $\mathcal{X}$, and we want to estimate the density ratio $\frac{q(x)}{p(x)}$ for some $x \in \mathcal{X}$. The caveat is that we do not know the densities $p$ and $q$, but we have a way to sample from them. I came across a beautiful idea for this while reading Variational Inference using Implicit Distributions by Ferenc Huszár: We can estimate density ratios via a discriminator that learns to distinguish between samples from $p$ and $q$.">
+
+
+  <meta name="author" content="Khánh Vũ">
+  
+  <meta property="article:author" content="Khánh Vũ">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="EntropyMaxxing">
+<meta property="og:title" content="Estimating density ratios without knowing the densities">
+<meta property="og:url" content="http://localhost:4000/density_ratio_estimation/">
+
+
+  <meta property="og:description" content="Suppose we have two probability distributions $p$ and $q$ over the same space $\mathcal{X}$, and we want to estimate the density ratio $\frac{q(x)}{p(x)}$ for some $x \in \mathcal{X}$. The caveat is that we do not know the densities $p$ and $q$, but we have a way to sample from them. I came across a beautiful idea for this while reading Variational Inference using Implicit Distributions by Ferenc Huszár: We can estimate density ratios via a discriminator that learns to distinguish between samples from $p$ and $q$.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-05-04T00:00:00+02:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/density_ratio_estimation/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Khánh Vũ",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="EntropyMaxxing Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- for mathjax support -->
+
+
+<!-- Use katex instead -->
+
+<!-- KaTeX CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css">
+
+<!-- KaTeX JS -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"></script>
+
+<!-- Custom auto-render config -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      // Recognize $$...$$ for block math
+      delimiters: [
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true}
+      ]
+    });
+  });
+</script>
+
+
+<!-- Theme stylesheets: light and dark -->
+<link id="light-theme-css" rel="stylesheet" href="/assets/css/main.css" media="all">
+<link id="dark-theme-css" rel="stylesheet" href="/assets/css/dark.css" media="not all">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+<!-- <script>
+  (function() {
+    var lightLink = document.getElementById('light-theme-css');
+    var darkLink = document.getElementById('dark-theme-css');
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        lightLink.media = 'not all';
+        darkLink.media = 'all';
+      } else {
+        lightLink.media = 'all';
+        darkLink.media = 'not all';
+      }
+    }
+    // Initialize theme based on saved preference
+    applyTheme(localStorage.getItem('theme'));
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.getElementById('theme-toggle');
+      if (!btn) return;
+      function updateIcon() {
+        if (darkLink.media === 'all') {
+          btn.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+          btn.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+      }
+      btn.addEventListener('click', function() {
+        var darkMode = (darkLink.media === 'all');
+        var newTheme = darkMode ? 'light' : 'dark';
+        // Save preference, then reload to apply cleanly
+        localStorage.setItem('theme', newTheme);
+        location.reload();
+      });
+      updateIcon();
+    });
+  })();
+</script> -->
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--posts">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          EntropyMaxxing
+          
+        </a>
+        <!-- <div class="cute-gif"> -->
+          <!-- <img src="../assets/images/penguin.gif" style="width: 25%; display: inline-block;" alt="cute gif"> -->
+        <!-- </div> -->
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li></ul>
+        
+        <!-- <button id="theme-toggle" class="search__toggle" type="button" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button> -->
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/avatar.png" alt="Khánh Vũ" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Khánh Vũ</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>still water runs deep</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <div class="archive">
+    
+      <h1 id="page-title" class="page__title">Estimating density ratios without knowing the densities</h1>
+    
+    <p>Suppose we have two probability distributions $p$ and $q$ over the same space $\mathcal{X}$, and we want to estimate the density ratio $\frac{q(x)}{p(x)}$ for some $x \in \mathcal{X}$.
+The caveat is that we do not know the densities $p$ and $q$, but we have a way to sample from them.
+I came across a beautiful idea for this while reading <a href="https://arxiv.org/pdf/1702.08235">Variational Inference using Implicit Distributions</a> by <a href="https://www.inference.vc/about/">Ferenc Huszár</a>: We can estimate density ratios via a discriminator that learns to distinguish between samples from $p$ and $q$.</p>
+
+<p>Let’s label the samples from $q$ as $1$ and the samples from $p$ as $0$.
+We can then train a discriminator $D$ (parameterized by a neural net) to predict the label of a sample $x$, in particular, we want to model $D(x) = \Pr(y=1|x)$.
+The training objective is to minimize the binary cross-entropy loss:</p>
+
+\[\mathcal{L}(D) = -\mathbb{E}_{x \sim p}[\log(1 - D(x))] - \mathbb{E}_{x \sim q}[\log(D(x))].\]
+
+<p>Solving for $\frac{\partial \mathcal{L}}{\partial D} = 0$ (you can double-check that $\mathcal{L}(D)$ is convex), we get the optimal discriminator:</p>
+
+\[D^*(x) = \frac{q(x)}{p(x) + q(x)}.\]
+
+<p>This in fact coincides with the posterior $\Pr(y=1\mid x)$ obtained from Bayes’ theorem.
+Now, we just compute the odds ratio to get the density ratio:</p>
+
+\[\frac{D^*(x)}{1 - D^*(x)} = \frac{q(x)}{p(x)}. \quad\square\]
+
+<p>Voila! 🎉</p>
+
+<p>Regarding the motivation for why we want to estimate density ratios, it is often used in variational inference with implicit distributions.
+The evidence lower bound (ELBO) contains a Kullback-Leibler divergence term between the variational distribution $q_\phi$ and the prior $p$:</p>
+
+\[\mathbb{D}_{\text{KL}}[q_\phi \| p] = \mathbb{E}_{x \sim q_\phi}\left[\log \frac{q_\phi(x)}{p(x)}\right].\]
+
+<p>If we liberate ourself from using a tractable density for modeling $q_\phi$, we can use the above method to estimate the density ratio $\frac{q_\phi(x)}{p(x)}$ without even knowing what the actual density $q_\phi$ is.</p>
+
+
+<!-- <ul class="taxonomy__index">
+  
+  
+    <li>
+      <a href="#2025">
+        <strong>2025</strong> <span class="taxonomy__count">4</span>
+      </a>
+    </li>
+  
+    <li>
+      <a href="#2024">
+        <strong>2024</strong> <span class="taxonomy__count">3</span>
+      </a>
+    </li>
+  
+    <li>
+      <a href="#2023">
+        <strong>2023</strong> <span class="taxonomy__count">2</span>
+      </a>
+    </li>
+  
+</ul> -->
+
+<!-- 
+
+
+  <section id="2025" class="taxonomy__section">
+    <h2 class="archive__subtitle">2025</h2>
+    <div class="entries-list">
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/density_ratio_estimation/" rel="permalink">Estimating density ratios without knowing the densities
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Suppose we have two probability distributions $p$ and $q$ over the same space $\mathcal{X}$, and we want to estimate the density ratio $\frac{q(x)}{p(x)}$ fo...</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/monty_hall/" rel="permalink">Monty Hall problem with Bayesian inference
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">One simple way to think about the Monty Hall problem is to use Baye’s rule.
+For the sake of completeness, here is the problem statement:
+
+</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/fisher_information/" rel="permalink">What is Fisher information?
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">It bugs me that I often have hard time to recall what Fisher information is.
+So let’s write it down here.
+
+</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/time_uniform_gaussian_ci/" rel="permalink">Time-uniform confidence sets for Gaussian linear models
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence int...</p>
+  </article>
+</div>
+
+      
+    </div>
+    <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
+  </section>
+
+  <section id="2024" class="taxonomy__section">
+    <h2 class="archive__subtitle">2024</h2>
+    <div class="entries-list">
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/modern_hashing/" rel="permalink">Modern hashing made simple
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          19 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+This is a short personal note on “Modern Hashing Made Simple” by Bender et al. (2024).
+I’m going to present this paper for the Advanced Graph Algorithms and...</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jane_street_aug24/" rel="permalink">Jane Street Puzzle - August 2024
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          7 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+I decided to slack off my exam studying with Jane Street’s puzzle.
+I first read the problem in early August, forgot about it, and then submitted my answer o...</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/kl_upper_bound/" rel="permalink">An upper bound for the Kullback-Leibler divergence
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Zürich is so hot now in the night that I couldn’t fall asleep.
+While lying on the bed, I arrived at an interesting upper bound for the KL divergence (relativ...</p>
+  </article>
+</div>
+
+      
+    </div>
+    <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
+  </section>
+
+  <section id="2023" class="taxonomy__section">
+    <h2 class="archive__subtitle">2023</h2>
+    <div class="entries-list">
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/rate_distortion/" rel="permalink">Rate-distortion theory
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          15 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">In this post, I will summarize Shannon’s rate-distortion theory, including some self-contained definitions and proofs to the converse and direction part of t...</p>
+  </article>
+</div>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/channel_coding_proof/" rel="permalink">Noisy-channel coding theorem
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          18 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Here is my second attempt to understand the proof for the channel coding theorem.
+My initial exposure to this concept was through Professor Amos Lapidoth’s l...</p>
+  </article>
+</div>
+
+      
+    </div>
+    <a href="#page-title" class="back-to-top">Back to top &uarr;</a>
+  </section>
+ -->
+
+<!-- Add some space in between-->
+<div style="height: 70px;"></div>
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://khanhvu207.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  </div>
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/khanhvu207" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/khanhvu207" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 Khánh Vũ. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

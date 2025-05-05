@@ -1,6 +1,6 @@
 ---
 layout: posts
-title: Monty Hall problem with Baysian inference
+title: Monty Hall problem with Bayesian inference
 usekatex: true
 published: true
 comments: true

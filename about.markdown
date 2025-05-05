@@ -19,7 +19,9 @@ Public services:
 - Teaching assistant for [263-3210-00L Deep Learning](https://da.inf.ethz.ch/teaching/2024/DeepLearning/); [263-4508-00L Algorithmic Foundations of Data Science](https://lecturenotes.cope.ethz.ch/alg4ds/spring25/A001/home.html) at ETH Zürich.
 - Open source contributor [@github.com/khanhvu207](https://github.com/khanhvu207).
 
-## My time in Switzerland
+## Photo gallery
+
+### Switzerland (2022 - 2025)
 
 <style>
   .photo-grid {
@@ -53,5 +55,42 @@ Public services:
   </div>
   <div class="photo-item">
     <img src="../assets/images/prof_lapidoth.jpg" alt="Photo 3" />
+  </div>
+</div>
+
+### Netherlands (2019-2022)
+
+<style>
+  .photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: space-between;
+  }
+
+  .photo-item {
+    flex: 1 1 calc(33.333% - 16px);
+    aspect-ratio: 4 / 5; /* Ensures square shape */
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+</style>
+
+<div class="photo-grid">
+  <div class="photo-item">
+    <img src="../assets/images/nl_00.jpg" alt="Photo 1" />
+  </div>
+  <div class="photo-item">
+    <img src="../assets/images/nl_01.jpg" alt="Photo 2" />
+  </div>
+  <div class="photo-item">
+    <img src="../assets/images/nl_02.jpg" alt="Photo 3" />
   </div>
 </div>

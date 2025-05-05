@@ -35,9 +35,21 @@ var store = [{
         "url": "/time_uniform_gaussian_ci/",
         "teaser": null
       },{
-        "title": "Monty Hall problem with Baysian inference",
+        "title": "What is Fisher information?",
+        "excerpt":"It bugs me that I often have hard time to recall what Fisher information is. So let’s write it down here. At the high-level view, Fisher information shows us how the observations constrain the possible values of the parameter of interest; or to put it another way, how informative the...","categories": [],
+        "tags": [],
+        "url": "/fisher_information/",
+        "teaser": null
+      },{
+        "title": "Monty Hall problem with Bayesian inference",
         "excerpt":"One simple way to think about the Monty Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement: Suppose you’re on a game show, and you’re given the choice of three doors: Behind one door is a car; behind the others, goats. You...","categories": [],
         "tags": [],
         "url": "/monty_hall/",
+        "teaser": null
+      },{
+        "title": "Estimating density ratios without knowing the densities",
+        "excerpt":"Suppose we have two probability distributions $p$ and $q$ over the same space $\\mathcal{X}$, and we want to estimate the density ratio $\\frac{q(x)}{p(x)}$ for some $x \\in \\mathcal{X}$. The caveat is that we do not know the densities $p$ and $q$, but we have a way to sample from them....","categories": [],
+        "tags": [],
+        "url": "/density_ratio_estimation/",
         "teaser": null
       }]

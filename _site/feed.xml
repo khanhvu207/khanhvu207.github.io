@@ -1,4 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-05-02T00:57:08+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Monty Hall problem with Baysian inference</title><link href="http://localhost:4000/monty_hall/" rel="alternate" type="text/html" title="Monty Hall problem with Baysian inference" /><published>2025-04-28T00:00:00+02:00</published><updated>2025-04-28T00:00:00+02:00</updated><id>http://localhost:4000/monty_hall</id><content type="html" xml:base="http://localhost:4000/monty_hall/"><![CDATA[<p>One simple way to think about the Monty Hall problem is to use Baye’s rule.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-05-06T00:36:23+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Estimating density ratios without knowing the densities</title><link href="http://localhost:4000/density_ratio_estimation/" rel="alternate" type="text/html" title="Estimating density ratios without knowing the densities" /><published>2025-05-04T00:00:00+02:00</published><updated>2025-05-04T00:00:00+02:00</updated><id>http://localhost:4000/density_ratio_estimation</id><content type="html" xml:base="http://localhost:4000/density_ratio_estimation/"><![CDATA[<p>Suppose we have two probability distributions $p$ and $q$ over the same space $\mathcal{X}$, and we want to estimate the density ratio $\frac{q(x)}{p(x)}$ for some $x \in \mathcal{X}$.
+The caveat is that we do not know the densities $p$ and $q$, but we have a way to sample from them.
+I came across a beautiful idea for this while reading <a href="https://arxiv.org/pdf/1702.08235">Variational Inference using Implicit Distributions</a> by <a href="https://www.inference.vc/about/">Ferenc Huszár</a>: We can estimate density ratios via a discriminator that learns to distinguish between samples from $p$ and $q$.</p>
+
+<p>Let’s label the samples from $q$ as $1$ and the samples from $p$ as $0$.
+We can then train a discriminator $D$ (parameterized by a neural net) to predict the label of a sample $x$, in particular, we want to model $D(x) = \Pr(y=1|x)$.
+The training objective is to minimize the binary cross-entropy loss:</p>
+
+\[\mathcal{L}(D) = -\mathbb{E}_{x \sim p}[\log(1 - D(x))] - \mathbb{E}_{x \sim q}[\log(D(x))].\]
+
+<p>Solving for $\frac{\partial \mathcal{L}}{\partial D} = 0$ (you can double-check that $\mathcal{L}(D)$ is convex), we get the optimal discriminator:</p>
+
+\[D^*(x) = \frac{q(x)}{p(x) + q(x)}.\]
+
+<p>This in fact coincides with the posterior $\Pr(y=1\mid x)$ obtained from Bayes’ theorem.
+Now, we just compute the odds ratio to get the density ratio:</p>
+
+\[\frac{D^*(x)}{1 - D^*(x)} = \frac{q(x)}{p(x)}. \quad\square\]
+
+<p>Voila! 🎉</p>
+
+<p>Regarding the motivation for why we want to estimate density ratios, it is often used in variational inference with implicit distributions.
+The evidence lower bound (ELBO) contains a Kullback-Leibler divergence term between the variational distribution $q_\phi$ and the prior $p$:</p>
+
+\[\mathbb{D}_{\text{KL}}[q_\phi \| p] = \mathbb{E}_{x \sim q_\phi}\left[\log \frac{q_\phi(x)}{p(x)}\right].\]
+
+<p>If we liberate ourself from using a tractable density for modeling $q_\phi$, we can use the above method to estimate the density ratio $\frac{q_\phi(x)}{p(x)}$ without even knowing what the actual density $q_\phi$ is.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[Suppose we have two probability distributions $p$ and $q$ over the same space $\mathcal{X}$, and we want to estimate the density ratio $\frac{q(x)}{p(x)}$ for some $x \in \mathcal{X}$. The caveat is that we do not know the densities $p$ and $q$, but we have a way to sample from them. I came across a beautiful idea for this while reading Variational Inference using Implicit Distributions by Ferenc Huszár: We can estimate density ratios via a discriminator that learns to distinguish between samples from $p$ and $q$.]]></summary></entry><entry><title type="html">Monty Hall problem with Bayesian inference</title><link href="http://localhost:4000/monty_hall/" rel="alternate" type="text/html" title="Monty Hall problem with Bayesian inference" /><published>2025-04-28T00:00:00+02:00</published><updated>2025-04-28T00:00:00+02:00</updated><id>http://localhost:4000/monty_hall</id><content type="html" xml:base="http://localhost:4000/monty_hall/"><![CDATA[<p>One simple way to think about the Monty Hall problem is to use Baye’s rule.
 For the sake of completeness, here is the problem statement:</p>
 
 <p><em>Suppose you’re on a game show, and you’re given the choice of three doors: Behind one door is a car; behind the others, goats. You pick a door, say No. 1, and the host, who knows what’s behind the doors, opens another door, say No. 3, which has a goat. He then says to you, “Do you want to pick door No. 2?” Is it to your advantage to switch your choice?</em></p>
@@ -18,7 +44,70 @@ So it is clear that</p>
 
 \[P(X_2\mid Y_1,H_3) = \frac{1\cdot 1/3}{1/2} = \frac{2}{3},\]
 
-<p>which implies that switching is the better option.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[One simple way to think about the Monty Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement:]]></summary></entry><entry><title type="html">Time-uniform confidence sets for Gaussian linear models</title><link href="http://localhost:4000/time_uniform_gaussian_ci/" rel="alternate" type="text/html" title="Time-uniform confidence sets for Gaussian linear models" /><published>2025-03-03T00:00:00+01:00</published><updated>2025-03-03T00:00:00+01:00</updated><id>http://localhost:4000/time_uniform_gaussian_ci</id><content type="html" xml:base="http://localhost:4000/time_uniform_gaussian_ci/"><![CDATA[<p>In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the <a href="https://en.wikipedia.org/wiki/Confidence_interval">95% confidence interval</a>.
+<p>which implies that switching is the better option.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[One simple way to think about the Monty Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement:]]></summary></entry><entry><title type="html">What is Fisher information?</title><link href="http://localhost:4000/fisher_information/" rel="alternate" type="text/html" title="What is Fisher information?" /><published>2025-03-10T00:00:00+01:00</published><updated>2025-03-10T00:00:00+01:00</updated><id>http://localhost:4000/fisher_information</id><content type="html" xml:base="http://localhost:4000/fisher_information/"><![CDATA[<p>It bugs me that I often have hard time to recall what <a href="https://en.wikipedia.org/wiki/Fisher_information">Fisher information</a> is.
+So let’s write it down here.</p>
+
+<p>At the high-level view, Fisher information shows us how the observations constrain the possible values of the parameter of interest; or to put it another way, how informative the data is about the parameter.
+There are several ways to see Fisher information, here are some of them:</p>
+
+<ul>
+  <li>Fisher information is the variance of the <a href="https://en.wikipedia.org/wiki/Informant_(statistics)">score</a>.</li>
+  <li>Fisher information measures the curvature of the <a href="https://en.wikipedia.org/wiki/Likelihood_function">log-likelihood function</a>.</li>
+</ul>
+
+<p>I will try to explain the first point in this post, the second point might follow naturally from the math.
+We will consider the setting where the parameter of interest is a vector \(\theta \in \Theta \subseteq \mathbb{R}^d\) and \(X = \{x_t\}_{t=1}^n \in \mathcal{X}\) are the observations that are drawn i.i.d from some unknown distribution \(p_{\theta}\).</p>
+
+<h2 id="score-function">Score function</h2>
+
+<p>We define the score function \(s: \Theta \to \mathbb{R}^d\) as the gradient of the log-likelihood function, i.e.,</p>
+
+\[s(\theta; X) := \nabla_{\theta} \log p(X | \theta) = \sum_{t=1}^n \nabla_{\theta} \log p(x_t | \theta).\]
+
+<p>Although score function seems like a function of the parameter, it is actually a \(\color{darkorange}{\text{random variable}}\) that depends on the data \(X\).
+Intuitively, the score function tells us the direction in which we should move in the parameter space \(\Theta\) to increase the likelihood of the observed data.
+We typically solve for the maximum-likelihood estimate by setting the score function to zero, i.e., \(\theta_\text{MLE}\) is the solution to \(s(\theta; X) = \mathbf{0}\).</p>
+
+<h2 id="fisher-information">Fisher information</h2>
+
+<p>Before we discuss what Fisher information is, we shall start with the following result which states that the expectation of the score function is zero, i.e.,</p>
+
+\[\begin{align*}
+    \mathbb{E}_{X\sim p_{\theta}}[s(\theta; X)] &amp;= \mathbb{E}_{X\sim p_{\theta}}\left[\nabla_{\theta} \log p(X | \theta)\right] \\
+    &amp;= \mathbb{E}_{X\sim p_{\theta}}\left[\frac{1}{p(X | \theta)}\nabla_{\theta} p(X | \theta)\right] \\
+    &amp;= \int_{\mathcal{X}} p(x | \theta)  \frac{1}{p(x | \theta)}\nabla_{\theta} p(x | \theta) d x \\
+    &amp;= \nabla_{\theta} \int_{\mathcal{X}} p(x | \theta) d x \quad\text{(by the Leibniz rule)} \\
+    &amp;= \nabla_{\theta} 1 = \mathbf{0}.
+\end{align*}\]
+
+<p>Intuitively, this makes sense because the true parameter should be the one that maximizes the likelihood function, and the gradient of the log-likelihood function at the maximum vanishes.</p>
+
+<p>Now, Fisher information is a mapping \(\mathcal{I}(\theta) : \Theta \to \mathbb{R}^{d \times d}\) that measures the variance of the score function at some parameter \(\theta\), i.e.,</p>
+
+\[\begin{align*}
+    \mathcal{I}(\theta) &amp;:= \mathbb{V}_{X\sim p_{\theta}}[s(\theta; X)] \\
+    &amp;= \mathbb{E}_{X\sim p_{\theta}}\left[(s(\theta; X) - \mathbb{E}_{X\sim p_{\theta}}[s(\theta; X)])(s(\theta; X) - \mathbb{E}_{X\sim p_{\theta}}[s(\theta; X)])^\top\right] \\
+    &amp;= \mathbb{E}_{X\sim p_{\theta}}\left[s(\theta; X)s(\theta; X)^\top\right] - \underbrace{\mathbb{E}_{X\sim p_{\theta}}[s(\theta; X)]\mathbb{E}_{X\sim p_{\theta}}[s(\theta; X)]^\top}_{=0~\text{(as shown above)}} \\
+    &amp;= \mathbb{E}_{X\sim p_{\theta}}\left[s(\theta; X)s(\theta; X)^\top\right] \\
+    &amp;= \mathbb{E}_{X\sim p_{\theta}}\left[\nabla_{\theta} \log p(X | \theta) \nabla_{\theta} \log p(X | \theta)^\top\right]
+\end{align*}\]
+
+<p>Unlike score function, Fisher information matrix is a \(\color{darkgreen}{\text{deterministic quantity}}\) that depends only on the parameter.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Fisher_information#Matrix_form">Alternatively</a>, one can reformulates the Fisher information matrix as the negative expectation of the Hessian of the log-likelihood function, i.e.,</p>
+
+\[\mathcal{I}(\theta) = -\mathbb{E}_{X\sim p_{\theta}}\left[\nabla_{\theta}^2 \log p(X | \theta)\right]\]
+
+<p>Under this formulation, it measure the curvature of the log-likelihood function at the parameter \(\theta\).</p>
+
+<p>It is worth pointing out that \(\theta\) plays <em>two different roles</em> in this context: it is the parameter of the distribution \(p_{\theta}\) that gives rise to the data \(X\) and the argument of the score function \(s(\theta; X)\). 
+I think this is the source of confusion for me.
+Previously, I thought that the argument of the score function can be any parameter \(\tilde{\theta}\) other than the parameter \(\theta\) that generated the data, but this is not the case.
+<!-- Why should these two be the same? -->
+<!-- In a way, it tells us how accurate the maximum-likelihood estimate $$\theta_\text{MLE}$$ is;
+if the log-likehood function is sharp (curvature is high), we are fairly confident about the estimate, and vice versa, if the log-likelihood function is flat (curvature is small), we are not so sure about the estimate. -->
+Generally, Fisher information is a quantitative statement about the amount of information that the data provides about the parameter of interest.
+If the observed data is concentrated sharply around a small region, meaning that the underlying log-likelihood function \(p(\cdot \mid \theta)\) which the data is drawn from is sharp (instead of being flat), then only a small number of parameters around \(\theta\) will be consistent with the data.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[It bugs me that I often have hard time to recall what Fisher information is. So let’s write it down here.]]></summary></entry><entry><title type="html">Time-uniform confidence sets for Gaussian linear models</title><link href="http://localhost:4000/time_uniform_gaussian_ci/" rel="alternate" type="text/html" title="Time-uniform confidence sets for Gaussian linear models" /><published>2025-03-03T00:00:00+01:00</published><updated>2025-03-03T00:00:00+01:00</updated><id>http://localhost:4000/time_uniform_gaussian_ci</id><content type="html" xml:base="http://localhost:4000/time_uniform_gaussian_ci/"><![CDATA[<p>In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the <a href="https://en.wikipedia.org/wiki/Confidence_interval">95% confidence interval</a>.
 Confidence sets are a way to quantify the uncertainty in our estimates.
 At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities.
 <!-- We shall explore this in a setting where the estimator is [asymptotically normal](https://en.wikipedia.org/wiki/Asymptotic_distribution#Central_limit_theorem) under some regularity conditions. --></p>
