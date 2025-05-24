@@ -68,4 +68,4 @@ $$
 $$
 
 We tune the weights $w_i$ (usually via [quadratic programming](https://en.wikipedia.org/wiki/Quadratic_programming) or [hill climbing](https://www.kaggle.com/competitions/siim-isic-melanoma-classification/discussion/175614)) to minimize the mean squared error of the average predictor $\bar{f}$ on an out-of-fold validation set.
-The advantage of this approach over the simple average is that it allows you to turn the bias-variance trade-off into an optimization problem.
+The advantage of this approach over the simple average is that it allows you to turn the bias-variance trade-off into an optimization problem; like, if one of the predictors has a very high bias, it will probably get a very low weight.
