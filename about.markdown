@@ -15,7 +15,7 @@ My research interests include statistical learning theory, statistical inference
 
 Public services:
 
-- Reviewer for [ACL 2025](https://2025.aclweb.org/).
+- Reviewer for [ACL ARR 2025](https://2025.aclweb.org/).
 - Teaching assistant for [263-3210-00L Deep Learning](https://da.inf.ethz.ch/teaching/2024/DeepLearning/); [263-4508-00L Algorithmic Foundations of Data Science](https://lecturenotes.cope.ethz.ch/alg4ds/spring25/A001/home.html) at ETH Zürich.
 - Open source contributor [@github.com/khanhvu207](https://github.com/khanhvu207).
 

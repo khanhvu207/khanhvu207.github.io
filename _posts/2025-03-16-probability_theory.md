@@ -10,7 +10,7 @@ I'll mostly summarize the results from [Durrett's Probability: Theory and Exampl
 
 _Note to self: For now I will dump everything here and later I will try to organize it better._
 
-## 0. Measure-theoretic probability
+<!-- ## 0. Measure-theoretic probability
 
 **($\sigma$-algebra and probability measure)**
 Let $\Omega$ be a set of outcomes.
@@ -150,7 +150,6 @@ $$
     \mathbb{P}\left(\sup_{t\in\mathbb{N}} X_t \ge \epsilon\right) \le \frac{\mathbb{E}[X_0]}{\epsilon}.
 $$
 <!-- As a remark, this is a generalization of the Markov's inequality. -->
-</p>
 
 <!-- _Proof._
 Let define an event $$A_n = \{\sup_{t\le n} X_t \ge \epsilon\}$$.
@@ -174,7 +173,8 @@ Here, the second inequality stemmed from the definition of stopping time, i.e. $
 
 $$
     \mathbb{E}[X_\tau] = \mathbb{E}[X_\tau\mathbb{I}\{\tau \le n\}] + \underbrace{\mathbb{E}[X_\tau\mathbb{I}\{\tau > n\}]}_{=0} \ge \mathbb{E}[X_\tau\mathbb{I}\{\tau \le n\}] 
-$$ -->
+$$ 
+-->
 
 ## 1. Law of large numbers
 

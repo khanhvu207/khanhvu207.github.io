@@ -29,16 +29,10 @@ var store = [{
         "url": "/modern_hashing/",
         "teaser": null
       },{
-        "title": "Time-uniform confidence sets for Gaussian linear models",
-        "excerpt":"In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence interval. Confidence sets are a way to quantify the uncertainty in our estimates. At its core, the construction of confidence sets is typically achieved through...","categories": [],
+        "title": "Some personal notes on probability theory",
+        "excerpt":"A self-contained summary of some key results in probability theory. I’ll mostly summarize the results from Durrett’s Probability: Theory and Examples, Bandit Algorithms (Lattimore and Szepesvári) and some other sources. Note to self: For now I will dump everything here and later I will try to organize it better. 1....","categories": [],
         "tags": [],
-        "url": "/time_uniform_gaussian_ci/",
-        "teaser": null
-      },{
-        "title": "What is Fisher information?",
-        "excerpt":"It bugs me that I often have hard time to recall what Fisher information is. So let’s write it down here. At the high-level view, Fisher information shows us how the observations constrain the possible values of the parameter of interest; or to put it another way, how informative the...","categories": [],
-        "tags": [],
-        "url": "/fisher_information/",
+        "url": "/probability_theory/",
         "teaser": null
       },{
         "title": "Monty Hall problem with Bayesian inference",
@@ -51,5 +45,11 @@ var store = [{
         "excerpt":"Suppose we have two probability distributions $p$ and $q$ over the same space $\\mathcal{X}$, and we want to estimate the density ratio $\\frac{q(x)}{p(x)}$ for some $x \\in \\mathcal{X}$. The caveat is that we do not know the densities $p$ and $q$, but we have a way to sample from them....","categories": [],
         "tags": [],
         "url": "/density_ratio_estimation/",
+        "teaser": null
+      },{
+        "title": "Model averaging with heterogeneous predictors",
+        "excerpt":"Competitors on Kaggle always employ model averaging to improve their scores. The resulting improvement, often achieved via a weighted average of predictors, is usually guaranteed and sometimes significant. Here, I notice that a common piece of advice is to average the predictions over a diverse pool of models, with a...","categories": [],
+        "tags": [],
+        "url": "/model_averaging/",
         "teaser": null
       }]

@@ -2,7 +2,7 @@
 layout: posts
 title: What is Fisher information?
 usemathjax: true
-published: true
+published: false
 ---
 
 It bugs me that I often have hard time to recall what [Fisher information](https://en.wikipedia.org/wiki/Fisher_information) is.

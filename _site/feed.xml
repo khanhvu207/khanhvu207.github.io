@@ -1,4 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-05-06T00:45:02+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Estimating density ratios without knowing the densities</title><link href="http://localhost:4000/density_ratio_estimation/" rel="alternate" type="text/html" title="Estimating density ratios without knowing the densities" /><published>2025-05-04T00:00:00+02:00</published><updated>2025-05-04T00:00:00+02:00</updated><id>http://localhost:4000/density_ratio_estimation</id><content type="html" xml:base="http://localhost:4000/density_ratio_estimation/"><![CDATA[<p>Suppose we have two probability distributions $p$ and $q$ over the same space $\mathcal{X}$, and we want to estimate the density ratio $\frac{q(x)}{p(x)}$ for some $x \in \mathcal{X}$.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-05-24T18:10:06+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Model averaging with heterogeneous predictors</title><link href="http://localhost:4000/model_averaging/" rel="alternate" type="text/html" title="Model averaging with heterogeneous predictors" /><published>2025-05-22T00:00:00+02:00</published><updated>2025-05-22T00:00:00+02:00</updated><id>http://localhost:4000/model_averaging</id><content type="html" xml:base="http://localhost:4000/model_averaging/"><![CDATA[<p>Competitors on Kaggle always employ model averaging to improve their scores.
+The resulting improvement, often achieved via a weighted average of predictors, is usually guaranteed and sometimes significant.
+Here, I notice that a common piece of advice is to <a href="https://www.kaggle.com/competitions/playground-series-s5e4/discussion/575784">average the predictions over a diverse pool of models</a>, with a justification that models trained diffrerently are likely to make different errors and thus, averaging them will somehow reduce the overall error.
+<!-- I find this explanation a bit vague and not very satisfying 🫠. -->
+In this post, I will provide a more rigorous justification for model averaging with heterogeneous predictors.</p>
+
+<p>Formally, let $f: \mathcal{X} \to \mathbb{R}$ be the ground truth function and $\hat{f}_1, \ldots, \hat{f}_k: \mathcal{X} \to \mathbb{R}$ be the predictors you have trained to approximate it.
+<!-- Towards the end of a competition, these predictors are likely to be heterogeneous in the sense that they were trained with different hyperparameters, different architectures and different sets of features. -->
+I can write these predictors as the ground truth function plus a residual error term:</p>
+
+\[\hat{f}_i(x) = f(x) + \varepsilon_i(x), \quad i = 1, \ldots, k,\]
+
+<p>In a typical Kaggle regression task, the mean squared error (MSE) of an individual predictor $\hat{f}_i$ is given by:</p>
+
+\[\text{MSE}(\hat{f}_i) := \mathbb{E}_{x \sim \mathcal{D}} [(\hat{f}_i(x) - f(x))^2] = \mathbb{E} [\varepsilon_i(x)^2] = \left(\mathbb{E}[\varepsilon_i]\right)^2 + \text{Var}(\varepsilon_i)\]
+
+<p>For concreteness, I assume the covariates $x$ are sampled from some distribution $\mathcal{D}$, and the expectation is taken with respect to this distribution.
+For brevity, I will simply write $\varepsilon_i$ instead of $\varepsilon_i(x)$.
+Now, the average of these predictors is given by:</p>
+
+\[\bar{f} = \frac{1}{k} \sum_{i=1}^k \hat{f}_i = f + \frac{1}{k} \sum_{i=1}^k \varepsilon_i.\]
+
+<p>And the corresponding MSE of the average predictor $\bar{f}$ is expressed as:</p>
+
+\[\begin{align*}
+    \text{MSE}(\bar{f})
+    = \mathbb{E}_{x \sim \mathcal{D}}[(\bar{f} - f)^2]
+    &amp;= \left(\frac{1}{k} \sum_{i=1}^k \mathbb{E}[\varepsilon_i]\right)^2 + \frac{1}{k^2} \sum_{i=1}^k \text{Var}(\varepsilon_i) + \frac{2}{k^2} \sum_{i &lt; j} \text{Cov}(\varepsilon_i, \varepsilon_j)
+\end{align*}\]
+
+<p>If we assume that these predictors are uncorrelated, i.e., $\text{Cov}(\varepsilon_i, \varepsilon_j) = 0$ for $i \neq j$, then the mean squared error of $\bar{f}$ should be no worse than the average of the individual predictors’ mean squared errors:</p>
+
+\[\begin{align*}
+    \left(\frac{1}{k} \sum_{i=1}^k \mathbb{E}[\varepsilon_i]\right)^2 + \frac{1}{k^2} \sum_{i=1}^k \text{Var}(\varepsilon_i)
+    &amp;\le \frac{1}{k} \sum_{i=1}^k (\mathbb{E}[\varepsilon_i])^2 + \textcolor{darkorange}{\frac{1}{k}} \left(\frac{1}{k} \sum_{i=1}^k \text{Var}(\varepsilon_i)\right) 
+    \ll \frac{1}{k} \sum_{i=1}^k \text{MSE}(\hat{f}_i).
+\end{align*}\]
+
+<p>The first inequality above follows from Jensen’s inequality.
+Notice the additional $\textcolor{darkorange}{1/k}$ factor in front of the averaged variance term.
+If the predictors have approximately the same bias, i.e., $\mathbb{E}[\varepsilon_i]$ is similar across predictors, then model averaging effectively reduces the variance of the prediction error by a factor of $1/k$.
+Otherwise, the averaged prediction $\bar{f}$​ inherits a bias equal to the average of the individual biases, but can still achieve significantly lower variance than any single predictor.
+This illustrates a classic bias–variance trade-off.
+Relaxing the assumption of uncorrelated predictors, the averaging can still yield improvements when $\text{Cov}(\varepsilon_i, \varepsilon_j) &lt; 0$ for some $i \neq j$, since anti-correlated residual errors lead to cancellation with the positive correlation terms, or even greater overall reductions to the MSE.
+Thus, having a diverse set of heterogeneous predictors is especially beneficial, as it allows model averaging to exploit these negative correlations.</p>
+
+<p>In practice, people often use a weighted version of averaging:</p>
+
+\[\bar{f} = \sum_{i=1}^k w_i \hat{f}_i, \quad \text{with } w_i \ge 0 \text{ and } \sum_{i=1}^k w_i = 1.\]
+
+<p>We tune the weights $w_i$ (usually via <a href="https://en.wikipedia.org/wiki/Quadratic_programming">quadratic programming</a> or <a href="https://www.kaggle.com/competitions/siim-isic-melanoma-classification/discussion/175614">hill climbing</a>) to minimize the mean squared error of the average predictor $\bar{f}$ on an out-of-fold validation set.
+The advantage of this approach over the simple average is that it allows you to turn the bias-variance trade-off into an optimization problem.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[Competitors on Kaggle always employ model averaging to improve their scores. The resulting improvement, often achieved via a weighted average of predictors, is usually guaranteed and sometimes significant. Here, I notice that a common piece of advice is to average the predictions over a diverse pool of models, with a justification that models trained diffrerently are likely to make different errors and thus, averaging them will somehow reduce the overall error. In this post, I will provide a more rigorous justification for model averaging with heterogeneous predictors.]]></summary></entry><entry><title type="html">Estimating density ratios without knowing the densities</title><link href="http://localhost:4000/density_ratio_estimation/" rel="alternate" type="text/html" title="Estimating density ratios without knowing the densities" /><published>2025-05-04T00:00:00+02:00</published><updated>2025-05-04T00:00:00+02:00</updated><id>http://localhost:4000/density_ratio_estimation</id><content type="html" xml:base="http://localhost:4000/density_ratio_estimation/"><![CDATA[<p>Suppose we have two probability distributions $p$ and $q$ over the same space $\mathcal{X}$, and we want to estimate the density ratio $\frac{q(x)}{p(x)}$ for some $x \in \mathcal{X}$.
 The caveat is that we do not know the densities $p$ and $q$, but we have a way to sample from them.
 I came across a beautiful idea for this while reading <a href="https://arxiv.org/pdf/1702.08235">Variational Inference using Implicit Distributions</a> by <a href="https://www.inference.vc/about/">Ferenc Huszár</a>: We can estimate density ratios via a discriminator that learns to distinguish between samples from $p$ and $q$.</p>
 
@@ -45,124 +96,244 @@ So it is clear that</p>
 
 \[P(X_2\mid Y_1,H_3) = \frac{1\cdot 1/3}{1/2} = \frac{2}{3},\]
 
-<p>which implies that switching is the better option.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[One simple way to think about the Monty Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement:]]></summary></entry><entry><title type="html">What is Fisher information?</title><link href="http://localhost:4000/fisher_information/" rel="alternate" type="text/html" title="What is Fisher information?" /><published>2025-03-10T00:00:00+01:00</published><updated>2025-03-10T00:00:00+01:00</updated><id>http://localhost:4000/fisher_information</id><content type="html" xml:base="http://localhost:4000/fisher_information/"><![CDATA[<p>It bugs me that I often have hard time to recall what <a href="https://en.wikipedia.org/wiki/Fisher_information">Fisher information</a> is.
-So let’s write it down here.</p>
+<p>which implies that switching is the better option.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[One simple way to think about the Monty Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement:]]></summary></entry><entry><title type="html">Some personal notes on probability theory</title><link href="http://localhost:4000/probability_theory/" rel="alternate" type="text/html" title="Some personal notes on probability theory" /><published>2025-03-16T00:00:00+01:00</published><updated>2025-03-16T00:00:00+01:00</updated><id>http://localhost:4000/probability_theory</id><content type="html" xml:base="http://localhost:4000/probability_theory/"><![CDATA[<p>A self-contained summary of some key results in probability theory.
+I’ll mostly summarize the results from <a href="https://www.cambridge.org/ch/universitypress/subjects/statistics-probability/probability-theory-and-stochastic-processes/probability-theory-and-examples-5th-edition?format=HB">Durrett’s Probability: Theory and Examples</a>, <a href="https://tor-lattimore.com/downloads/book/book.pdf">Bandit Algorithms (Lattimore and Szepesvári)</a> and some other sources.</p>
 
-<p>At the high-level view, Fisher information shows us how the observations constrain the possible values of the parameter of interest; or to put it another way, how informative the data is about the parameter.
-There are several ways to see Fisher information, here are some of them:</p>
+<p><em>Note to self: For now I will dump everything here and later I will try to organize it better.</em></p>
 
-<ul>
-  <li>Fisher information is the variance of the <a href="https://en.wikipedia.org/wiki/Informant_(statistics)">score</a>.</li>
-  <li>Fisher information measures the curvature of the <a href="https://en.wikipedia.org/wiki/Likelihood_function">log-likelihood function</a>.</li>
-</ul>
+<!-- ## 0. Measure-theoretic probability
 
-<p>I will try to explain the first point in this post, the second point might follow naturally from the math.
-We will consider the setting where the parameter of interest is a vector \(\theta \in \Theta \subseteq \mathbb{R}^d\) and \(X = \{x_t\}_{t=1}^n \in \mathcal{X}\) are the observations that are drawn i.i.d from some unknown distribution \(p_{\theta}\).</p>
+**($\sigma$-algebra and probability measure)**
+Let $\Omega$ be a set of outcomes.
+A set of events $\mathcal{F} \subseteq 2^\Omega$ is a $\sigma$-algebra if $\Omega\in\mathcal{F}$, $A^c \in \mathcal{F}$ for all $A \in \mathcal{F}$ and $\bigcup_i A_i \in \mathcal{F}$ for all $A_i \in \mathcal{F}$.
+A function $\mathbb{P}: \mathcal{F} \to \mathbb{R}$ is a probability measure if $\mathbb{P}(\Omega) = 1$ and $\mathbb{P}(A) \ge 0$ for all $A \in \mathcal{F}$.
+Moreover, $\mathbb{P}(A^c) = 1 - \mathbb{P}(A)$ for all $A \in \mathcal{F}$ and $\mathbb{P}(\bigcup_i A_i) = \sum_i \mathbb{P}(A_i)$ for all $A_i \in \mathcal{F}$ such that $A_i \cap A_j = \emptyset$ for all $i \neq j$.
+A set $\mathcal{G}$ is a sub-$\sigma$-algebra of $\mathcal{F}$ if $\mathcal{G} \subseteq \mathcal{F}$ and $\mathcal{G}$ is a $\sigma$-algebra.
+The restriction of $\mathbb{P}$ to $\mathcal{G}$ is denoted by $\mathbb{P}|_{\mathcal{G}}$.
 
-<h2 id="score-function">Score function</h2>
+For an event $A\in\mathcal{F}$, we denote the probability of $A$ by $\mathbb{P}(A)$.
 
-<p>We define the score function \(s: \Theta \to \mathbb{R}^d\) as the gradient of the log-likelihood function, i.e.,</p>
+**(Measurable space)**
+A measurable space is a pair $(\Omega, \mathcal{F})$ where $\Omega$ is a set and $\mathcal{F}$ is a $\sigma$-algebra on $\Omega$.
 
-\[s(\theta; X) := \nabla_{\theta} \log p(X | \theta) = \sum_{t=1}^n \nabla_{\theta} \log p(x_t | \theta).\]
+**($\mathcal{F}/\mathcal{G}$-measurable map)**
+Let $(\Omega, \mathcal{F})$ be a measurable space and let $\mathcal{X}$ be any set and $\mathcal{G}\subseteq 2^{\mathcal{X}}$.
+A map $X:\Omega \to \mathcal{X}$ is $\mathcal{F}/\mathcal{G}$-measurable if $X^{-1}(A) \in \mathcal{F}$ for all $A \in \mathcal{G}$.
+Here, $\mathcal{G}$ _need not_ to be a $\sigma$-algebra.
+If $X$ is $\mathcal{F}/\mathcal{G}$-measurable, then it is also $\mathcal{F}/\sigma(\mathcal{G})$-measurable, where $\sigma(\mathcal{G})$ is the smallest $\sigma$-algebra containing $\mathcal{G}$. 
 
-<p>Although score function seems like a function of the parameter, it is actually a \(\color{darkorange}{\text{random variable}}\) that depends on the data \(X\).
-Intuitively, the score function tells us the direction in which we should move in the parameter space \(\Theta\) to increase the likelihood of the observed data.
-We typically solve for the maximum-likelihood estimate by setting the score function to zero, i.e., \(\theta_\text{MLE}\) is the solution to \(s(\theta; X) = \mathbf{0}\).</p>
+Given a map $X:\Omega\to\mathcal{X}$ between measurable spaces $(\Omega, \mathcal{F})$ and $(\mathcal{X}, \mathcal{G})$, we define $$\sigma(X) = \{X^{-1}(A): A\in\mathcal{G}\}$$ to be the $\sigma$-algebra generated by $X$.
+Here, the term "generated" means that $\sigma(X)$ is the _smallest_ $\sigma$-algebra containing $X^{-1}(A)$ for all $A \in \mathcal{G}$.
+The map $X$ is $\mathcal{F}/\mathcal{G}$-measurable if and only if $\sigma(X) \subseteq \mathcal{F}$.
+In fact, $\sigma(X)$ is a sub-$\sigma$-algebra of $\mathcal{F}$ and is also the smallest sub-$\sigma$-algebra for which $X$ is measurable.
+Furthurmore, if $\mathcal{G} = \sigma(\mathcal{A})$ itself is generated by a set $\mathcal{A}\subseteq 2^{\mathcal{X}}$, it is enough to check that $$X^{-1}(\mathcal{A}) = \{X^{-1}(A) : A\in\mathcal{A}\}$$ is a subset of $\mathcal{F}$.
 
-<h2 id="fisher-information">Fisher information</h2>
+**(Borel $\sigma$-algebra)**
+If $\mathcal{G}$ is a set of open intervals in $\mathbb{R}$, then the Borel $\sigma$-algebra $\mathcal{B}(\mathbb{R})$ is the smallest $\sigma$-algebra containing $\mathcal{G}$.
 
-<p>Before we discuss what Fisher information is, we shall start with the following result which states that the expectation of the score function is zero, i.e.,</p>
+---
+**(Random variable)**
+A random variable on a measurable space $(\Omega, \mathcal{F})$ is a $\mathcal{F}/\mathcal{B}(\mathbb{R})$-measurable map $X:\Omega \to \mathbb{R}$. 
 
-\[\begin{align*}
-    \mathbb{E}_{X\sim p_{\theta}}[s(\theta; X)] &amp;= \mathbb{E}_{X\sim p_{\theta}}\left[\nabla_{\theta} \log p(X | \theta)\right] \\
-    &amp;= \mathbb{E}_{X\sim p_{\theta}}\left[\frac{1}{p(X | \theta)}\nabla_{\theta} p(X | \theta)\right] \\
-    &amp;= \int_{\mathcal{X}} p(x | \theta)  \frac{1}{p(x | \theta)}\nabla_{\theta} p(x | \theta) d x \\
-    &amp;= \nabla_{\theta} \int_{\mathcal{X}} p(x | \theta) d x \quad\text{(by the Leibniz rule)} \\
-    &amp;= \nabla_{\theta} 1 = \mathbf{0}.
-\end{align*}\]
+<p style="background-color: lightgreen; padding: 10px;">
+$\color{darkgreen}{\text{(Lemma 0.1: Doob–Dynkin lemma (also known as factorization lemma))}}$
+Assume that we are given measurable spaces $(\Omega, \mathcal{F})$, $(\mathcal{X}, \mathcal{G})$ and $(\mathcal{Y}, \mathcal{H})$, and $X:\Omega\to\mathcal{X}$ and $Y:\Omega\to\mathcal{Y}$ are the random elements (generalization of random variables to higher dimensions), if $(\mathcal{Y}, \mathcal{H})$ is a Borel space, then $Y$ is $\sigma(X)$-measureable if and only if there exists a $\mathcal{G}/\mathcal{H}$-measurable map $f:\mathcal{X}\to\mathcal{Y}$ such that $Y = f\circ X$.
+Here, $Y$ is $\sigma(X)$-measurable means that $\sigma(Y) \subseteq \sigma(X)$, i.e. knowing $X$ gives us information about $Y$.
+</p>
 
-<p>Intuitively, this makes sense because the true parameter should be the one that maximizes the likelihood function, and the gradient of the log-likelihood function at the maximum vanishes.</p>
+---
+**(Filtration)**
+Given a measurable space $(\Omega, \mathcal{F})$, a filtration is a sequence of $$(\mathcal{F}_t)_{t=0}^n$$ of sub-$\sigma$-algebras of $\mathcal{F}$ such that $$\mathcal{F}_0 \subseteq \mathcal{F}_1 \subseteq \ldots \subseteq \mathcal{F}_n$$.
+Also we define $$\mathcal{F}_\infty = \sigma\left(\bigcup_{t=0}^\infty \mathcal{F}_t\right)$$ to be the smallest $\sigma$-algebra containing the union of all $$\mathcal{F}_t$$.
 
-<p>Now, Fisher information is a mapping \(\mathcal{I}(\theta) : \Theta \to \mathbb{R}^{d \times d}\) that measures the variance of the score function at some parameter \(\theta\), i.e.,</p>
+A sequence of random variables $$(X_t)_{t=1}^n$$ if _adapted_ to the filtration $$\mathbb{F} = (\mathcal{F}_t)_{t=0}^n$$ if $$X_t$$ is $$\mathcal{F}_{t}$$-measurable for all $t\in[n]$.
+For brevity, we can say $$(X_t)_t$$ is $\mathbb{F}$-adapted.
+Finally, $$(X_t)_t$$ is $\mathbb{F}$-predictable if $X_t$ is $$\mathcal{F}_{t-1}$$-measurable for all $t\in[n]$.
 
-\[\begin{align*}
-    \mathcal{I}(\theta) &amp;:= \mathbb{V}_{X\sim p_{\theta}}[s(\theta; X)] \\
-    &amp;= \mathbb{E}_{X\sim p_{\theta}}\left[(s(\theta; X) - \mathbb{E}_{X\sim p_{\theta}}[s(\theta; X)])(s(\theta; X) - \mathbb{E}_{X\sim p_{\theta}}[s(\theta; X)])^\top\right] \\
-    &amp;= \mathbb{E}_{X\sim p_{\theta}}\left[s(\theta; X)s(\theta; X)^\top\right] - \underbrace{\mathbb{E}_{X\sim p_{\theta}}[s(\theta; X)]\mathbb{E}_{X\sim p_{\theta}}[s(\theta; X)]^\top}_{=0~\text{(as shown above)}} \\
-    &amp;= \mathbb{E}_{X\sim p_{\theta}}\left[s(\theta; X)s(\theta; X)^\top\right] \\
-    &amp;= \mathbb{E}_{X\sim p_{\theta}}\left[\nabla_{\theta} \log p(X | \theta) \nabla_{\theta} \log p(X | \theta)^\top\right]
-\end{align*}\]
+---
+**(Conditional probability)**
+Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space.
+The conditional probability $\mathbb{P}(A|B)$ of $A$ given $B$ is defined as $$\mathbb{P}(A|B) = \frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}$$.
+Intuitively, this tells us how large the portion of $A$ is in $B$.
 
-<p>Unlike score function, Fisher information matrix is a \(\color{darkgreen}{\text{deterministic quantity}}\) that depends only on the parameter.</p>
+**(Independence)**
+Two events $A, B\in\mathcal{F}$ are independent if $\mathbb{P}(A \cap B) = \mathbb{P}(A)\mathbb{P}(B)$.
+Alternatively, we can say that $A$ and $B$ are independent if $\mathbb{P}(A|B) = \mathbb{P}(A)$.
+Two random variables $X$ and $Y$ are independent if $\sigma(X)$ and $\sigma(Y)$ are independent $\sigma$-algebras, i.e. $\mathbb{P}(X\in A, Y\in B) = \mathbb{P}(X\in A)\mathbb{P}(Y\in B)$ for all $A, B\in\mathcal{B}(\mathbb{R})$.
 
-<p><a href="https://en.wikipedia.org/wiki/Fisher_information#Matrix_form">Alternatively</a>, one can reformulates the Fisher information matrix as the negative expectation of the Hessian of the log-likelihood function, i.e.,</p>
+---
+**(Expectation)**
+Given a probability space $(\Omega, \mathcal{F}, \mathbb{P})$, the expectation of a random variable $X:\Omega\to\mathbb{R}$ is defined as its Lebesgue integral with respect to $\mathbb{P}$:
 
-\[\mathcal{I}(\theta) = -\mathbb{E}_{X\sim p_{\theta}}\left[\nabla_{\theta}^2 \log p(X | \theta)\right]\]
+$$
+    \mathbb{E}[X] = \int_\Omega X(\omega) d\mathbb{P}(\omega)
+$$
 
-<p>Under this formulation, it measure the curvature of the log-likelihood function at the parameter \(\theta\).</p>
+To rigourously define what exactly this is, we shall need two facts about integration.
+First, the integral of an indicator function is the probability of the event:
+If $$X(\omega) = \mathbb{I}\{\omega\in A\}$$ for some $A\in\mathbb{F}$, then $\int_\Omega X(\omega) d\mathbb{P}(\omega) = \mathbb{P}(A)$.
+Second, the integral is a linear operator.
 
-<p>It is worth pointing out that \(\theta\) plays <em>two different roles</em> in this context: it is the parameter of the distribution \(p_{\theta}\) that gives rise to the data \(X\) and the argument of the score function \(s(\theta; X)\). 
-I think this is the source of confusion for me.
-Previously, I thought that the argument of the score function can be any parameter \(\tilde{\theta}\) other than the parameter \(\theta\) that generated the data, but this is not the case.
-<!-- Why should these two be the same? -->
-<!-- In a way, it tells us how accurate the maximum-likelihood estimate $$\theta_\text{MLE}$$ is;
-if the log-likehood function is sharp (curvature is high), we are fairly confident about the estimate, and vice versa, if the log-likelihood function is flat (curvature is small), we are not so sure about the estimate. -->
-Generally, Fisher information is a quantitative statement about the amount of information that the data provides about the parameter of interest.
-If the observed data is concentrated sharply around a small region, meaning that the underlying log-likelihood function \(p(\cdot \mid \theta)\) which the data is drawn from is sharp (instead of being flat), then only a small number of parameters around \(\theta\) will be consistent with the data.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[It bugs me that I often have hard time to recall what Fisher information is. So let’s write it down here.]]></summary></entry><entry><title type="html">Time-uniform confidence sets for Gaussian linear models</title><link href="http://localhost:4000/time_uniform_gaussian_ci/" rel="alternate" type="text/html" title="Time-uniform confidence sets for Gaussian linear models" /><published>2025-03-03T00:00:00+01:00</published><updated>2025-03-03T00:00:00+01:00</updated><id>http://localhost:4000/time_uniform_gaussian_ci</id><content type="html" xml:base="http://localhost:4000/time_uniform_gaussian_ci/"><![CDATA[<p>In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the <a href="https://en.wikipedia.org/wiki/Confidence_interval">95% confidence interval</a>.
-Confidence sets are a way to quantify the uncertainty in our estimates.
-At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities.
-<!-- We shall explore this in a setting where the estimator is [asymptotically normal](https://en.wikipedia.org/wiki/Asymptotic_distribution#Central_limit_theorem) under some regularity conditions. --></p>
+Now, if $$X(\omega) = \sum_{i=1}^n a_i \mathbb{I}\{\omega\in A_i\}$$ for some $A_i\in\mathcal{F}$, then we can write the integral as:
 
-<p><strong>The setting.</strong>
-We observe \(n\) samples \(\{(Y_t, x_t)\}_{t=1}^n\) that follows the linear regression model</p>
+$$
+    \int_\Omega X(\omega) d\mathbb{P}(\omega) = \sum_{i=1}^n a_i \int_\Omega \mathbb{I}\{\omega\in A_i\} d\mathbb{P}(\omega) = \sum_{i=1}^n a_i \mathbb{P}(A_i)
+$$
 
-\[Y_t = \langle x_t, \theta_\star \rangle + \eta_t,\]
+Such an $X$ is called a simple function.
+Then, the expectation is an approximation from below: 
 
-<p>where the design vector \(x_t \in \mathbb{R}^d\) is fixed and known, the noise \(\eta_t\) is drawn i.i.d from a Gaussian \(\mathcal{N}(0, 1)\) and the parameter of interest is \(\theta_\star \in \mathbb{R}^d\).
-For simplicity, we assume that the Gram matrix \(V:= X^\top X = \sum_{t=1}^n x_t x_t^\top\) is non-singular (here, \(X = [x_1^\top, \ldots, x_n^\top]^\top\)).
-For brevity, we can write $Y = X\theta_\star + \eta$ with $Y\in \mathbb{R}^n$ and $\eta \in \mathbb{R}^n$.</p>
+$$
+    \int_\Omega X(\omega) d\mathbb{P}(\omega) = \sup\left\{\int_\Omega h(\omega) d\mathbb{P}(\omega) : \text{$h$ is simple and $0\le h \le X$ pointwise} \right\}
+$$
 
-<p>Our goal is to construct a sequence of confidence sets \(C_1, C_2, \ldots\) such that \(\Pr(\exists n \ge 1: \theta_\star \notin C_n) \le \delta\) for some confidence level \(\delta \in (0, 1)\).
-We will start with the maximum-likelihood estimator and then construct the confidence set for a certain $n$. 
-Under the above assumptions, the maximum-likelihood estimator \(\hat{\theta}\) is given by</p>
+---
+**(Stochastic process)**
+A stochastic process on a probability space $(\Omega, \mathcal{F}, \mathbb{P})$ is a collection of random variables $(X_t)_{t\in T}$ indexed by a set $T$.
 
-\[\hat{\theta} = V^{-1} X^\top Y,\]
+**($\mathbb{P}$-almost surely)**
+When two random variables $X$ and $Y$ are equal almost surely, we write $X = Y$ $\mathbb{P}$-almost surely, denoted by $X = Y$ $\mathbb{P}$-a.s., if $\mathbb{P}(X = Y) = 1$.
+To put it another way, they disagree on a set of measure zero.
 
-<p>which turns out to be a Gaussian because $Y$ is a Gaussian vector as given. 
-In particular, we can write</p>
+**(Martingale)**
+Let $X_1, X_2, \ldots$ be a sequence of random variables on $(\Omega, \mathcal{F}, \mathbb{P})$ and $$\mathbb{F} = (\mathcal{F}_t)_{t=1}^n$$ a filtration of $\mathcal{F}$ (we allow $n = \infty$).
+A $\mathbb{F}$-adapted sequence of random variables $$(X_t)_{t\in\mathbb{N}_+}$$ is a $\mathbb{F}$-adapted martingale if:
+(a) $$\mathbb{E}[X_t | \mathcal{F}_{t-1}] = X_{t-1}$$ almost surely for all $$t\in\{2, 3, \ldots\}$$ and
+(b) $$X_t$$ is integrable.
+If we replace the equality with less-than or greater-than, we call $$(X_t)_t$$ a supermartingale or submartingale respectively.
 
-\[\begin{align*}
-    \hat{\theta} &amp;\sim \mathcal{N}(\theta_\star,  V^{-1}) \\
-     V^{1/2}(\hat{\theta} - \theta_\star) &amp;\sim \mathcal{N}(0, I_d)
-\end{align*}\]
+A fair betting game is one real-life example, where $$S_t$$ is the total money you have after $t$ rounds of a fair game which can be proven to be a martingale.
 
-<p>Let \(Z :=  V^{1/2}(\hat{\theta} - \theta_\star)\), then we have \(\|Z\|_2^2 =  \|\hat{\theta}-\theta_\star\|_{V}^2\) follows a \(\mathcal{X}_d^2\)-distribution with \(d\) degrees of freedom.
-From <a href="https://stats.stackexchange.com/a/4821/301376">the tail bounds of the \(\chi^2\)-distribution</a>, we have</p>
+**(Stopping time)**
+Let $$\mathbb{F} = (\mathcal{F}_t)_{t\in\mathbb{N}}$$ be a filtration.
+A random variable $$\tau:\Omega\to\mathbb{N}\cup\{\infty\}$$ is a stopping time with respect to $$\mathbb{F}$$ if for all $$t\in\mathbb{N}$$, the event $$\{\tau \le t\} \in \mathcal{F}_t$$ (or we can say $$\mathbb{I}\{\tau \le t\}$$ is $$\mathcal{F}_t$$-measurable).
+The $\sigma$-algebra at the stopping time $\tau$ is:
 
-\[\begin{align*}
-    \Pr\left(\|Z\|_2^2 \geq d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right) &amp;\leq \delta
-\end{align*}\]
+$$
+    \mathcal{F}_\tau = \{A \in \mathcal{F}_\infty : A \cap \{\tau \le t\} \in \mathcal{F}_t \text{ for all $t$} \}
+$$
 
-<p>So if we define the confidence set \(C_n\) as</p>
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 0.1: Doob's optional stopping})}$
+Let $\mathbb{F} = (\mathcal{F}_t)_{t\in\mathbb{N}}$ be a filtration and $(X_t)_{t\in\mathbb{N}}$ be an $\mathbb{F}$-adapted martingale and $\tau$ an $\mathbb{F}$-stopping time such that <i>at least one</i> of the following conditions hold:
 
-\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq  d + 2\sqrt{d\log(1/\delta)} + 2\log(1/\delta)\right\},\]
+<br>
+1. $\exists n\in\mathbb{N}$ such that $\mathbb{P}(\tau > n) = 0$, e.g. $\tau$ is almost surely bounded.
 
-<p>then it is a \((1-\delta)\)-confidence set for \(\theta_\star\).</p>
+<br>
+2. $\mathbb{E}[\tau] < \infty$ and $\exists c\in\mathbb{R}$ such that for all $t\in\mathbb{N}$, $\mathbb{E}\left[|X_{t+1} - X_t| ~\middle| \mathcal{F}_t\right] \le c$ almost surely.
 
-<p>Using union bound, we can construct a sequence of confidence sets \(C_1, C_2, \ldots\) such that \(\Pr(\exists n \ge 1: \theta_\star \notin C_n) \leq \delta\) by choosing a larger confidence set for each \(n\):</p>
+<br>
+3. $\exists c$ such that $|X_{t\land \tau}| \le c$ almost surely for all $t\in\mathbb{N}$.
 
-\[C_n = \left\{\theta \in \mathbb{R}^d: \|\hat{\theta}-\theta\|_{V}^2 \leq  d + 2\sqrt{d\log(n(n+1)/\delta)} + 2\log(n(n+1)/\delta)\right\}.\]
+<br>
+Then, $X_\tau$ is almost surely well defined and $\mathbb{E}[X_\tau] = \mathbb{E}[X_0]$.
+</p>
 
-<p>Geometrically, the confidence set \(C_n\) is an ellipsoid centered at \(\hat{\theta}\) with the principal axes aligned with the eigenvectors of the Gram matrix \(V\).
-The length of the axes is determined by the eigenvalues of the Gram matrix \(V\) and the confidence level \(\delta\).
-To see this, for any confidence set that is of the form \(C_n = \{\theta :\|\hat{\theta} - \theta\|_V^2 \le \beta\}\), we can rewrite it as</p>
+One practical consequence of this theorem is that if you play a fair betting game and try to outsmart the casino by stopping at a certain time, say when $$S_t \ge \$100$$, you will expect to spend eternity in the casino, e.g. if $S_t$ is the total money you have after $t$ rounds of a fair game, then either $\mathbb{E}[S_\tau] = 0$ or $\mathbb{E}[\tau] = \infty$.
 
-\[C_n = \hat{\theta} + \beta^{1/2} V^{-1/2} \mathcal{B}_d,\]
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 0.2: Maximal inequality (also known as Ville's inequality)})}$
+Let $(X_t)_{t=0}^\infty$ be a supermartingale with $X_t\ge 0$ almost surely for all $t$.
+Then, for any $\epsilon>0$,
 
-<p>where \(\mathcal{B}_d\) is the unit \(\ell_2\)-ball in \(\mathbb{R}^d\).
-Furthermore, the volume of this ellipsoid is exactly the determinant of \(\beta^{1/2} V^{-1/2}\).
-The calculation of this determinant is a bit dense but it invokes the <em>Elliptical potential lemma</em> (see Lemma 19.4 in <a href="https://tor-lattimore.com/downloads/book/book.pdf">Bandit Algorithms</a>) which turns out to scale as \(\mathcal{O}\left(\frac{\log n}{n}\right)^{d/2}\).
-This basically agrees with the classical concentration rate \(\mathcal{O}(1/\sqrt{n})\) from the <a href="https://en.wikipedia.org/wiki/Hoeffding%27s_inequality">Hoeffding’s inequality</a> in the 1-dimensional case, where the extra \(\log n\) factor arises due to the time-uniform guarantee.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[In statistical inference, we often want to construct confidence sets for the parameter of interest; for example, you may have heard of the 95% confidence interval. Confidence sets are a way to quantify the uncertainty in our estimates. At its core, the construction of confidence sets is typically achieved through inverting some concentration inequalities.]]></summary></entry><entry><title type="html">Modern hashing made simple</title><link href="http://localhost:4000/modern_hashing/" rel="alternate" type="text/html" title="Modern hashing made simple" /><published>2024-12-08T00:00:00+01:00</published><updated>2024-12-08T00:00:00+01:00</updated><id>http://localhost:4000/modern_hashing</id><content type="html" xml:base="http://localhost:4000/modern_hashing/"><![CDATA[<!-- Introduction -->
+$$
+    \mathbb{P}\left(\sup_{t\in\mathbb{N}} X_t \ge \epsilon\right) \le \frac{\mathbb{E}[X_0]}{\epsilon}.
+$$
+<!-- As a remark, this is a generalization of the Markov's inequality. -->
+
+<!-- _Proof._
+Let define an event $$A_n = \{\sup_{t\le n} X_t \ge \epsilon\}$$.
+We have that $A_1 \subseteq A_2 \subseteq \ldots$ and that:
+
+$$
+    \lim_{n\to \infty} A_n = \{\sup_{t\in\mathbb{N}} X_t \ge \epsilon\}
+$$
+
+Furthermore, let us define $$\tau = (n+1) \land \min\{t\le n: X_t \ge \epsilon\}$$.
+Clearly, $\tau$ is a stopping time and $\mathbb{E}[X_0] \ge \mathbb{E}[X_\tau]$.
+By theorem 0.1, we have that:
+
+$$
+\begin{align*}
+    \mathbb{E}[X_0] \ge \mathbb{E}[X_\tau] \ge \mathbb{E}[X_\tau\mathbb{I}\{\tau \le n\}] \ge \mathbb{E}[\epsilon\mathbb{I}\{\tau \le n\}] = \epsilon \mathbb{P}(\tau \le n) = \epsilon \mathbb{P}(A_n)
+\end{align*}
+$$
+
+Here, the second inequality stemmed from the definition of stopping time, i.e. $$\mathbb{E}[X_\tau\mathbb{I}\{\tau > n\}] = 0$$:
+
+$$
+    \mathbb{E}[X_\tau] = \mathbb{E}[X_\tau\mathbb{I}\{\tau \le n\}] + \underbrace{\mathbb{E}[X_\tau\mathbb{I}\{\tau > n\}]}_{=0} \ge \mathbb{E}[X_\tau\mathbb{I}\{\tau \le n\}] 
+$$ 
+-->
+
+<h2 id="1-law-of-large-numbers">1. Law of large numbers</h2>
+
+<p><strong>(Convergence in probability)</strong>
+We say that $X_n$ converges to $X$ in probability if for every $\epsilon &gt; 0$, $\lim_{n \to \infty} \Pr(|X_n - X| &gt; \epsilon) = 0$, denoted by $X_n \overset{p}{\longrightarrow} X$.</p>
+
+<p><strong>(Convergence in $L^r$)</strong>
+We say that $X_n$ converges to $X$ in $L^r$ if $\lim_{n \to \infty} \mathbb{E}(|X_n - X|^r) = 0$, denoted by $X_n \overset{L^r}{\longrightarrow} X$.</p>
+
+<p><strong>(Uncorrelated variables)</strong>
+Two random variables $X$ and $Y$ are uncorrelated if $\mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y)$.</p>
+
+<p style="background-color: lightgreen; padding: 10px;">
+$\color{darkgreen}{\text{(Lemma 1.1)}}$
+Let $X_1, X_2, \ldots$ be a sequence of uncorrelated random variables with $\mathbb{E}(X_i) &lt; \infty$, then we have that $\mathbb{V}(X_1 + \ldots + X_n) = \mathbb{V}(X_1) + \ldots + \mathbb{V}(X_n)$.
+</p>
+
+<hr />
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 1.1: $L^2$ weak law})}$
+Let $X_1, X_2, \ldots$ be a sequence of uncorrelated random variables with $\mathbb{E}(X_i) = \mu$ and $\mathbb{V}(X_i) \le C &lt; \infty$.
+If $S_n := X_1 + \ldots + X_n$, then $S_n/n \overset{L^2}{\longrightarrow} \mu$.
+</p>
+
+<p><em>Proof.</em>
+We have that $\mathbb{E}[|S_n/n - \mu|^2] = \mathbb{V}(S_n/n) \le \frac{C/n}{n^2} \to 0$ as $n \to \infty$.
+Here, we used Lemma 1.1 to compute the variance of $S_n/n$.</p>
+
+<hr />
+<p><strong>(Chebyshev’s inequality)</strong>
+For any random variable $X$ and $r &gt; 0$, $\Pr(|X| \ge \epsilon) \le \epsilon^{-r}\mathbb{E}(|X|^r)$.</p>
+
+<p>One small remark is that Chebyshev’s inequality is generally not a sharp inequality (for example try bounding standard normal variables), however, it cannot be improved in <a href="https://en.wikipedia.org/wiki/Chebyshev%27s_inequality#Sharpness_of_bounds">certain cases</a>.</p>
+
+<p style="background-color: lightgreen; padding: 10px;">
+$\color{darkgreen}{\text{(Lemma 1.2: Convergence in $L^r$ implies convergence in probability)}}$
+For $r &gt; 0$, if $Z_n \overset{L^r}{\longrightarrow} 0$, then $Z_n \overset{p}{\longrightarrow} 0$.
+</p>
+
+<p><em>Proof.</em> Since $\mathbb{E}(|Z_n|^r) \to 0$, the proof follows directly from Chebyshev’s inequality applying to the random variable $Z_n$.</p>
+
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 1.2: Weak law of large numbers})}$
+Let $X_1, X_2, \ldots$ be a sequence of uncorrelated random variables with $\mathbb{E}(X_i) = \mu$ and $\mathbb{V}(X_i) \le C &lt; \infty$.
+If $S_n := X_1 + \ldots + X_n$, then $S_n/n \overset{p}{\longrightarrow} \mu$.
+</p>
+
+<p><em>Proof.</em> Follows from Lemma 1.2 with $r = 2$ and the $L^2$ weak law.</p>
+
+<p>If we relax the assumption of bounded variance, we can still obtain a weak law of large numbers with i.i.d assumption and a weaker variance assumption.</p>
+
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 1.3: Weak law of large numbers with relaxed variance assumption})}$
+Let $X_1, X_2, \ldots$ be a sequence of i.i.d random variables with $x\cdot\Pr(|X_i| &gt; x) \to 0$ as $x \to \infty$.
+Let $\mu_n := \mathbb{E}[X_1\cdot\mathbb{I}\{|X_1| \le n\}]$.
+Then, $S_n/n - \mu_n \overset{p}{\longrightarrow} 0$.
+</p>
+
+<p style="background-color: lightblue; padding: 10px;">
+$\color{darkblue}{(\text{Theorem 1.4: Weak law of large numbers for i.i.d random variables})}$
+Let $X_1, X_2, \ldots$ be a sequence of i.i.d random variables with $\mathbb{E}[|X_1|] &lt; \infty$.
+Let $\mu := \mathbb{E}[X_1]$.
+Then, $S_n/n \overset{p}{\longrightarrow} \mu$.
+</p>
+
+<p><em>Proof sketch.</em> Use theorem 1.3 and the dominated convergence theorem.</p>
+
+<h2 id="2-borel-cantelli-lemmas-coming-soon">2. Borel-Cantelli lemmas (coming soon)</h2>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[A self-contained summary of some key results in probability theory. I’ll mostly summarize the results from Durrett’s Probability: Theory and Examples, Bandit Algorithms (Lattimore and Szepesvári) and some other sources.]]></summary></entry><entry><title type="html">Modern hashing made simple</title><link href="http://localhost:4000/modern_hashing/" rel="alternate" type="text/html" title="Modern hashing made simple" /><published>2024-12-08T00:00:00+01:00</published><updated>2024-12-08T00:00:00+01:00</updated><id>http://localhost:4000/modern_hashing</id><content type="html" xml:base="http://localhost:4000/modern_hashing/"><![CDATA[<!-- Introduction -->
 <p>This is a short personal note on <a href="https://epubs.siam.org/doi/10.1137/1.9781611977936.33">“Modern Hashing Made Simple” by Bender et al. (2024)</a>.
 I’m going to present this paper for the <a href="https://kyng.inf.ethz.ch/courses/AGAO24seminar/">Advanced Graph Algorithms and Optimization Seminar (Fall 2024)</a> at ETH Zürich.
 My personal goal is to understand the paper well enough to present it in a clear and engaging way.</p>
