@@ -22,7 +22,7 @@ $$
 In a typical Kaggle regression task, the mean squared error (MSE) of an individual predictor $\hat{f}_i$ is given by:
 
 $$
-    \text{MSE}(\hat{f}_i) := \mathbb{E}_{x \sim \mathcal{D}} [(\hat{f}_i(x) - f(x))^2] = \mathbb{E} [\varepsilon_i(x)^2] = \left(\mathbb{E}[\varepsilon_i]\right)^2 + \text{Var}(\varepsilon_i)
+    \text{MSE}(\hat{f}_i) := \mathbb{E}_{x \sim \mathcal{D}} [(\hat{f}_i(x) - f(x))^2] = \mathbb{E} [\varepsilon_i(x)^2] = \underbrace{\left(\mathbb{E}[\varepsilon_i]\right)^2}_{\text{bias}^2} + \text{Var}(\varepsilon_i)
 $$
 
 For concreteness, I assume the covariates $x$ are sampled from some distribution $\mathcal{D}$, and the expectation is taken with respect to this distribution.
@@ -47,18 +47,18 @@ If we assume that these predictors are uncorrelated, i.e., $\text{Cov}(\varepsil
 
 $$
 \begin{align*}
-    \left(\frac{1}{k} \sum_{i=1}^k \mathbb{E}[\varepsilon_i]\right)^2 + \frac{1}{k^2} \sum_{i=1}^k \text{Var}(\varepsilon_i)
-    &\le \frac{1}{k} \sum_{i=1}^k (\mathbb{E}[\varepsilon_i])^2 + \textcolor{darkorange}{\frac{1}{k}} \left(\frac{1}{k} \sum_{i=1}^k \text{Var}(\varepsilon_i)\right) 
+    \text{MSE}(\bar{f}) &= \left(\frac{1}{k} \sum_{i=1}^k \mathbb{E}[\varepsilon_i]\right)^2 + \frac{1}{k^2} \sum_{i=1}^k \text{Var}(\varepsilon_i) \\
+    &\le \frac{1}{k} \sum_{i=1}^k (\mathbb{E}[\varepsilon_i])^2 + \frac{1}{k} \left(\frac{1}{k} \sum_{i=1}^k \text{Var}(\varepsilon_i)\right)
     \ll \frac{1}{k} \sum_{i=1}^k \text{MSE}(\hat{f}_i).
 \end{align*}
 $$
 
 The first inequality above follows from Jensen's inequality.
-Notice the additional $\textcolor{darkorange}{1/k}$ factor in front of the averaged variance term.
+Notice the additional $1/k$ factor in front of the averaged variance term.
 If the predictors have approximately the same bias, i.e., $\mathbb{E}[\varepsilon_i]$ is similar across predictors, then model averaging effectively reduces the variance of the prediction error by a factor of $1/k$.
 Otherwise, the averaged prediction $\bar{f}$​ inherits a bias equal to the average of the individual biases, but can still achieve significantly lower variance than any single predictor.
 This illustrates a classic bias–variance trade-off.
-Relaxing the assumption of uncorrelated predictors, the averaging can still yield improvements when $\text{Cov}(\varepsilon_i, \varepsilon_j) < 0$ for some $i \neq j$, since anti-correlated residual errors lead to cancellation with the positive correlation terms, or even greater overall reductions to the MSE.
+Relaxing the assumption of uncorrelated predictors, the averaging can still yield improvements when $\text{Cov}(\varepsilon_i, \varepsilon_j) < 0$ for some $i \neq j$, since anti-correlated residual errors lead to cancellation with the positive correlation terms, or even greater overall reductions to the MSE since adding negative terms definitely helps.
 Thus, having a diverse set of heterogeneous predictors is especially beneficial, as it allows model averaging to exploit these negative correlations.
 
 In practice, people often use a weighted version of averaging:
@@ -68,4 +68,4 @@ $$
 $$
 
 We tune the weights $w_i$ (usually via [quadratic programming](https://en.wikipedia.org/wiki/Quadratic_programming) or [hill climbing](https://www.kaggle.com/competitions/siim-isic-melanoma-classification/discussion/175614)) to minimize the mean squared error of the average predictor $\bar{f}$ on an out-of-fold validation set.
-The advantage of this approach over the simple average is that it allows you to turn the bias-variance trade-off into an optimization problem; like, if one of the predictors has a very high bias, it will probably get a very low weight.
+The advantage of this approach over the simple average is that it allows you to turn the bias-variance trade-off into an optimization problem: if one of the predictors has a very high bias, it will probably get a very low weight, or if it has a good amount of anti-correlated residual errors, it might help reduce the overall MSE and therefore get a higher weight.
