@@ -2,7 +2,7 @@
 layout: posts
 title: Some personal notes on probability theory 
 usemathjax: true
-published: true
+published: false
 ---
 
 A self-contained summary of some key results in probability theory.
