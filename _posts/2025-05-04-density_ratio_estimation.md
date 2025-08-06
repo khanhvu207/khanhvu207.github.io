@@ -32,7 +32,6 @@ $$
 $$
 
 So we can estimate the density ratio $\frac{q(x)}{p(x)} \approx \frac{D(x)}{1 - D(x)}$ where $D$ is the discriminator we've trained.
-Voila! 🎉
 
 Regarding the motivation for why we want to estimate density ratios, it is often used in variational inference with implicit distributions.
 The evidence lower bound (ELBO) contains a Kullback-Leibler divergence term between the variational distribution $q_\phi$ and the prior $p$:

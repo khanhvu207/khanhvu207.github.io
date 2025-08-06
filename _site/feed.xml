@@ -1,4 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-05-27T15:49:52+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">Model averaging with heterogeneous predictors</title><link href="http://localhost:4000/model_averaging/" rel="alternate" type="text/html" title="Model averaging with heterogeneous predictors" /><published>2025-05-22T00:00:00+02:00</published><updated>2025-05-22T00:00:00+02:00</updated><id>http://localhost:4000/model_averaging</id><content type="html" xml:base="http://localhost:4000/model_averaging/"><![CDATA[<p>Competitors on Kaggle always employ model averaging to improve their scores.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-07-20T16:30:41+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">EntropyMaxxing</title><author><name>Khánh Vũ</name></author><entry><title type="html">IMO 2025 P5</title><link href="http://localhost:4000/imo25_p5/" rel="alternate" type="text/html" title="IMO 2025 P5" /><published>2025-07-19T00:00:00+02:00</published><updated>2025-07-19T00:00:00+02:00</updated><id>http://localhost:4000/imo25_p5</id><content type="html" xml:base="http://localhost:4000/imo25_p5/"><![CDATA[<p>Combinatorics is one branch of mathematics that I like, and it is amusing to see more and more combinatorial problems appearing in the IMO over the recent years.
+This year’s edition has three combinatorial problems: P1 is a cute induction problem, P5 is about a two-player game, and P6 is an immensely hard problem on optimal tilings.
+In this post, I will share my thoughts on P5 that I’ve been meditating on.
+Objectively speaking, P5 is a medium-hard problem; <a href="https://www.imo-official.org/year_statistics.aspx?year=2025">roughly $1/3$ of the contestants solved it</a>.</p>
+
+<h2 id="p5---inekoalaty-game">P5 - Inekoalaty game</h2>
+
+<p>The problem can be summarized as follows.
+Alice and Bazza take turns to play a game.
+On the $n$th turn,</p>
+
+<ul>
+  <li>If $n$ is odd, Alice chooses a nonnegative real $x_n$ such that $x_1 + x_2 + \cdots + x_n \le \lambda n$.</li>
+  <li>If $n$ is even, Bazza chooses a nonnegative real $x_n$ such that $x_1^2 + x_2^2 + \cdots + x_n^2 \le n$.</li>
+</ul>
+
+<p>Here, $\lambda$ is a positive real constant that is known to both players up front.
+Furthermore, all chosen numbers are visible to both players.
+The game ends when one of the players cannot make a move, and the player who cannot make a move loses.
+If the game continues indefinitely, neither player wins.
+Find all values of $\lambda$ such that Alice has a winning strategy and all those such that Bazza has a winning strategy.</p>
+
+<p>You can read the official problem statement <a href="https://www.imo-official.org/year_info.aspx?year=2025">here</a>.</p>
+
+<h2 id="understanding-the-problem">Understanding the problem</h2>
+
+\[\begin{align*}
+\lambda(n+1) &amp;&lt; \|\vec{x}_n\|_2 \le \|\vec{x}_n\|_1 \le \|\vec{x}_{n+1}\|_1 \\
+\|\vec{x}_n\|_2 &amp;\le \sqrt{n} \\
+\|\vec{x}_n\|_1 &amp;\le \sqrt{2}/2 \cdot n \quad? \\
+\Rightarrow \lambda &amp;&lt; \frac{\sqrt{2}/2 \cdot n}{n+1}
+\end{align*}\]]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[Combinatorics is one branch of mathematics that I like, and it is amusing to see more and more combinatorial problems appearing in the IMO over the recent years. This year’s edition has three combinatorial problems: P1 is a cute induction problem, P5 is about a two-player game, and P6 is an immensely hard problem on optimal tilings. In this post, I will share my thoughts on P5 that I’ve been meditating on. Objectively speaking, P5 is a medium-hard problem; roughly $1/3$ of the contestants solved it.]]></summary></entry><entry><title type="html">Model averaging with heterogeneous predictors</title><link href="http://localhost:4000/model_averaging/" rel="alternate" type="text/html" title="Model averaging with heterogeneous predictors" /><published>2025-05-22T00:00:00+02:00</published><updated>2025-05-22T00:00:00+02:00</updated><id>http://localhost:4000/model_averaging</id><content type="html" xml:base="http://localhost:4000/model_averaging/"><![CDATA[<p>Competitors on Kaggle always employ model averaging to improve their scores.
 The resulting improvement, often achieved via a weighted average of predictors, is usually guaranteed and sometimes significant.
 Here, I notice that a common piece of advice is to <a href="https://www.kaggle.com/competitions/playground-series-s5e4/discussion/575784">average the predictions over a diverse pool of models</a>, with a justification that models trained diffrerently are likely to make different errors and thus, averaging them will somehow reduce the overall error.
 <!-- I find this explanation a bit vague and not very satisfying 🫠. -->
@@ -68,8 +99,7 @@ Now, the odds ratio of the optimal discriminator is the density ratio we wish to
 
 \[\frac{D^*(x)}{1 - D^*(x)} = \frac{q(x)}{p(x)}.\]
 
-<p>So we can estimate the density ratio $\frac{q(x)}{p(x)} \approx \frac{D(x)}{1 - D(x)}$ where $D$ is the discriminator we’ve trained.
-Voila! 🎉</p>
+<p>So we can estimate the density ratio $\frac{q(x)}{p(x)} \approx \frac{D(x)}{1 - D(x)}$ where $D$ is the discriminator we’ve trained.</p>
 
 <p>Regarding the motivation for why we want to estimate density ratios, it is often used in variational inference with implicit distributions.
 The evidence lower bound (ELBO) contains a Kullback-Leibler divergence term between the variational distribution $q_\phi$ and the prior $p$:</p>
@@ -96,244 +126,7 @@ So it is clear that</p>
 
 \[P(X_2\mid Y_1,H_3) = \frac{1\cdot 1/3}{1/2} = \frac{2}{3},\]
 
-<p>which implies that switching is the better option.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[One simple way to think about the Monty Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement:]]></summary></entry><entry><title type="html">Some personal notes on probability theory</title><link href="http://localhost:4000/probability_theory/" rel="alternate" type="text/html" title="Some personal notes on probability theory" /><published>2025-03-16T00:00:00+01:00</published><updated>2025-03-16T00:00:00+01:00</updated><id>http://localhost:4000/probability_theory</id><content type="html" xml:base="http://localhost:4000/probability_theory/"><![CDATA[<p>A self-contained summary of some key results in probability theory.
-I’ll mostly summarize the results from <a href="https://www.cambridge.org/ch/universitypress/subjects/statistics-probability/probability-theory-and-stochastic-processes/probability-theory-and-examples-5th-edition?format=HB">Durrett’s Probability: Theory and Examples</a>, <a href="https://tor-lattimore.com/downloads/book/book.pdf">Bandit Algorithms (Lattimore and Szepesvári)</a> and some other sources.</p>
-
-<p><em>Note to self: For now I will dump everything here and later I will try to organize it better.</em></p>
-
-<!-- ## 0. Measure-theoretic probability
-
-**($\sigma$-algebra and probability measure)**
-Let $\Omega$ be a set of outcomes.
-A set of events $\mathcal{F} \subseteq 2^\Omega$ is a $\sigma$-algebra if $\Omega\in\mathcal{F}$, $A^c \in \mathcal{F}$ for all $A \in \mathcal{F}$ and $\bigcup_i A_i \in \mathcal{F}$ for all $A_i \in \mathcal{F}$.
-A function $\mathbb{P}: \mathcal{F} \to \mathbb{R}$ is a probability measure if $\mathbb{P}(\Omega) = 1$ and $\mathbb{P}(A) \ge 0$ for all $A \in \mathcal{F}$.
-Moreover, $\mathbb{P}(A^c) = 1 - \mathbb{P}(A)$ for all $A \in \mathcal{F}$ and $\mathbb{P}(\bigcup_i A_i) = \sum_i \mathbb{P}(A_i)$ for all $A_i \in \mathcal{F}$ such that $A_i \cap A_j = \emptyset$ for all $i \neq j$.
-A set $\mathcal{G}$ is a sub-$\sigma$-algebra of $\mathcal{F}$ if $\mathcal{G} \subseteq \mathcal{F}$ and $\mathcal{G}$ is a $\sigma$-algebra.
-The restriction of $\mathbb{P}$ to $\mathcal{G}$ is denoted by $\mathbb{P}|_{\mathcal{G}}$.
-
-For an event $A\in\mathcal{F}$, we denote the probability of $A$ by $\mathbb{P}(A)$.
-
-**(Measurable space)**
-A measurable space is a pair $(\Omega, \mathcal{F})$ where $\Omega$ is a set and $\mathcal{F}$ is a $\sigma$-algebra on $\Omega$.
-
-**($\mathcal{F}/\mathcal{G}$-measurable map)**
-Let $(\Omega, \mathcal{F})$ be a measurable space and let $\mathcal{X}$ be any set and $\mathcal{G}\subseteq 2^{\mathcal{X}}$.
-A map $X:\Omega \to \mathcal{X}$ is $\mathcal{F}/\mathcal{G}$-measurable if $X^{-1}(A) \in \mathcal{F}$ for all $A \in \mathcal{G}$.
-Here, $\mathcal{G}$ _need not_ to be a $\sigma$-algebra.
-If $X$ is $\mathcal{F}/\mathcal{G}$-measurable, then it is also $\mathcal{F}/\sigma(\mathcal{G})$-measurable, where $\sigma(\mathcal{G})$ is the smallest $\sigma$-algebra containing $\mathcal{G}$. 
-
-Given a map $X:\Omega\to\mathcal{X}$ between measurable spaces $(\Omega, \mathcal{F})$ and $(\mathcal{X}, \mathcal{G})$, we define $$\sigma(X) = \{X^{-1}(A): A\in\mathcal{G}\}$$ to be the $\sigma$-algebra generated by $X$.
-Here, the term "generated" means that $\sigma(X)$ is the _smallest_ $\sigma$-algebra containing $X^{-1}(A)$ for all $A \in \mathcal{G}$.
-The map $X$ is $\mathcal{F}/\mathcal{G}$-measurable if and only if $\sigma(X) \subseteq \mathcal{F}$.
-In fact, $\sigma(X)$ is a sub-$\sigma$-algebra of $\mathcal{F}$ and is also the smallest sub-$\sigma$-algebra for which $X$ is measurable.
-Furthurmore, if $\mathcal{G} = \sigma(\mathcal{A})$ itself is generated by a set $\mathcal{A}\subseteq 2^{\mathcal{X}}$, it is enough to check that $$X^{-1}(\mathcal{A}) = \{X^{-1}(A) : A\in\mathcal{A}\}$$ is a subset of $\mathcal{F}$.
-
-**(Borel $\sigma$-algebra)**
-If $\mathcal{G}$ is a set of open intervals in $\mathbb{R}$, then the Borel $\sigma$-algebra $\mathcal{B}(\mathbb{R})$ is the smallest $\sigma$-algebra containing $\mathcal{G}$.
-
----
-**(Random variable)**
-A random variable on a measurable space $(\Omega, \mathcal{F})$ is a $\mathcal{F}/\mathcal{B}(\mathbb{R})$-measurable map $X:\Omega \to \mathbb{R}$. 
-
-<p style="background-color: lightgreen; padding: 10px;">
-$\color{darkgreen}{\text{(Lemma 0.1: Doob–Dynkin lemma (also known as factorization lemma))}}$
-Assume that we are given measurable spaces $(\Omega, \mathcal{F})$, $(\mathcal{X}, \mathcal{G})$ and $(\mathcal{Y}, \mathcal{H})$, and $X:\Omega\to\mathcal{X}$ and $Y:\Omega\to\mathcal{Y}$ are the random elements (generalization of random variables to higher dimensions), if $(\mathcal{Y}, \mathcal{H})$ is a Borel space, then $Y$ is $\sigma(X)$-measureable if and only if there exists a $\mathcal{G}/\mathcal{H}$-measurable map $f:\mathcal{X}\to\mathcal{Y}$ such that $Y = f\circ X$.
-Here, $Y$ is $\sigma(X)$-measurable means that $\sigma(Y) \subseteq \sigma(X)$, i.e. knowing $X$ gives us information about $Y$.
-</p>
-
----
-**(Filtration)**
-Given a measurable space $(\Omega, \mathcal{F})$, a filtration is a sequence of $$(\mathcal{F}_t)_{t=0}^n$$ of sub-$\sigma$-algebras of $\mathcal{F}$ such that $$\mathcal{F}_0 \subseteq \mathcal{F}_1 \subseteq \ldots \subseteq \mathcal{F}_n$$.
-Also we define $$\mathcal{F}_\infty = \sigma\left(\bigcup_{t=0}^\infty \mathcal{F}_t\right)$$ to be the smallest $\sigma$-algebra containing the union of all $$\mathcal{F}_t$$.
-
-A sequence of random variables $$(X_t)_{t=1}^n$$ if _adapted_ to the filtration $$\mathbb{F} = (\mathcal{F}_t)_{t=0}^n$$ if $$X_t$$ is $$\mathcal{F}_{t}$$-measurable for all $t\in[n]$.
-For brevity, we can say $$(X_t)_t$$ is $\mathbb{F}$-adapted.
-Finally, $$(X_t)_t$$ is $\mathbb{F}$-predictable if $X_t$ is $$\mathcal{F}_{t-1}$$-measurable for all $t\in[n]$.
-
----
-**(Conditional probability)**
-Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space.
-The conditional probability $\mathbb{P}(A|B)$ of $A$ given $B$ is defined as $$\mathbb{P}(A|B) = \frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}$$.
-Intuitively, this tells us how large the portion of $A$ is in $B$.
-
-**(Independence)**
-Two events $A, B\in\mathcal{F}$ are independent if $\mathbb{P}(A \cap B) = \mathbb{P}(A)\mathbb{P}(B)$.
-Alternatively, we can say that $A$ and $B$ are independent if $\mathbb{P}(A|B) = \mathbb{P}(A)$.
-Two random variables $X$ and $Y$ are independent if $\sigma(X)$ and $\sigma(Y)$ are independent $\sigma$-algebras, i.e. $\mathbb{P}(X\in A, Y\in B) = \mathbb{P}(X\in A)\mathbb{P}(Y\in B)$ for all $A, B\in\mathcal{B}(\mathbb{R})$.
-
----
-**(Expectation)**
-Given a probability space $(\Omega, \mathcal{F}, \mathbb{P})$, the expectation of a random variable $X:\Omega\to\mathbb{R}$ is defined as its Lebesgue integral with respect to $\mathbb{P}$:
-
-$$
-    \mathbb{E}[X] = \int_\Omega X(\omega) d\mathbb{P}(\omega)
-$$
-
-To rigourously define what exactly this is, we shall need two facts about integration.
-First, the integral of an indicator function is the probability of the event:
-If $$X(\omega) = \mathbb{I}\{\omega\in A\}$$ for some $A\in\mathbb{F}$, then $\int_\Omega X(\omega) d\mathbb{P}(\omega) = \mathbb{P}(A)$.
-Second, the integral is a linear operator.
-
-Now, if $$X(\omega) = \sum_{i=1}^n a_i \mathbb{I}\{\omega\in A_i\}$$ for some $A_i\in\mathcal{F}$, then we can write the integral as:
-
-$$
-    \int_\Omega X(\omega) d\mathbb{P}(\omega) = \sum_{i=1}^n a_i \int_\Omega \mathbb{I}\{\omega\in A_i\} d\mathbb{P}(\omega) = \sum_{i=1}^n a_i \mathbb{P}(A_i)
-$$
-
-Such an $X$ is called a simple function.
-Then, the expectation is an approximation from below: 
-
-$$
-    \int_\Omega X(\omega) d\mathbb{P}(\omega) = \sup\left\{\int_\Omega h(\omega) d\mathbb{P}(\omega) : \text{$h$ is simple and $0\le h \le X$ pointwise} \right\}
-$$
-
----
-**(Stochastic process)**
-A stochastic process on a probability space $(\Omega, \mathcal{F}, \mathbb{P})$ is a collection of random variables $(X_t)_{t\in T}$ indexed by a set $T$.
-
-**($\mathbb{P}$-almost surely)**
-When two random variables $X$ and $Y$ are equal almost surely, we write $X = Y$ $\mathbb{P}$-almost surely, denoted by $X = Y$ $\mathbb{P}$-a.s., if $\mathbb{P}(X = Y) = 1$.
-To put it another way, they disagree on a set of measure zero.
-
-**(Martingale)**
-Let $X_1, X_2, \ldots$ be a sequence of random variables on $(\Omega, \mathcal{F}, \mathbb{P})$ and $$\mathbb{F} = (\mathcal{F}_t)_{t=1}^n$$ a filtration of $\mathcal{F}$ (we allow $n = \infty$).
-A $\mathbb{F}$-adapted sequence of random variables $$(X_t)_{t\in\mathbb{N}_+}$$ is a $\mathbb{F}$-adapted martingale if:
-(a) $$\mathbb{E}[X_t | \mathcal{F}_{t-1}] = X_{t-1}$$ almost surely for all $$t\in\{2, 3, \ldots\}$$ and
-(b) $$X_t$$ is integrable.
-If we replace the equality with less-than or greater-than, we call $$(X_t)_t$$ a supermartingale or submartingale respectively.
-
-A fair betting game is one real-life example, where $$S_t$$ is the total money you have after $t$ rounds of a fair game which can be proven to be a martingale.
-
-**(Stopping time)**
-Let $$\mathbb{F} = (\mathcal{F}_t)_{t\in\mathbb{N}}$$ be a filtration.
-A random variable $$\tau:\Omega\to\mathbb{N}\cup\{\infty\}$$ is a stopping time with respect to $$\mathbb{F}$$ if for all $$t\in\mathbb{N}$$, the event $$\{\tau \le t\} \in \mathcal{F}_t$$ (or we can say $$\mathbb{I}\{\tau \le t\}$$ is $$\mathcal{F}_t$$-measurable).
-The $\sigma$-algebra at the stopping time $\tau$ is:
-
-$$
-    \mathcal{F}_\tau = \{A \in \mathcal{F}_\infty : A \cap \{\tau \le t\} \in \mathcal{F}_t \text{ for all $t$} \}
-$$
-
-<p style="background-color: lightblue; padding: 10px;">
-$\color{darkblue}{(\text{Theorem 0.1: Doob's optional stopping})}$
-Let $\mathbb{F} = (\mathcal{F}_t)_{t\in\mathbb{N}}$ be a filtration and $(X_t)_{t\in\mathbb{N}}$ be an $\mathbb{F}$-adapted martingale and $\tau$ an $\mathbb{F}$-stopping time such that <i>at least one</i> of the following conditions hold:
-
-<br>
-1. $\exists n\in\mathbb{N}$ such that $\mathbb{P}(\tau > n) = 0$, e.g. $\tau$ is almost surely bounded.
-
-<br>
-2. $\mathbb{E}[\tau] < \infty$ and $\exists c\in\mathbb{R}$ such that for all $t\in\mathbb{N}$, $\mathbb{E}\left[|X_{t+1} - X_t| ~\middle| \mathcal{F}_t\right] \le c$ almost surely.
-
-<br>
-3. $\exists c$ such that $|X_{t\land \tau}| \le c$ almost surely for all $t\in\mathbb{N}$.
-
-<br>
-Then, $X_\tau$ is almost surely well defined and $\mathbb{E}[X_\tau] = \mathbb{E}[X_0]$.
-</p>
-
-One practical consequence of this theorem is that if you play a fair betting game and try to outsmart the casino by stopping at a certain time, say when $$S_t \ge \$100$$, you will expect to spend eternity in the casino, e.g. if $S_t$ is the total money you have after $t$ rounds of a fair game, then either $\mathbb{E}[S_\tau] = 0$ or $\mathbb{E}[\tau] = \infty$.
-
-<p style="background-color: lightblue; padding: 10px;">
-$\color{darkblue}{(\text{Theorem 0.2: Maximal inequality (also known as Ville's inequality)})}$
-Let $(X_t)_{t=0}^\infty$ be a supermartingale with $X_t\ge 0$ almost surely for all $t$.
-Then, for any $\epsilon>0$,
-
-$$
-    \mathbb{P}\left(\sup_{t\in\mathbb{N}} X_t \ge \epsilon\right) \le \frac{\mathbb{E}[X_0]}{\epsilon}.
-$$
-<!-- As a remark, this is a generalization of the Markov's inequality. -->
-
-<!-- _Proof._
-Let define an event $$A_n = \{\sup_{t\le n} X_t \ge \epsilon\}$$.
-We have that $A_1 \subseteq A_2 \subseteq \ldots$ and that:
-
-$$
-    \lim_{n\to \infty} A_n = \{\sup_{t\in\mathbb{N}} X_t \ge \epsilon\}
-$$
-
-Furthermore, let us define $$\tau = (n+1) \land \min\{t\le n: X_t \ge \epsilon\}$$.
-Clearly, $\tau$ is a stopping time and $\mathbb{E}[X_0] \ge \mathbb{E}[X_\tau]$.
-By theorem 0.1, we have that:
-
-$$
-\begin{align*}
-    \mathbb{E}[X_0] \ge \mathbb{E}[X_\tau] \ge \mathbb{E}[X_\tau\mathbb{I}\{\tau \le n\}] \ge \mathbb{E}[\epsilon\mathbb{I}\{\tau \le n\}] = \epsilon \mathbb{P}(\tau \le n) = \epsilon \mathbb{P}(A_n)
-\end{align*}
-$$
-
-Here, the second inequality stemmed from the definition of stopping time, i.e. $$\mathbb{E}[X_\tau\mathbb{I}\{\tau > n\}] = 0$$:
-
-$$
-    \mathbb{E}[X_\tau] = \mathbb{E}[X_\tau\mathbb{I}\{\tau \le n\}] + \underbrace{\mathbb{E}[X_\tau\mathbb{I}\{\tau > n\}]}_{=0} \ge \mathbb{E}[X_\tau\mathbb{I}\{\tau \le n\}] 
-$$ 
--->
-
-<h2 id="1-law-of-large-numbers">1. Law of large numbers</h2>
-
-<p><strong>(Convergence in probability)</strong>
-We say that $X_n$ converges to $X$ in probability if for every $\epsilon &gt; 0$, $\lim_{n \to \infty} \Pr(|X_n - X| &gt; \epsilon) = 0$, denoted by $X_n \overset{p}{\longrightarrow} X$.</p>
-
-<p><strong>(Convergence in $L^r$)</strong>
-We say that $X_n$ converges to $X$ in $L^r$ if $\lim_{n \to \infty} \mathbb{E}(|X_n - X|^r) = 0$, denoted by $X_n \overset{L^r}{\longrightarrow} X$.</p>
-
-<p><strong>(Uncorrelated variables)</strong>
-Two random variables $X$ and $Y$ are uncorrelated if $\mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y)$.</p>
-
-<p style="background-color: lightgreen; padding: 10px;">
-$\color{darkgreen}{\text{(Lemma 1.1)}}$
-Let $X_1, X_2, \ldots$ be a sequence of uncorrelated random variables with $\mathbb{E}(X_i) &lt; \infty$, then we have that $\mathbb{V}(X_1 + \ldots + X_n) = \mathbb{V}(X_1) + \ldots + \mathbb{V}(X_n)$.
-</p>
-
-<hr />
-<p style="background-color: lightblue; padding: 10px;">
-$\color{darkblue}{(\text{Theorem 1.1: $L^2$ weak law})}$
-Let $X_1, X_2, \ldots$ be a sequence of uncorrelated random variables with $\mathbb{E}(X_i) = \mu$ and $\mathbb{V}(X_i) \le C &lt; \infty$.
-If $S_n := X_1 + \ldots + X_n$, then $S_n/n \overset{L^2}{\longrightarrow} \mu$.
-</p>
-
-<p><em>Proof.</em>
-We have that $\mathbb{E}[|S_n/n - \mu|^2] = \mathbb{V}(S_n/n) \le \frac{C/n}{n^2} \to 0$ as $n \to \infty$.
-Here, we used Lemma 1.1 to compute the variance of $S_n/n$.</p>
-
-<hr />
-<p><strong>(Chebyshev’s inequality)</strong>
-For any random variable $X$ and $r &gt; 0$, $\Pr(|X| \ge \epsilon) \le \epsilon^{-r}\mathbb{E}(|X|^r)$.</p>
-
-<p>One small remark is that Chebyshev’s inequality is generally not a sharp inequality (for example try bounding standard normal variables), however, it cannot be improved in <a href="https://en.wikipedia.org/wiki/Chebyshev%27s_inequality#Sharpness_of_bounds">certain cases</a>.</p>
-
-<p style="background-color: lightgreen; padding: 10px;">
-$\color{darkgreen}{\text{(Lemma 1.2: Convergence in $L^r$ implies convergence in probability)}}$
-For $r &gt; 0$, if $Z_n \overset{L^r}{\longrightarrow} 0$, then $Z_n \overset{p}{\longrightarrow} 0$.
-</p>
-
-<p><em>Proof.</em> Since $\mathbb{E}(|Z_n|^r) \to 0$, the proof follows directly from Chebyshev’s inequality applying to the random variable $Z_n$.</p>
-
-<p style="background-color: lightblue; padding: 10px;">
-$\color{darkblue}{(\text{Theorem 1.2: Weak law of large numbers})}$
-Let $X_1, X_2, \ldots$ be a sequence of uncorrelated random variables with $\mathbb{E}(X_i) = \mu$ and $\mathbb{V}(X_i) \le C &lt; \infty$.
-If $S_n := X_1 + \ldots + X_n$, then $S_n/n \overset{p}{\longrightarrow} \mu$.
-</p>
-
-<p><em>Proof.</em> Follows from Lemma 1.2 with $r = 2$ and the $L^2$ weak law.</p>
-
-<p>If we relax the assumption of bounded variance, we can still obtain a weak law of large numbers with i.i.d assumption and a weaker variance assumption.</p>
-
-<p style="background-color: lightblue; padding: 10px;">
-$\color{darkblue}{(\text{Theorem 1.3: Weak law of large numbers with relaxed variance assumption})}$
-Let $X_1, X_2, \ldots$ be a sequence of i.i.d random variables with $x\cdot\Pr(|X_i| &gt; x) \to 0$ as $x \to \infty$.
-Let $\mu_n := \mathbb{E}[X_1\cdot\mathbb{I}\{|X_1| \le n\}]$.
-Then, $S_n/n - \mu_n \overset{p}{\longrightarrow} 0$.
-</p>
-
-<p style="background-color: lightblue; padding: 10px;">
-$\color{darkblue}{(\text{Theorem 1.4: Weak law of large numbers for i.i.d random variables})}$
-Let $X_1, X_2, \ldots$ be a sequence of i.i.d random variables with $\mathbb{E}[|X_1|] &lt; \infty$.
-Let $\mu := \mathbb{E}[X_1]$.
-Then, $S_n/n \overset{p}{\longrightarrow} \mu$.
-</p>
-
-<p><em>Proof sketch.</em> Use theorem 1.3 and the dominated convergence theorem.</p>
-
-<h2 id="2-borel-cantelli-lemmas-coming-soon">2. Borel-Cantelli lemmas (coming soon)</h2>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[A self-contained summary of some key results in probability theory. I’ll mostly summarize the results from Durrett’s Probability: Theory and Examples, Bandit Algorithms (Lattimore and Szepesvári) and some other sources.]]></summary></entry><entry><title type="html">Modern hashing made simple</title><link href="http://localhost:4000/modern_hashing/" rel="alternate" type="text/html" title="Modern hashing made simple" /><published>2024-12-08T00:00:00+01:00</published><updated>2024-12-08T00:00:00+01:00</updated><id>http://localhost:4000/modern_hashing</id><content type="html" xml:base="http://localhost:4000/modern_hashing/"><![CDATA[<!-- Introduction -->
+<p>which implies that switching is the better option.</p>]]></content><author><name>Khánh Vũ</name></author><summary type="html"><![CDATA[One simple way to think about the Monty Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement:]]></summary></entry><entry><title type="html">Modern hashing made simple</title><link href="http://localhost:4000/modern_hashing/" rel="alternate" type="text/html" title="Modern hashing made simple" /><published>2024-12-08T00:00:00+01:00</published><updated>2024-12-08T00:00:00+01:00</updated><id>http://localhost:4000/modern_hashing</id><content type="html" xml:base="http://localhost:4000/modern_hashing/"><![CDATA[<!-- Introduction -->
 <p>This is a short personal note on <a href="https://epubs.siam.org/doi/10.1137/1.9781611977936.33">“Modern Hashing Made Simple” by Bender et al. (2024)</a>.
 I’m going to present this paper for the <a href="https://kyng.inf.ethz.ch/courses/AGAO24seminar/">Advanced Graph Algorithms and Optimization Seminar (Fall 2024)</a> at ETH Zürich.
 My personal goal is to understand the paper well enough to present it in a clear and engaging way.</p>

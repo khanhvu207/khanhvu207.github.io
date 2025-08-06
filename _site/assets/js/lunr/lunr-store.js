@@ -29,12 +29,6 @@ var store = [{
         "url": "/modern_hashing/",
         "teaser": null
       },{
-        "title": "Some personal notes on probability theory",
-        "excerpt":"A self-contained summary of some key results in probability theory. I’ll mostly summarize the results from Durrett’s Probability: Theory and Examples, Bandit Algorithms (Lattimore and Szepesvári) and some other sources. Note to self: For now I will dump everything here and later I will try to organize it better. 1....","categories": [],
-        "tags": [],
-        "url": "/probability_theory/",
-        "teaser": null
-      },{
         "title": "Monty Hall problem with Bayesian inference",
         "excerpt":"One simple way to think about the Monty Hall problem is to use Baye’s rule. For the sake of completeness, here is the problem statement: Suppose you’re on a game show, and you’re given the choice of three doors: Behind one door is a car; behind the others, goats. You...","categories": [],
         "tags": [],
@@ -51,5 +45,11 @@ var store = [{
         "excerpt":"Competitors on Kaggle always employ model averaging to improve their scores. The resulting improvement, often achieved via a weighted average of predictors, is usually guaranteed and sometimes significant. Here, I notice that a common piece of advice is to average the predictions over a diverse pool of models, with a...","categories": [],
         "tags": [],
         "url": "/model_averaging/",
+        "teaser": null
+      },{
+        "title": "IMO 2025 P5",
+        "excerpt":"Combinatorics is one branch of mathematics that I like, and it is amusing to see more and more combinatorial problems appearing in the IMO over the recent years. This year’s edition has three combinatorial problems: P1 is a cute induction problem, P5 is about a two-player game, and P6 is...","categories": [],
+        "tags": [],
+        "url": "/imo25_p5/",
         "teaser": null
       }]
